@@ -1,2 +1,2 @@
-# project1-neighborly
+# Neighborly.
 Connect with your neighbourhood.
