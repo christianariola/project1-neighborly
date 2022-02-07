@@ -1,2 +1,2 @@
 # Neighborly.
-Connect with your neighbourhood.
+Your Neighborhood, Your People.
