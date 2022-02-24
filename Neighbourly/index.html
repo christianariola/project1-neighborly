@@ -6,6 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Neighborly</title>
 
+    <link rel="icon" type="image/png" href="images/icons/favicon-96x96.png" sizes="96x96">
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600&family=Mulish&display=swap" rel="stylesheet">
+
+    <!-- SCRIPTS -->
+    <script src="js/script.js" defer></script>
+
     <script>
         if ('serviceWorker' in navigator) {  //if browser supports Service worker
             // assuming sw.js is our service worker file in the same directory
@@ -20,6 +31,65 @@
     </script>
 </head>
 <body>
-    
+    <div class="wrapper">
+        <div id="mainArea">
+            <header>
+                <h1>
+                    <img src="images/neighbourly-logo.svg" alt="Neighborly Logo" class="desktop">
+                    <img src="images/neighbourly-mobile-logo.svg" alt="Neighborly Logo" class="mobile">
+                    <span class="visually-hidden">Neighbourly</span>
+                </h1>
+                <nav>
+                    <ul>
+                        <li><a href="signup.html" method="post" class="btn login-btn">Sign In</a></li>
+                    </ul>
+                </nav>
+            </header>
+            <main>
+                <section id="featured">
+                    <div class="feat-image"><img src="https://picsum.photos/800/600?rand=253" alt="Random 03"></div>
+                    <div class="signup-form">
+                        <h2>Join Your Neighborhood,</h2>
+                        <p>Tell us a little about you and your neighborhood.</p>
+                        <form id="signupHome">
+                            <input type="text" id="postalCode" placeholder="Postal Code" required>
+                            <input type="text" id="address" placeholder="Address" required>
+                            <input type="text" id="email" placeholder="Email" required>
+                            <input type="submit" id="homeSignup" value="Let's Start">
+                        </form>
+                    </div>
+                </section>
+                <section id="about">
+                    <h2>Tap into your neighborhood, with Neighborly</h2>
+                </section>
+                <section id="features">
+                    <article>
+                        <img src="https://picsum.photos/1200/1000?rand=301" alt="">
+                        <h3>Keep Up</h3>
+                        <p>Get the latest news and information from neighbours, businesses and public agencies .</p>
+                        <a href="#!" class="learn-more">Learn More</a>
+                    </article>
+                    <article>
+                        <img src="https://picsum.photos/1200/1000?rand=302" alt="">
+                        <h3>Connect</h3>
+                        <p>Connect with your neighbours by messaging them with our neighborly messenenger.</p>
+                        <a href="#!" class="learn-more">Learn More</a>
+                    </article>
+                    <article>
+                        <img src="https://picsum.photos/1200/1000?rand=303" alt="">
+                        <h3>Build</h3>
+                        <p>Reccomend and discover local businesses to help them grow and serve the community better.</p>
+                        <a href="#!" class="learn-more">Learn More</a>
+                    </article>
+                </section>
+                <section class="footer-signup">
+                    <a href="#featured">Sign Up</a>
+                </section>
+            </main>
+        </div>
+        <footer>
+            <p>Copyright &copy 2022. Neighborly. All Rights Reserved.</p>
+        </footer>
+    </div>
 </body>
 </html>
