@@ -21,6 +21,10 @@ h1, h2, h3, h4, h5 {
     line-height: 1.3;
 }
 
+h2 {
+    font-size: 2.5rem;
+}
+
 h3 {
     font-size: 2rem;
 }
@@ -49,6 +53,7 @@ ul {
 
 a {
     text-decoration: none;
+    color: #000;
 }
 
 .wrapper {
@@ -68,7 +73,6 @@ header img {
 
 header ul li a {
     color: #000;
-    font-weight: bold;
 }
 
 h1 .desktop {
@@ -79,11 +83,46 @@ h1 .mobile {
     max-width: 60px;
 }
 
+/* GLOBAL BUTTON STYLES ===================== */
+
 .btn {
-    border: 1px solid #000;
-    border-radius: 5px;
-    padding: 0.7rem 2rem;
+    border-radius: 7px;
+    padding: 1rem 3rem;
+    cursor: pointer;
+    border: 0;
 }
+
+.btn-default {
+    background-color: #f0f0f0;
+    color: #000;
+}
+
+.btn-primary {
+    background-color: #008DCE;
+    color: #fff;
+}
+
+/* END OF GLOBAL BUTTON STYLES  ===================== */
+
+/* GLOBAL FORM STYLES ===================== */
+.form-two-column {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 1rem;
+}
+
+.input-block {
+    display: block;
+    width: 100%;
+}
+
+input {
+    border-radius: 7px;
+    border: 1px solid #959595;
+    padding: 1rem;
+}
+
+/* END OF GLOBAL FORM STYLES ===================== */
 
 main {
     margin: 3rem auto 4rem auto;
@@ -97,54 +136,39 @@ main {
     text-align: center;
 }
 
-#featured h2 {
-    font-size: 2.5rem;
-    margin-bottom: 3rem;
+#featured p {
+    margin-bottom: 2rem;
 }
 
-#featured input[type="text"] {
-    display: block;
-    padding: 1rem;
-    margin-bottom: 0.8rem;
-    width: 100%;
+#signupHome {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 1rem;
 }
 
-#featured input[type="submit"] {
-    width: auto;
-    color: #fff;
-    background-color: #000;
-    border: 0;
-    padding: 1.3rem 3rem;
-    font-size: 1rem;
-    margin: 1.5rem auto;
-    cursor: pointer;
+#signupHome input[type="submit"]{
+    font-size: 1.2rem;
 }
 
 #about {
     text-align: center;
+    margin: 5rem auto;
 }
 
 #about h3 {
     margin: 1rem 3rem;
 }
 
-#about p {
-    font-size: 0.9rem;
+#about {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 3rem;
+    justify-items: center;
 }
 
-#features {
-    margin-top: 2rem;
-    text-align: center;
-}
-
-#features article p {
+#about article p {
     margin-top: 1rem;
-    font-size: 1.56rem;
-}
-
-#features article a.learn-more {
-    color: #000;
-    display: none;
+    font-size: 1rem;
 }
 
 .footer-signup {
@@ -153,17 +177,9 @@ main {
     margin-top: 2rem;
 }
 
-.footer-signup h3{
-    margin: 1rem 3rem 2rem 3rem;
-}
-
 .footer-signup a {
     width: auto;
     color: #fff;
-    background-color: #000;
-    border: 0;
-    padding: 1.3rem 3rem;
-    font-size: 1rem;
     margin: 1.5rem auto;
 }
 
@@ -175,6 +191,40 @@ footer p {
     font-size: 0.8rem;
 }
 
+/* SIGN UP PAGE ======================== */
+.auth-wrapper {
+    padding: 2rem 7%;
+}
+
+#signupForm {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 1rem;
+    margin-top: 2rem;
+}
+
+#signupForm button{
+    font-size: 1.2rem;
+}
+/* END OF SIGN UP PAGE ======================== */
+
+/* LOGIN PAGE ======================== */
+.auth-wrapper {
+    padding: 2rem 7%;
+}
+
+#loginForm {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 1rem;
+    margin-top: 2rem;
+}
+
+#loginForm button{
+    font-size: 1.2rem;
+}
+/* END OF LOGIN PAGE ======================== */
+
 @media screen and (min-width: 700px) {
     h1 .desktop {
         display: block;
@@ -183,9 +233,30 @@ footer p {
     h1 .mobile {
         display: none;
     }
+
+    .auth-wrapper {
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 5rem 2% 0 2%;
+    }
+
+    /* SIGN UP PAGE ======================== */
+    .signup-page {
+        display: flex;
+        flex-flow: column nowrap;
+    }
+    /* END OF SIGN UP PAGE ======================== */
 }
 
-@media screen and (min-width: 980px) {
+@media screen and (min-width: 900px) {
+    .wrapper {
+        max-width: 1400px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 2rem 7%;
+    }
+    
     #featured {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -194,27 +265,24 @@ footer p {
         text-align: left;
         margin-bottom: 3rem;
     }
+
+    #featured p {
+        font-size: 1.2rem;
+    }
+
+    #featured h2 {
+        font-size: 4rem;
+    }
     
     .feat-image {
         display: block;
     }
 
     #about {
-        max-width: 800px;
-        margin: 0 auto 4rem auto;
+        grid-template-columns: repeat(3, 1fr);
     }
 
-    #about p {
-        font-size: 1rem;
-        line-height: 1.5;
-    }
-
-    #features article a.learn-more {
-        margin-top: 1rem;
-        display: block;
-    }
-
-    .footer-signup {
-        display: none;
+    #about h2{
+        grid-column: 1 / -1;
     }
 }
