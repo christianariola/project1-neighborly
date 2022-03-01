@@ -1,0 +1,13 @@
+.icon {
+    width: 24px;
+    height: 24px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.icon-close {
+    background-image: url(/images/icons/Close.svg);
+}

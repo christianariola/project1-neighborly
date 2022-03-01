@@ -1,0 +1,65 @@
+/* Font */
+.bold { font-weight: bold }
+.uppercase { text-transform: uppercase }
+.capitalize { text-transform: capitalize }
+.text-center { text-align:center; }
+
+/* Font color */
+.text-black { color: #000; }
+.text-white { color: #fff; }
+.text-light-green { color: #E3F9EE; }
+
+/* BG color */
+.bg-white { background-color: #fff; }
+.bg-light-green { background-color: #DDFFEE; }
+.bg-vivid-green { background-color: #009C4E; }
+
+/* Margin */
+.margin-1r { margin:1rem; }
+.margin-t-1r { margin-top:1rem; }
+.margin-b-1r { margin-bottom:1rem; }
+.margin-v-1r {
+    margin-top:1rem;
+    margin-bottom:1rem;
+ }
+
+/* Padding */
+.padding-1r { padding:1rem; }
+.padding-t-1r { padding-top:1rem; }
+.padding-b-1r { padding-bottom:1rem; }
+.padding-v-1r {
+    padding-top:1rem;
+    padding-bottom:1rem;
+ }
+
+/* Border */
+.br-default { border-radius: 5px; }
+
+/*  */
+.relative { position: relative; }
+.absolute { position: absolute; }
+
+/* Flex & Grid */
+
+.flex { display: flex; }
+.grid { display: grid; }
+.block { display: block; }
+.inline { display: inline; }
+
+.flex-wrap { flex-wrap: wrap; }
+
+.direction-row { flex-direction: row; }
+.direction-column { flex-direction: column; }
+
+.justify-center { justify-content: center; }
+.justify-s-around { justify-content: space-around; }
+.align-start { align-items: start; }
+.align-center { align-items: center; }
+.align-c-start { align-content: start; }
+.align-self-center { align-self: center; }
+.align-self-end { align-self: end; }
+
+
+
+.h-100 { height: 100% }
+.w-100 { width: 100%; }
