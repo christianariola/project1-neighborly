@@ -1,0 +1,28 @@
+<div class="post new-post relative h-100">
+    <h3 class="w-100 text-center margin-t-1r">Recommendation</h3>
+    <div class="w-100 flex justify-center margin-v-1r"><span class="new-post-separator"></span></div>
+
+    <div class="post-field">
+        <label for="newPostTitle">What are you recommending:</label>
+        <input required class="w-100" type="text" name="newPostTitle" id="newPostTitle">
+    </div>
+    
+    <div class="post-field">
+        <label class="starRating rating-label">Rate Your Experience : 
+            <input required
+                id="newPostRating"
+                class="rating"
+                max="5"
+                step=".5"
+                type="range"
+                value="3">
+        </label>
+    </div>
+    
+    <div class="post-field">
+        <label for="newPostDescription">Description:</label>
+        <input required class="w-100" type="text" name="newPostDescription" id="newPostDescription">
+    </div>
+    
+    <button id="addNewPost" class="w-100 btn br-default bg-vivid-green text-light-green bold margin-v-1r" onclick="Post.save(POST_TYPES.recommendation)">Add Post</button>
+</div>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neighborly - Dashboard</title>
+
+    <link rel="manifest" href="../app.webmanifest">
+    <link rel="icon" type="image/png" href="../images/icons/favicon-96x96.png" sizes="96x96">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/icons.css">
+    <link rel="stylesheet" href="../css/utilities.css">
+    <link rel="stylesheet" href="../css/modal.css">
+    <link rel="stylesheet" href="../css/post.css">
+
+    <!-- Font Awesome -->
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css' integrity='sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==' crossorigin='anonymous' />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600&family=Mulish&display=swap" rel="stylesheet">
+
+    <!-- Firebase CDN -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-analytics-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore-compat.js"></script>
+
+    <!-- SCRIPTS -->
+    <script src="../js/config.js"></script>
+    <script src="../js/dashboard/main.js" defer></script>
+    <script src="../js/post.js" ></script>
+    <script src="../js/modal.js" ></script>
+
+    <script>
+        if ('serviceWorker' in navigator) {  //if browser supports Service worker
+            // assuming sw.js is our service worker file in the same directory
+            navigator.serviceWorker.register('../js/sw.js')
+            .then( function (reg) {
+                console.log(`Service Worker Registration`);
+            })
+            .catch( function (error) {
+                console.log(`Service Worker Error (${error})`);       
+            });
+        }
+    </script>
+
+    <script>
+        const uid = sessionStorage.getItem("uid");
+
+        if(uid == null) {
+            window.location.href = "/login.html";
+        }
+    </script>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <h1>
+                <img src="../images/neighbourly-logo.svg" alt="Neighborly Logo" class="desktop">
+                <img src="../images/neighbourly-mobile-logo.svg" alt="Neighborly Logo" class="mobile">
+                <span class="visually-hidden">Neighborly</span>
+            </h1>
+            <nav>
+                <ul>
+                    <!-- <li><a href="login.html" method="post" class="">Notifications</a></li>
+                    <li><a href="login.html" method="post" class="">Messages</a></li> -->
+                    <li><a href="#" id="logout">Logout</a></li>
+                    <li>
+                        <a href="#" id="logout">
+                            <i class="fas fa-sign-out"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <h2>Dashboard</h2>
+
+            <!-- Map -->
+            <iframe src="https://snazzymaps.com/embed/59310" width="100%" height="600px" style="border:none;"></iframe>
+
+            <button onclick="Post.loadPostSelection()">New Post</button>
+        </main>
+        
+        <div id="modal"></div>
+
+        <footer>
+            <p>Copyright &copy 2022. Neighborly. All Rights Reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>

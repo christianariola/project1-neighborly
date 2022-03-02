@@ -1,0 +1,33 @@
+.modal-container {
+    background: #1d1d1d8f;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: #fff;
+    position: relative;
+}
+
+.modal-container .icon-close {
+    position: absolute;
+    right: -12px;
+    top: -12px;
+}
+
+.modal-body {
+    overflow: auto;
+    width: fit-content;
+}
+
+@media screen and (min-width: 700px) {
+    .modal-body {
+        max-width: 960px;
+    }
+}

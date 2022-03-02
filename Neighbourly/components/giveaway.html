@@ -1,0 +1,34 @@
+<div class="post new-post relative h-100">
+    <h3 class="w-100 text-center margin-t-1r">Giveaway</h3>
+    <div class="w-100 flex justify-center margin-v-1r"><span class="new-post-separator"></span></div>
+
+    <div class="post-field">
+        <label for="newPostTitle">What are you giving away:</label>
+        <input class="w-100" type="text" name="newPostTitle" id="newPostTitle">
+    </div>
+    
+    <div class="post-field">
+        <p class="condition">Condition: </p>
+        <div class="flex justify-s-around">
+            <label for="newPostItemConditionNew">
+                <input required id="newPostItemConditionNew" name="newPostItemCondition" type="radio" value="new"  onclick="newPostConditionPercent.value = ''; newPostConditionPercent.disabled = true;">
+                new: 
+            </label>
+            <label for="newPostItemConditionUsed">
+                <input required id="newPostItemConditionUsed" name="newPostItemCondition" type="radio" value="used" onclick="newPostConditionPercent.disabled = false;">
+                used: 
+            </label>
+            <label for="newPostConditionPercent">
+                <input type="number" id="newPostConditionPercent" min="0" max="100" maxlength="3" name="newPostConditionPercent">
+                % used
+            </label>
+        </div>
+    </div>
+    
+    <div class="post-field">
+        <label for="newPostDescription">Description:</label>
+        <input required class="w-100" type="text" name="newPostDescription" id="newPostDescription">
+    </div>
+    
+    <button id="addNewPost" class="w-100 btn br-default bg-vivid-green text-light-green bold margin-v-1r" onclick="Post.save(POST_TYPES.giveaway)">Add Post</button>
+</div>

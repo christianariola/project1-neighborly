@@ -4,9 +4,112 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="app.webmanifest">
     <title>Neighborly</title>
+
+    <link rel="icon" type="image/png" href="images/icons/favicon-96x96.png" sizes="96x96">
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600&family=Mulish&display=swap" rel="stylesheet">
+
+    <!-- Firebase CDN -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-analytics-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore-compat.js"></script>
+
+    <!-- SCRIPTS -->
+    <script src="js/config.js"></script>
+    <script src="js/app.js" defer></script>
+
+    <script>
+        // does the browser support service workers?
+        if ('serviceWorker' in navigator) {
+          // fires when the service worker is ready
+          navigator.serviceWorker.ready.then(reg => {
+            // we have an active service worker working for us
+            console.log(`Service Worker ready (Scope: ${reg.scope})`);
+            // do something interesting, if you want...
+    
+          });
+          // then register our service worker
+          navigator.serviceWorker.register('./sw.js', { scope: '/' })
+            .then(function (reg) {
+              // display a success message
+              console.log(`Service Worker Registration (Scope: ${reg.scope})`);
+            })
+            .catch(function (error) {
+              // display an error message
+              console.log(`Service Worker Error (${error})`);
+            });
+        } else {
+          // happens when the app isn't served over a TLS connection (HTTPS)
+          console.warn('Service Worker not available');
+        }
+      </script>
 </head>
 <body>
-    
+    <div class="wrapper">
+        <header>
+            <h1>
+                <img src="images/neighbourly-logo.svg" alt="Neighborly Logo" class="desktop">
+                <img src="images/neighbourly-mobile-logo.svg" alt="Neighborly Logo" class="mobile">
+                <span class="visually-hidden">Neighborly</span>
+            </h1>
+            <nav>
+                <ul>
+                    <li><a href="login.html" method="post" class="btn btn-default">Sign In</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <main>
+            <section id="featured">
+                <div class="feat-image"><img src="images/content/home/feature-image.png" alt="Neighborly"></div>
+                <div class="signup-form">
+                    <h2>Join Your Neighborhood,</h2>
+                    <p>Tell us a little about you and your neighborhood.</p>
+                    <form id="signupHome">
+                        <div class="form-two-column">
+                            <input type="text" id="firstName" class="input-block" placeholder="First Name" required>
+                            <input type="text" id="lastName" class="input-block" placeholder="Last Name" required>
+                        </div>
+                        <input type="text" id="postalCode" class="input-block" placeholder="Postal Code" required>
+                        <input type="text" id="address" class="input-block" placeholder="Address" required>
+                        <input type="text" id="email" class="input-block" placeholder="Email" required>
+                        <input type="submit" id="homeSignup" class="input-block btn btn-primary" value="Let's Start">
+                    </form>
+                </div>
+            </section>
+            <section id="about">
+                <h2>Tap into your neighborhood,<br /> with Neighborly</h2>
+                <article>
+                    <img src="images/content/home/icon-keep-up.svg" alt="Keep Up">
+                    <h3>Keep Up</h3>
+                    <p>Get the latest news and information from neighbours, businesses and public agencies .</p>
+                </article>
+                <article>
+                    <img src="images/content/home/icon-connect.svg" alt="Connect">
+                    <h3>Connect</h3>
+                    <p>Connect with your neighbours by messaging them with our neighborly messenenger.</p>
+                </article>
+                <article>
+                    <img src="images/content/home/icon-build.svg" alt="Build">
+                    <h3>Build</h3>
+                    <p>Reccomend and discover local businesses to help them grow and serve the community better.</p>
+                </article>
+            </section>
+            <section class="footer-signup">
+                <a href="#featured" class="btn btn-primary">Sign Up</a>
+            </section>
+        </main>
+
+        <footer>
+            <p>Copyright &copy 2022. Neighborly. All Rights Reserved.</p>
+        </footer>
+    </div>
 </body>
 </html>
