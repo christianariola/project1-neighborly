@@ -213,18 +213,22 @@ footer p {
     padding: 2rem 7%;
 }
 
-#loginForm {
+#loginForm, #resetForm {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     grid-gap: 1rem;
     margin-top: 2rem;
 }
 
-#loginForm button{
+#loginForm button, #resetForm button{
     font-size: 1.2rem;
 }
 /* END OF LOGIN PAGE ======================== */
 
+/* RESET PAGE ======================== */
+.rstfeedbackContainer{
+    display: none;
+}
 @media screen and (min-width: 700px) {
     h1 .desktop {
         display: block;
