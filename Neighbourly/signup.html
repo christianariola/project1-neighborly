@@ -53,7 +53,7 @@
     <div class="auth-wrapper">
         <header>
             <h1>
-                <img src="images/neighbourly-logo.svg" alt="Neighborly Logo" class="sub-logo">
+                <a href="index.html"><img src="images/neighbourly-logo.svg" alt="Neighborly Logo" class="sub-logo"></a>
                 <span class="visually-hidden">Neighborly</span>
             </h1>
         </header>
@@ -61,8 +61,17 @@
         <main class="signup-page">
             <h2>Get Neighborly,</h2>
             <form id="signupForm">
-                <input type="text" id="phone_number" class="input-block" placeholder="Phone Number" required>
-                <input type="password" id="password" class="input-block" placeholder="Password" required>
+                <input id="ship-address" name="ship-address" required autocomplete="off" />
+                <input type="text" id="locality" name="locality" class="input-block" placeholder="City" required>
+
+                <div class="form-two-column">
+                    <input type="text" id="state" name="state" class="input-block" placeholder="State/Province" required>
+                    <input type="text" id="postcode" name="postcode" class="input-block" placeholder="Postal Code" required>
+                </div>
+
+                <input type="text" id="country" name="country" class="input-block" placeholder="Country" required>
+                <input type="hidden" id="latitude" name="latitude">
+                <input type="hidden" id="longitude" name="longitude">
                 <button id="signupBtn" class="btn btn-primary input-block">Sign Up</button>
             </form>
         </main>
@@ -71,6 +80,11 @@
             <p>Copyright &copy 2022. Neighborly. All Rights Reserved.</p>
         </footer>
     </div>
+
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnwEPQPWFBiXDhX_2pJp-wQdcyoeX_eNQ&callback=initAutocomplete&libraries=places&v=weekly"
+      async
+    ></script>
 </body>
 </html>
-
