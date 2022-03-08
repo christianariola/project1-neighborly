@@ -5,8 +5,8 @@ class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.postalCode = password;
-        this.address = phonenumber;
+        this.password = password;
+        this.phonenumber = phonenumber;
     }
 }
 
@@ -19,7 +19,7 @@ signupHome.addEventListener("submit", function (event) {
     const lnameInput = signupHome.querySelector("#lastName");
     const email = signupHome.querySelector("#email");
     const password = signupHome.querySelector("#password");
-    const phonenumber = signupHome.querySelector("#phone_number");
+    const phonenumber = signupHome.querySelector("#phonenumber");
 
     const user = new User(fnameInput.value, lnameInput.value, email.value, password.value, phonenumber.value);
 

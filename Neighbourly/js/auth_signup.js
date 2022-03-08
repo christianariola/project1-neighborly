@@ -5,6 +5,8 @@ let userSignup = JSON.parse(sessionString);
 let autocomplete;
 let address1Field;
 let postalField;
+let lat;
+let lng;
 
 function initAutocomplete() {
     address1Field = document.querySelector("#ship-address");
@@ -73,14 +75,15 @@ function fillInAddress() {
     postalField.value = postcode;
 
     // get lat
-    var lat = place.geometry.location.lat();
+    lat = place.geometry.location.lat();
     // get lng
-    var lng = place.geometry.location.lng();
+    lng = place.geometry.location.lng();
 
     console.log("Latitude: "+lat+" - "+"Longitude: "+lng);
 }
 
 const signupBtn = document.getElementById("signupBtn");
+const signupForm = document.getElementById("signupForm");
 
 signupBtn.addEventListener("click", (event) => {
     event.preventDefault();
@@ -91,9 +94,11 @@ signupBtn.addEventListener("click", (event) => {
     const password = userSignup[0].password;
     const phonenumber = userSignup[0].phonenumber;
 
-    const locality = document.querySelector("#locality");
-    const state = document.querySelector("#state");
-    const country = document.querySelector("#country");
+    const shipaddress = signupForm.querySelector("#ship-address");
+    const locality = signupForm.querySelector("#locality");
+    const state = signupForm.querySelector("#state");
+    const country = signupForm.querySelector("#country");
+    const postcode = signupForm.querySelector("#postcode");
  
     db.collection("users").where("email", "==", email)
     .get().then((querySnapshot) => {
@@ -120,9 +125,9 @@ signupBtn.addEventListener("click", (event) => {
             email: email,
             password: password,
             phonenumber: phonenumber,
-            // address: { address1: address1Field, locality: locality, state: state, country: country, postcode: postalField },
-            // location: { latitude: lat, longitude: lng },
-            // created_at: new Date(),
+            address: { street: shipaddress.value, locality: locality.value, state: state.value, country: country.value, postcode: postcode.value },
+            location: { latitude: lat, longitude: lng },
+            created_at: new Date(),
         }).then(() => {
             // remove array from first page
             sessionStorage.removeItem("UserInfoHome");
@@ -133,6 +138,7 @@ signupBtn.addEventListener("click", (event) => {
         });
     }).catch(error => {
         alert(error.message);
+        console.log(error);
         document.getElementById("signupBtn").disabled = false;
         return false;
     });
