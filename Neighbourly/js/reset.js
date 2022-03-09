@@ -10,10 +10,10 @@ const auth = firebase.auth();
 
 
 const mailField = document.getElementById('email');
-// const labels = document.getElementsByTagName('label');
 const resetBtn = document.getElementById('resetBtn');
 const successModal = document.querySelector('.success');
 const failureModal = document.querySelector('.failure');
+
 
 const fauth = getAuth();
 
