@@ -42,7 +42,7 @@ signupBtn.addEventListener("click", (event) => {
             phonenumber: phonenumber,
             postalCode: postalCode,
             address: address,
-            created_at: today.getFullYear() + " " + (today.getMonth + 1) + " " + today.getDate()
+            created_at: new Date()
         }).then(() => {
             // remove array from first page
             sessionStorage.removeItem("UserInfoHome");
