@@ -1,3 +1,37 @@
+// Feed
+
+const postCardTemplate = fetch(POST_TEMPLATES.card)
+    .then(response => response.text());
+
+createPostBtn.addEventListener('click', () => Post.loadPostSelection());
+
+const buildFeedElements = async (allPosts) => {
+    let feedElements = '';
+    for(const doc of allPosts.docs) {
+        let author;
+        const postRaw = doc.data();
+        if (!postRaw?.type) return; 
+        if (postRaw.author) {
+            await db.collection("users").where("userId", "==", postRaw.author).get()
+            .then(({ docs }) => {
+                const doc = docs[0];
+                if (doc?.exists) {
+                    const { firstName, lastName, userId } = doc.data();
+                    author = { firstName, lastName, userId };
+                }
+            });
+        }
+        const post = new POST_CLASSES[postRaw.type]({...postRaw, author });
+        const postHTMLString = await Post.toHTMLString(post)
+        feedElements += postHTMLString;
+    }
+    return feedElements;
+};
+
+db.collection("posts").onSnapshot(async (querySnapshot) => {
+    feed.innerHTML = await buildFeedElements(querySnapshot);
+});
+
 // Logout
 const logout = document.querySelector('#logout');
 
