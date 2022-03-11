@@ -80,17 +80,27 @@
         <main>
             <h2>Dashboard</h2>
 
-            <!-- Map -->
-            <iframe src="https://snazzymaps.com/embed/59310" width="100%" height="600px" style="border:none;"></iframe>
-
             <button onclick="Post.loadPostSelection()">New Post</button>
+
+            <div id="map"></div>
         </main>
-        
+
+        <section class="sidebar">
+            <h2>New Help Request</h2> 
+            <div>List of help request from firebase.</div>
+        </section>
+
         <div id="modal"></div>
 
         <footer>
             <p>Copyright &copy 2022. Neighborly. All Rights Reserved.</p>
         </footer>
     </div>
+
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnwEPQPWFBiXDhX_2pJp-wQdcyoeX_eNQ&callback=initMap&v=weekly"
+      async
+    ></script>
 </body>
 </html>
