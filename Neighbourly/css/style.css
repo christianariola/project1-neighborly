@@ -229,6 +229,14 @@ footer p {
 .rstfeedbackContainer{
     display: none;
 }
+/* END OF RESET PAGE ================ */
+
+/* USER DASHBOARD ========================== */
+#map {
+    min-height: 500px;
+}
+/* END USER DASHBOARD ====================== */
+
 @media screen and (min-width: 700px) {
     h1 .desktop {
         display: block;
