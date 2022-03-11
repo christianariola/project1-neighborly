@@ -1,8 +1,7 @@
-const TEMPLATES = {
-    MODAL: '/components/modal.html',
-}
+const TEMPLATE = '/components/modal.html';
+
 const modalState = {
-    open : async (content, baseTemplate = TEMPLATES.MODAL) => {
+    open : async (content, baseTemplate = TEMPLATE) => {
         const response = await fetch(baseTemplate);
         const txt = await response.text();
         modal.innerHTML = txt.replace('{children}', content);

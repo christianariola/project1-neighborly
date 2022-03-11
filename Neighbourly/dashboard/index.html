@@ -30,6 +30,7 @@
 
     <!-- SCRIPTS -->
     <script src="../js/config.js"></script>
+    <script src="../js/utils.js" ></script>
     <script src="../js/dashboard/main.js" defer></script>
     <script src="../js/post.js" ></script>
     <script src="../js/modal.js" ></script>
@@ -79,10 +80,9 @@
 
         <main>
             <h2>Dashboard</h2>
-
-            <button onclick="Post.loadPostSelection()">New Post</button>
-
             <div id="map"></div>
+            <button id="createPostBtn"">New Post</button>
+            <div id="feed" class="margin-t-1r"></div>
         </main>
 
         <section class="sidebar">

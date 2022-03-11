@@ -1,44 +1,38 @@
-const POST_TEMPLATES = {
-    base: '/components/base_post.html',
-    recommendation: '/components/recommendation.html',
-    help_request: '/components/help_request.html',
-    giveaway: '/components/giveaway.html',
-}
-
-const POST_TYPES = {
-    recommendation: 'recommendation',
-    helpRequest: 'help_request',
-    giveaway: 'giveaway',
-};
-
 class Post {
-    constructor(title, description, photos = [], location = {}, createdAt) {
+    static templates = {};
+    constructor(title, description, photos = [], location = {}, createdAt, type, author) {
         this.title = title;
         this.description = description;
         this.photos = photos;
         this.location = location;
-        this.created_at = createdAt || new Date();
-        this.modified_at = createdAt ? new Date() : null;
+        this.createdAt = createdAt || new Date();
+        this.modifiedAt = createdAt ? new Date() : null;
+        this.type = type;
+        this.author = createdAt ? author : sessionStorage.getItem("uid");
     }
 
     toJson() {
-        return Object.entries(this).reduce((acc, [key, value])=> {
-            acc[key] = value;
-            return acc;
-        }, {})
+        return toJson(this);
+    }
+
+    static async getPostTemplate(type) {
+        if (Post.templates[type]) {
+            return Post.templates[type];
+        } else {
+            const postTemplatePath = POST_TEMPLATES[type] || POST_TEMPLATES.base;
+            const postTemplate = await fetch(postTemplatePath);
+            Post.templates[type] =  await postTemplate.text();
+            return Post.templates[type];
+        }
     }
 
     static async loadPostSelection() {
-        const postTemplatePath = POST_TEMPLATES.base;
-        const postTemplate = await fetch(postTemplatePath);
-        const newPostForm = await postTemplate.text();
+        const newPostForm = await Post.getPostTemplate();
         modalState.open(newPostForm);
     }
-
+    
     static async loadPostForm() {
-        const postTemplatePath = POST_TEMPLATES[postTypeSelect.value];
-        const postTemplate = await fetch(postTemplatePath);
-        const newPostForm = await postTemplate.text();
+        const newPostForm = await Post.getPostTemplate(postTypeSelect.value);
         modalState.changeContent(newPostForm);
     }
 
@@ -49,11 +43,24 @@ class Post {
         });
     }
 
+    static async toHTMLString(post) {
+        let postCard = await Post.getPostTemplate('card');
+        const body = `<div>
+        <span class="block">Type: ${post.type}</span>
+        <span class="block">Description: ${post.description}</span>
+        <span class="block">Created At: ${(dbTimestampToDate(post.createdAt))}</span>
+        <span class="block">Author: ${post.author?.firstName} ${post.author?.lastName}</span>
+        </div>`;
+        postCard = postCard.replace('{header}', post.title);
+        postCard = postCard.replace('{body}', body);
+        return postCard;
+    }
+
 }
 
 class Recomendation extends Post {
-    constructor({title, description, starRating, photos, location}) {
-        super(title, description, photos, location);
+    constructor({title, description, starRating, photos, location, createdAt, author}) {
+        super(title, description, photos, location, createdAt, POST_TYPES.recommendation, author);
         this.starRating = starRating > 0 && starRating < 6  ? Number(starRating): null;
     }
 
@@ -67,8 +74,8 @@ class Recomendation extends Post {
 }
 
 class HelpRequest extends Post {
-    constructor({title, description, photos, location, compensation}) {
-        super(title, description, photos, location);
+    constructor({title, description, photos, location, createdAt, compensation, author}) {
+        super(title, description, photos, location, createdAt, POST_TYPES.helpRequest, author);
         this.compensation = compensation;
     }
 
@@ -82,8 +89,8 @@ class HelpRequest extends Post {
 }
 
 class Giveaway extends Post {
-    constructor({title, description, photos, location, condition, conditionPercentage}) {
-        super(title, description, photos, location);
+    constructor({title, description, photos, location, createdAt, condition, conditionPercentage, author}) {
+        super(title, description, photos, location, createdAt, POST_TYPES.giveaway, author);
         this.condition = condition;
         this.conditionPercentage = Number(Math.min(Math.max(0, conditionPercentage),100));
     }
