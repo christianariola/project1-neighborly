@@ -28,6 +28,7 @@ function initAutocomplete() {
 function fillInAddress() {
     // Get the place details from the autocomplete object.
     const place = autocomplete.getPlace();
+    console.log('Place:'+place);
     let address1 = "";
     let postcode = "";
 
@@ -99,6 +100,8 @@ signupBtn.addEventListener("click", (event) => {
     const state = signupForm.querySelector("#state");
     const country = signupForm.querySelector("#country");
     const postcode = signupForm.querySelector("#postcode");
+    const latitude = signupForm.querySelector("#latitude");
+    const longitude = signupForm.querySelector("#longitude");
  
     db.collection("users").where("email", "==", email)
     .get().then((querySnapshot) => {
@@ -126,7 +129,7 @@ signupBtn.addEventListener("click", (event) => {
             password: password,
             phonenumber: phonenumber,
             address: { street: shipaddress.value, locality: locality.value, state: state.value, country: country.value, postcode: postcode.value },
-            location: { latitude: lat, longitude: lng },
+            location: { latitude: latitude.value, longitude: longitude.value },
             created_at: new Date(),
         }).then(() => {
             // remove array from first page
@@ -143,3 +146,55 @@ signupBtn.addEventListener("click", (event) => {
         return false;
     });
 });
+
+
+
+function getuserLocation(){
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                //console.log(position);
+                const pos = {  
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                };
+
+                var locAPI = "https://maps.googleapis.com/maps/api/geocode/json?latlng="+position.coords.latitude+","+position.coords.longitude+"&key=AIzaSyBnwEPQPWFBiXDhX_2pJp-wQdcyoeX_eNQ&sensor=true";
+                //console.log("show position: "+locAPI);
+
+                fetch(locAPI).then(function(response) {
+                    return response.json();
+                }).then(function(data) {
+                    console.log(data);
+
+                    document.querySelector("#ship-address").value = data.results[0].address_components[0].long_name+" "+data.results[0].address_components[1].long_name;
+                    document.querySelector("#locality").value = data.results[0].address_components[3].long_name;
+                    document.querySelector("#state").value = data.results[0].address_components[5].short_name;
+                    document.querySelector("#country").value = data.results[0].address_components[6].long_name;
+                    document.querySelector("#postcode").value = data.results[0].address_components[7].long_name;
+                    document.querySelector("#latitude").value = data.results[0].geometry.location.lat;
+                    document.querySelector("#longitude").value = data.results[0].geometry.location.lng;
+                }).catch(function() {
+                    console.log("Ooops something went wrong.");
+                });
+            },
+            () => {
+                handleLocationError(true, infoWindow, map.getCenter());
+            }
+        );
+    } else {
+        console.log('Browser does not support geolocation.');
+    }
+}
+
+
+
+const getLocation = document.getElementById("getLocation");
+
+getLocation.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    getuserLocation();
+});
+
+
