@@ -2,7 +2,6 @@
 const cacheName = "v1";    
 const urlsToCache = [ "/" , "/index.html", "/css/style.css", "/js/app.js" ]; 
 
-
 self.addEventListener('install', event => {
     // it is invoked when the browser installs the service worker
     // here we cache the resources that are defined in the urlsToCache[] array
@@ -30,7 +29,6 @@ self.addEventListener('fetch', event => {
 
     //1. No Strategy, simply forward the request to server (i.e. No Offline Capability)
     event.respondWith(fetch(event.request));
- 
-
 
 });
+

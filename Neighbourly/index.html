@@ -9,6 +9,7 @@
 
     <link rel="icon" type="image/png" href="images/icons/favicon-96x96.png" sizes="96x96">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/utilities.css">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,6 +25,7 @@
     <!-- SCRIPTS -->
     <script src="js/config.js"></script>
     <script src="js/app.js" defer></script>
+    <script src="js/offline.js" defer></script>
 
     <script>
         // does the browser support service workers?
@@ -52,12 +54,14 @@
       </script>
 </head>
 <body>
+    <div class="offline"></div>
     <div class="wrapper">
         <header>
             <h1>
                 <img src="images/neighbourly-logo.svg" alt="Neighborly Logo" class="desktop">
                 <img src="images/neighbourly-mobile-logo.svg" alt="Neighborly Logo" class="mobile">
                 <span class="visually-hidden">Neighborly</span>
+                <div id="status"></div>
             </h1>
             <nav>
                 <ul>

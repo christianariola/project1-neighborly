@@ -91,9 +91,8 @@ function initMap($latitude, $longitude) {
     if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
         (position) => {
-            console.log($latitude);
+        //console.log($latitude);
         const pos = {
-            
             // lat: position.coords.latitude,
             // lng: position.coords.longitude,
             lat: parseFloat($latitude),
