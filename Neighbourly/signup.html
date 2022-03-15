@@ -9,7 +9,8 @@
     <link rel="manifest" href="app.webmanifest">
     <link rel="icon" type="image/png" href="images/icons/favicon-96x96.png" sizes="96x96">
     <link rel="stylesheet" href="css/style.css">
-
+    <link rel="stylesheet" href="css/utilities.css">
+    
     <!-- Font Awesome -->
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css' integrity='sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==' crossorigin='anonymous' />
 
@@ -27,6 +28,7 @@
     <!-- SCRIPTS -->
     <script src="js/config.js"></script>
     <script src="js/auth_signup.js" defer></script>
+    <script src="js/offline.js" defer></script>
 
     <script>
         if ('serviceWorker' in navigator) {  //if browser supports Service worker
@@ -50,6 +52,7 @@
     </script>
 </head>
 <body>
+    <div class="offline"></div>
     <div class="auth-wrapper">
         <header>
             <h1>
