@@ -9,6 +9,9 @@ const Scrstop = document.querySelector('#stop');
 //UID fron Authentication
 const UserId = sessionStorage.getItem("uid");
 
+if(UserId==null){
+    window.location.href = "login.html";
+}
 // console.log(UserId);
 
 //Funtion to detect Webcam presence
