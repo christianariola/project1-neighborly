@@ -133,7 +133,7 @@ logout.addEventListener('click', (e) => {
         sessionStorage.removeItem("uid");
         alert('You have succesfully logout.');
         console.log('user signed out');
-        window.location.href = "/index.html";
+        window.location.href = `${BASE_URL}/index.html`;
     }).catch(error => {
         alert(error.message);
         return false;

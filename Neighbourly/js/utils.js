@@ -1,9 +1,9 @@
 const POST_TEMPLATES = {
-    base: '/components/base_post_form.html',
-    card: '/components/post_card.html',
-    recommendation: '/components/recommendation_form.html',
-    help_request: '/components/help_request_form.html',
-    giveaway: '/components/giveaway_form.html',
+    base: `${BASE_URL}/components/base_post_form.html`,
+    card: `${BASE_URL}/components/post_card.html`,
+    recommendation: `${BASE_URL}/components/recommendation_form.html`,
+    help_request: `${BASE_URL}/components/help_request_form.html`,
+    giveaway: `${BASE_URL}/components/giveaway_form.html`,
 }
 
 const POST_TYPES = {

@@ -1,4 +1,4 @@
-const TEMPLATE = '/components/modal.html';
+const TEMPLATE = `${BASE_URL}/components/modal.html`;
 
 const modalState = {
     open : async (content, baseTemplate = TEMPLATE) => {

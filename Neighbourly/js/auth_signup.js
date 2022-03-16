@@ -137,7 +137,7 @@ signupBtn.addEventListener("click", (event) => {
 
             alert('You have succesfully registered.');
             document.getElementById("signupBtn").disabled = false;
-            window.location.href = "login.html";
+            window.location.href = `${BASE_URL}/login.html`;
         });
     }).catch(error => {
         alert(error.message);
