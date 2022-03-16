@@ -8,7 +8,7 @@ loginBtn.addEventListener("click", (event) => {
     auth.signInWithEmailAndPassword(email, password)
     .then((userCredentials) => {
         sessionStorage.setItem("uid", userCredentials.user.uid);
-        window.location.href = "/dashboard";
+        window.location.href = `${BASE_URL}/dashboard`;
     }).catch((error) => {
         alert(error.message);
         return false;
