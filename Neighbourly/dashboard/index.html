@@ -27,6 +27,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-analytics-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-storage-compat.js"></script>
 
     <!-- SCRIPTS -->
     <script src="../js/config.js"></script>
@@ -35,7 +36,7 @@
     <script src="../js/post.js" ></script>
     <script src="../js/modal.js" ></script>
     <script src="../js/offline.js" defer></script>
-    <script src="../js/Imageup.js"></script>
+    <script src="../js/Imageup.js"defer></script>
 
     <script>
         if ('serviceWorker' in navigator) {  //if browser supports Service worker
@@ -87,7 +88,9 @@
             <button id="createPostBtn"">New Post</button>
             <div id="feed" class="margin-t-1r"></div>
             <div class="dashboardImageupload">
-                <input type="file" id="imgfile" name="imgfile" accept="image/*" />
+                <label for="imgfile">
+                    <i class="fas fa-camera"></i>
+                <input type="file" id="imgfile" name="imgfile" accept="image/*" /></label>
                 <button class="uploadimgbtn">Upload Image</button>
                 <div class="imagecontrols">
                     <img id="upimage" alt="">
@@ -98,9 +101,7 @@
             <div class="imagecanvas">
                 <video id="video" width="320" height="240" autoplay playsinline></video>
                 <br />
-                <canvas id="canvas" width="320" height="240"></canvas>
-                <br>
-                <input type='text' id='image' name='image' value='' />
+                <canvas id="canvas" width="320" height="240" style="display: none;"></canvas>
                 </div>
                 </div>
         </main>
