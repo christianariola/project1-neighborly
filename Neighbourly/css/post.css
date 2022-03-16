@@ -93,3 +93,25 @@ mask: repeat left center/var(--starsize) var(--symbol);
         width: 750px;
     }
 }
+
+/* FOR POST_CONTENT */
+.hr {
+    border: 2px solid #FAA22C;
+    margin-bottom: .5rem;
+}
+
+.card-content {
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+}
+
+.top-part {
+    display: flex;
+}
+.small-top-area {
+    display: flex;
+    flex-direction: column;
+}
+.avitar {
+    border-radius: 50%;
+}
