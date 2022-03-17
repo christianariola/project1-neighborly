@@ -117,7 +117,7 @@ mask: repeat left center/var(--starsize) var(--symbol);
     flex-direction: column;
 }
 .avitar {
-    width: 20%;
+    width: 10%;
     height: auto;
 }
 .avitar img {
