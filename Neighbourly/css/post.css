@@ -96,22 +96,33 @@ mask: repeat left center/var(--starsize) var(--symbol);
 
 /* FOR POST_CONTENT */
 .hr {
-    border: 2px solid #FAA22C;
-    margin-bottom: .5rem;
+    border: 3px solid #FAA22C;
+    margin-bottom: 1rem;
 }
 
 .card-content {
     display: grid;
     grid-template-rows: repeat(3, 1fr);
+
+    filter: drop-shadow(0px 4px 30px rgba(0, 0, 0, 0.1));
 }
 
 .top-part {
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
-.small-top-area {
+.small-chunk {
     display: flex;
     flex-direction: column;
 }
 .avitar {
+    width: 20%;
+    height: auto;
+}
+.avitar img {
     border-radius: 50%;
+}
+.post-body-text {
+    display: flex;
 }
