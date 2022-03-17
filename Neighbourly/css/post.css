@@ -96,13 +96,13 @@ mask: repeat left center/var(--starsize) var(--symbol);
 
 /* FOR POST_CONTENT */
 .hr {
-    border: 3px solid #FAA22C;
+    border: 1px solid #FAA22C;
     margin-bottom: 1rem;
 }
 
 .card-content {
     display: grid;
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-rows: 15%, 75%,10%;
 
     filter: drop-shadow(0px 4px 30px rgba(0, 0, 0, 0.1));
 }
@@ -111,18 +111,45 @@ mask: repeat left center/var(--starsize) var(--symbol);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    margin-top: 1.3rem;
 }
-.small-chunk {
+.top-left-part {
     display: flex;
-    flex-direction: column;
+    flex-grow: 1;
 }
 .avitar {
-    width: 10%;
     height: auto;
 }
 .avitar img {
     border-radius: 50%;
 }
+.small-chunk {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    margin-left: 1rem;
+    font-size: 20px;
+}
+.small-chunk p:nth-of-type(2) {
+    color: #868686;
+}
+.greenlabel {
+    background-color: #009C4E;
+    height: 40px;
+    margin-top: 40px;
+}
+.greenlabel p {
+    color: white;
+}
 .post-body-text {
     display: flex;
+    margin-top: 1.5rem;
+    justify-content: space-between;
 }
+.midl-part img {
+    border-radius: 2%;
+}
+
+/* .card-line * {
+    border: solid 1px tomato;
+} */
