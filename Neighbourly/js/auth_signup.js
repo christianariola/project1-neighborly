@@ -126,7 +126,7 @@ signupBtn.addEventListener("click", (event) => {
             firstName: firstName,
             lastName: lastName,
             email: email,
-            password: password,
+            //password: password,
             phonenumber: phonenumber,
             address: { street: shipaddress.value, locality: locality.value, state: state.value, country: country.value, postcode: postcode.value },
             location: { latitude: latitude.value, longitude: longitude.value },
