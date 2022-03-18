@@ -73,6 +73,8 @@ function initMap($latitude, $longitude) {
         center: { lat: 49.22493043847068, lng: -123.10865688997087 },
         zoom: 15,
     });
+    let image = 'http://www.google.com/intl/en_us/mapfiles/ms/micons/blue-dot.png';
+
     infoWindow = new google.maps.InfoWindow();
 
     const locationButton = document.createElement("button");
@@ -102,6 +104,10 @@ function initMap($latitude, $longitude) {
         infoWindow.setPosition(pos);
         infoWindow.setContent("Your Location");
         infoWindow.open(map);
+        //infoWindow.setIcon(image);
+
+        console.log(pos);
+        new google.maps.LatLng($latitude, $longitude)
         map.setCenter(pos);
         },
         () => {
