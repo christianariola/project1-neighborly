@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="../css/post.css">
 
     <!-- Font Awesome -->
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css' integrity='sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==' crossorigin='anonymous' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,24 +62,39 @@
 <body>
     <div class="offline"></div>
     <div class="wrapper">
-        <header>
-<!-- Styling the header -->
+        <header class="dash-header">
+
             <h1>
                 <img src="../images/neighbourly-logo.svg" alt="Neighborly Logo" class="desktop">
                 <img src="../images/neighbourly-mobile-logo.svg" alt="Neighborly Logo" class="mobile">
                 <span class="visually-hidden">Neighborly</span>
             </h1>
             <nav>
-                <ul>
+                <div class="menu-icons">
+
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#discuss">Discuss</a></li>
+                        <li><a href="#info">Info</a></li>
+
+                </div>
+
+                <div class="menu-search">
+                    <input type="text" placeholder="search">
+                    <button></button>
+                </div>
+
                     <!-- <li><a href="login.html" method="post" class="">Notifications</a></li>
                     <li><a href="login.html" method="post" class="">Messages</a></li> -->
+
+                <div class="personal-area">
+                    <img src="" alt="">
                     <li><a href="#" id="logout">Logout</a></li>
                     <li>
-                        <a href="#" id="logout">
-                            <i class="fas fa-sign-out"></i>
+                        <!-- <a href="#" id="logout">
+                            <i class="fas fa-sign-out"></i> -->
                         </a>
                     </li>
-                </ul>
+                </div>
             </nav>
         </header>
 
