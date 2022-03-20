@@ -86,13 +86,12 @@ context.scale(0.5, 0.5);
 Scrstart.addEventListener("click", function () {
     
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        // Not adding `{ audio: true }` since we only want video now
+        
         navigator.mediaDevices.getUserMedia({
             video: true
         }).then((stream) => {
-            //video.src = window.URL.createObjectURL(stream);
             video.srcObject = stream;
-            // video.play();  // or autplay
+            
         });
     } else {
         console.log("media devices not available in this browser");
