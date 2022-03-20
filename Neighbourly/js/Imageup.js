@@ -8,6 +8,7 @@ const Scrsnap = document.querySelector('#snap');
 const Scrstop = document.querySelector('#stop');
 //UID fron Authentication
 const UserId = sessionStorage.getItem("uid");
+const canvasclass = document.querySelector('.imagecanvas');
 
 if(UserId==null){
     window.location.href = "login.html";
@@ -29,6 +30,8 @@ detectWebcam(function (hasWebcam) {
         Scrsnap.disabled = true;
         Scrstop.disabled = true;
         Scrstart.disabled = true;
+        canvasclass.style.display = "none";
+
     }
     else {
 console.log("Webcam detected");
