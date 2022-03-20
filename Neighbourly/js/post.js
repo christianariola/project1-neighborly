@@ -45,13 +45,14 @@ class Post {
 
     static async toHTMLString(post) {
         let postCard = await Post.getPostTemplate('card');
-        const body = `<div>
-        <span class="block">Type: ${post.type}</span>
-        <span class="block">Description: ${post.description}</span>
-        <span class="block">Created At: ${(dbTimestampToDate(post.createdAt))}</span>
-        <span class="block">Author: ${post.author?.firstName} ${post.author?.lastName}</span>
+        const body = `<div class="user-post-${post.type} user-content box-shadow padding-1r margin-b-1r card-line">
+        <span class="post-title">${post.title}</span><br>
+        <span class="post-type">Type: ${post.type}</span>
+        <span class="post-description">Description: ${post.description}</span>
+        <span class="post-createdAt">Created At: ${(dbTimestampToDate(post.createdAt))}</span>
+        <span class="post-author">Author: ${post.author?.firstName} ${post.author?.lastName}</span>
         </div>`;
-        postCard = postCard.replace('{header}', post.title);
+        // postCard = postCard.replace('{header}', post.title);
         postCard = postCard.replace('{body}', body);
         return postCard;
     }
