@@ -2,6 +2,7 @@
 const Imgform = document.querySelector('.uploadimgform');
 const Imgfile = document.querySelector('#imgfile');
 const Updbtn = document.querySelector('.uploadimgbtn');
+const Profilebtn = document.querySelector('.profilebtn');
 //Webcam Control elements
 const Scrstart = document.querySelector('#start');
 const Scrsnap = document.querySelector('#snap');
@@ -13,7 +14,6 @@ const canvasclass = document.querySelector('.imagecanvas');
 if(UserId==null){
     window.location.href = "login.html";
 }
-// console.log(UserId);
 
 //Funtion to detect Webcam presence
 function detectWebcam(callback) {
@@ -131,7 +131,8 @@ Scrstop.addEventListener("click", () => {
 
 function uploadProfimg(base64) {
     const ref = firebase.storage().ref('Images/' + UserId + '/Profile');
-    const name = new Date() + '-'+ 'Camcap' + '-' + '.jpeg';
+    //Upload behaviour changed to replace file already in Cloud storage under profile folder
+    const name = "Profileimg" + '-' + UserId + '.jpeg';
     const metadata = {
         contentType: 'image/jpeg'
     };
@@ -145,11 +146,12 @@ function uploadProfimg(base64) {
         });
     }
 
-    //funtion to upload profile image
-    function UploadProfimage() {
+
+    Profilebtn.onclick = function UploadProfimage() {
+        //funtion to upload profile image
         //Upload selected image to firebase storage
             //Storage reference path
-            const ref = firebase.storage().ref('Images/' + UserId+'/Profile');
+            const ref = firebase.storage().ref('Images/' + UserId + '/Profile');
             //Get the file from Html Input file
             if(Imgfile.files[0]===undefined){
                 alert("Please select an image");
@@ -158,7 +160,8 @@ function uploadProfimg(base64) {
             else{
             const file = Imgfile.files[0];
             //Create a new name reference
-            const name = new Date() + '-' + '-' + file.name;
+            //Upload behaviour changed to replace file already in Cloud storage
+            const name = "Profileimg" + '-' +  UserId;
             //Set file metadata
             const metadata = {
                 contentType: file.type
@@ -177,4 +180,5 @@ function uploadProfimg(base64) {
             Imgfile.value = "";
         }
         )}}
+
         

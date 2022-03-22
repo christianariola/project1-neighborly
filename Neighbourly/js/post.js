@@ -38,8 +38,10 @@ class Post {
 
     static save(postType) {
         const post = (POST_CLASSES[postType]).create().toJson();
-        db.collection('posts').add(post).then(() => {
-            modalState.close();
+        db.collection('posts').add(post).then(docRef => {  //Get document reference id for the post
+        console.log("Document written with ID: ", docRef.id);
+        modalState.close();
+        // return(docRef.id);
         });
     }
 
