@@ -5,8 +5,8 @@ const postCardTemplate = fetch(POST_TEMPLATES.card)
 
 createPostBtn.addEventListener('click', () => Post.loadPostSelection());
 
-const buildFeedElements = async (allPosts) => {
-    let feedElements = '';
+const populateFeed = async (allPosts) => {
+    feed.innerHTML = '';
     for(const doc of allPosts.docs) {
         let author;
         const postRaw = doc.data();
@@ -23,13 +23,12 @@ const buildFeedElements = async (allPosts) => {
         }
         const post = new POST_CLASSES[postRaw.type]({...postRaw, author });
         const postHTMLString = await Post.toHTMLString(post)
-        feedElements += postHTMLString;
+        feed.appendChild(postHTMLString);
     }
-    return feedElements;
 };
 
 db.collection("posts").onSnapshot(async (querySnapshot) => {
-    feed.innerHTML = await buildFeedElements(querySnapshot);
+    await buildFeedElements(querySnapshot);
 });
 
 let map, infoWindow, ltude, lngtude, rad, zoomLvl;

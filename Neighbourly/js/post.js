@@ -47,16 +47,14 @@ class Post {
 
     static async toHTMLString(post) {
         let postCard = await Post.getPostTemplate('card');
-        const body = `<div class="user-post-${post.type} user-content box-shadow padding-1r margin-b-1r card-line">
-        <span class="post-title">${post.title}</span><br>
-        <span class="post-type">Type: ${post.type}</span>
-        <span class="post-description">Description: ${post.description}</span>
-        <span class="post-createdAt">Created At: ${(dbTimestampToDate(post.createdAt))}</span>
-        <span class="post-author">Author: ${post.author?.firstName} ${post.author?.lastName}</span>
-        </div>`;
-        // postCard = postCard.replace('{header}', post.title);
-        postCard = postCard.replace('{body}', body);
-        return postCard;
+        const parser = new DOMParser();
+		const element = parser.parseFromString(postCard, 'text/html').body.firstChild;
+        element.querySelector('.post-title').innerHTML = post.title;
+        // element.querySelector('.post-type').innerHTML = post.type;
+        element.querySelector('.post-description').innerHTML = post.description;
+        element.querySelector('.post-author').innerHTML = `${post.author?.firstName} ${post.author?.lastName}`;
+        element.querySelector('.post-createdAt').innerHTML = dbTimestampToDate(post.createdAt).toString().substring(0, 25);
+        return element;
     }
 
 }
