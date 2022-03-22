@@ -27,10 +27,6 @@ const populateFeed = async (allPosts) => {
     }
 };
 
-db.collection("posts").onSnapshot(async (querySnapshot) => {
-    await buildFeedElements(querySnapshot);
-});
-
 let map, infoWindow, ltude, lngtude, rad, zoomLvl;
 
 class Dashboard {
