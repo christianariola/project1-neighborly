@@ -15,7 +15,16 @@ loginBtn.addEventListener("click", (event) => {
             err="Wrong password";
         } else if(error.code === "auth/user-not-found") {
             err="User not found";
-        } else {
+        } else if(error.code === "auth/invalid-email") {
+            err="Invalid email";
+        } else if(error.code === "auth/user-disabled") {
+            err="User disabled";
+        } else if(error.code === "auth/too-many-requests") {
+            err="Too many requests";
+        } else if(error.code === "auth/network-request-failed") {
+            err="Network request failed";
+        }
+        else {
             err="Something went wrong";
         }
         Toastify({
