@@ -30,18 +30,23 @@ class Post {
         const newPostForm = await Post.getPostTemplate();
         modalState.open(newPostForm);
     }
-    
-    static async loadPostForm() {
-        const newPostForm = await Post.getPostTemplate(postTypeSelect.value);
-        modalState.changeContent(newPostForm);
+
+    static async loadPostForm(postType) {
+      postTypeInput.value = postType;
+      newPostAddImageButtons.classList.remove('visually-hidden');
+      document.querySelector('.new-post-footer button').disabled = false;
+      const newPostForm = await Post.getPostTemplate(postType);
+      postTypeContainer.innerHTML = newPostForm;
     }
 
-    static save(postType) {
+    static save() {
+      const postType = postTypeInput.value;
+      if (POST_CLASSES[postType]) {
         const post = (POST_CLASSES[postType]).create().toJson();
-        db.collection('posts').add(post).then(docRef => {  //Get document reference id for the post
-        console.log("Document written with ID: ", docRef.id);
-        modalState.close();
-        Toastify({
+          db.collection('posts').add(post).then(docRef => {  //Get document reference id for the post
+          console.log("Document written with ID: ", docRef.id);
+          modalState.close();
+          Toastify({
             text: "Post created successfully!",
             duration: 2000,
             close: true,
@@ -49,9 +54,10 @@ class Post {
             position: 'center', // `left`, `center` or `right`
             backgroundColor: "linear-gradient(to right, #00b09b, #70C782)",
         }).showToast();
-        
+
         // return(docRef.id);
         });
+      }
     }
 
     static async toHTMLString(post) {
@@ -59,10 +65,13 @@ class Post {
         const parser = new DOMParser();
 		const element = parser.parseFromString(postCard, 'text/html').body.firstChild;
         element.querySelector('.post-title').innerHTML = post.title;
-        // element.querySelector('.post-type').innerHTML = post.type;
+        element.querySelector('.post-type').innerHTML = post.type;
+        element.querySelector('.post-category').innerHTML = post.category ? post.category : '';
         element.querySelector('.post-description').innerHTML = post.description;
         element.querySelector('.post-author').innerHTML = `${post.author?.firstName} ${post.author?.lastName}`;
         element.querySelector('.post-createdAt').innerHTML = dbTimestampToDate(post.createdAt).toString().substring(0, 25);
+        element.querySelector('.post-img').src = post.photos?.length ? post.photos[0] : '';
+        element.querySelector('.post-avatar img').src = `https://i.pravatar.cc/150?u=${post.author?.userId}`;
         return element;
     }
 
@@ -79,14 +88,16 @@ class Recomendation extends Post {
             title: newPostTitle.value,
             starRating: newPostRating.value,
             description: newPostDescription.value,
+            photos: newPostImage.src ? [newPostImage.src] : []
         });
     }
 }
 
 class HelpRequest extends Post {
-    constructor({title, description, photos, location, createdAt, compensation, author}) {
+    constructor({title, description, photos, location, createdAt, compensation, author, category}) {
         super(title, description, photos, location, createdAt, POST_TYPES.helpRequest, author);
         this.compensation = compensation;
+        this.category = category;
     }
 
     static create() {
@@ -94,24 +105,27 @@ class HelpRequest extends Post {
             title: newPostTitle.value,
             compensation: newPostCompensation.value,
             description: newPostDescription.value,
+            photos: newPostImage.src ? [newPostImage.src] : [],
+            category: helpRequestCategory.value,
         });
     }
 }
 
 class Giveaway extends Post {
-    constructor({title, description, photos, location, createdAt, condition, conditionPercentage, author}) {
+    constructor({title, description, photos, location, createdAt, condition, category, author}) {
         super(title, description, photos, location, createdAt, POST_TYPES.giveaway, author);
         this.condition = condition;
-        this.conditionPercentage = Number(Math.min(Math.max(0, conditionPercentage),100));
+        this.category = category;
     }
 
 
     static create() {
         return new Giveaway({
             title: newPostTitle.value,
-            condition: newPostItemConditionNew.checked ? newPostItemConditionNew.value : newPostItemConditionUsed.value,
-            conditionPercentage: newPostConditionPercent.value,
+            condition: giveawayCondition.value,
+            category: giveawayCategory.value,
             description: newPostDescription.value,
+            photos: newPostImage.src ? [newPostImage.src] : []
         });
     }
 }

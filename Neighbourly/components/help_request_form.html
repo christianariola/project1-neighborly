@@ -1,22 +1,48 @@
-<div class="post new-post relative h-100">
-    <h3 class="w-100 text-center margin-t-1r">Help Request</h3>
-    <div class="w-100 flex justify-center margin-v-1r"><span class="new-post-separator"></span></div>
+<div class="w-100 flex flex-column">
 
-    <div class="post-field">
-        <label for="newPostTitle">What are you requesting:</label>
-        <input class="w-100" type="text" name="newPostTitle" id="newPostTitle">
+  <div>
+    <label>Category</label>
+    <input class="visually-hidden" id="helpRequestCategory" type="text" />
+    <div
+            class="flex justify-s-between bg-light-gray br-default padding-1r"
+            onclick="helpRequestCategoriesSelector.classList.toggle('visually-hidden');"
+    >
+      <span id="helpRequestCategoryLabel">Choose a category </span>
+      <i class="fas fa-chevron-down"></i>
     </div>
-    
-    <div class="post-field">
-        <label for="newPostCompensation">Compensation:</label>
-        <input required class="w-100" type="text" name="newPostCompensation" id="newPostCompensation">
-    </div>
-    
-    
-    <div class="post-field">
-        <label for="newPostDescription">Description:</label>
-        <input required class="w-100" type="text" name="newPostDescription" id="newPostDescription">
-    </div>
-    
-    <button id="addNewPost" class="w-100 btn br-default bg-vivid-green text-light-green bold margin-v-1r" onclick="Post.save(POST_TYPES.helpRequest)">Add Post</button>
+    <ul
+            id="helpRequestCategoriesSelector"
+            class="giveaway-categories visually-hidden"
+            onclick="helpRequestCategory.value = event.target.dataset.id; helpRequestCategoryLabel.innerHTML = event.target.textContent; this.classList.toggle('visually-hidden');"
+    >
+      <li data-id="gardening">Gardening</li>
+      <li data-id="grocery_shopping">Grocery Shopping</li>
+      <li data-id="installation">Installation</li>
+      <li data-id="cleaning">Cleaning</li>
+      <li data-id="babysitting">Babysitting</li>
+      <li data-id="other">Other</li>
+    </ul>
+  </div>
+
+  <label class="flex flex-column" for="newPostTitle">
+    Title
+    <input type="text" id="newPostTitle" class="bg-light-gray border-none" placeholder="What do you need help with?"/>
+  </label>
+
+  <div>
+    <label for="newPostCompensation">Offer Compensation:
+      <input required class="bg-light-gray border-none" type="number" name="newPostCompensation" id="newPostCompensation">
+    </label>
+
+    <label class="margin-h-1r">
+      <input class="bg-light-gray" type="checkbox" onclick="newPostCompensation.disabled = !newPostCompensation.disabled; newPostCompensation.value=''">
+      No compensation
+    </label>
+  </div>
+
+
+  <label class="flex flex-column" class="flex flex-column" for="newPostDescription">
+    Description
+    <textarea id="newPostDescription" class="margin-v-1r br-default bg-light-gray border-none" rows="4"></textarea>
+  </label>
 </div>
