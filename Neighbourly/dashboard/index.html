@@ -125,6 +125,25 @@
                     </section>
                 </div>
             <button id="createPostBtn">New Post</button>
+            <div class="dashboardImageupload">
+                <label for="imgfile">
+                    <i class="fas fa-camera"></i>
+                    <input type="file" id="imgfile" name="imgfile" accept="image/*" /></label>
+                <button class="uploadimgbtn">Upload Post Image</button>
+                <button class="profilebtn">Upload Profile Image</button>
+            
+                <div class="imagecontrols">
+                    <img id="upimage" alt="">
+                    <button id="start" class="webcam-btn">Start Camera</button>
+                    <button id="snap" class="webcam-btn">Snap Photo</button>
+                    <button id="stop" class="webcam-btn">Stop Camera</button>
+                </div>
+                <div class="imagecanvas">
+                    <video id="video" width="320" height="240" autoplay playsinline></video>
+                    <br>
+                    <canvas id="canvas" width="320" height="240" style="display: none;"></canvas>
+                </div>
+            </div>
             <div id="feed" class="margin-t-1r"></div>
         </main>
 
@@ -134,25 +153,6 @@
         </section>
 
         <div id="modal"></div>
-        <div class="dashboardImageupload">
-            <label for="imgfile">
-                <i class="fas fa-camera"></i>
-                <input type="file" id="imgfile" name="imgfile" accept="image/*" /></label>
-            <button class="uploadimgbtn">Upload Post Image</button>
-            <button class="profilebtn">Upload Profile Image</button>
-            
-            <div class="imagecontrols">
-                <img id="upimage" alt="">
-                <button id="start" class="webcam-btn">Start Camera</button>
-                <button id="snap" class="webcam-btn">Snap Photo</button>
-                <button id="stop" class="webcam-btn">Stop Camera</button>
-            </div>
-            <div class="imagecanvas">
-                <video id="video" width="320" height="240" autoplay playsinline></video>
-                <br>
-                <canvas id="canvas" width="320" height="240" style="display: none;"></canvas>
-            </div>
-        </div>
 
         <footer>
             <p>Copyright &copy 2022. Neighborly. All Rights Reserved.</p>

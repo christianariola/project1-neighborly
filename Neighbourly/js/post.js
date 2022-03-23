@@ -41,6 +41,15 @@ class Post {
         db.collection('posts').add(post).then(docRef => {  //Get document reference id for the post
         console.log("Document written with ID: ", docRef.id);
         modalState.close();
+        Toastify({
+            text: "Post created successfully!",
+            duration: 2000,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: 'center', // `left`, `center` or `right`
+            backgroundColor: "linear-gradient(to right, #00b09b, #70C782)",
+        }).showToast();
+        
         // return(docRef.id);
         });
     }
