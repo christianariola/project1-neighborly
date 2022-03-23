@@ -12,3 +12,11 @@ async function filterSelection(c) {
     });
 }
 onloadsetshow();
+
+function filterhelptype(c) {
+    if (stopListineng) stopListineng();
+    const dbCollection = c == '' ? db.collection("posts").where("compensation", "==", c) : db.collection("posts").where("compensation", "!=", c);
+    stopListineng = dbCollection.onSnapshot(async (querySnapshot) => {
+        await populateFeed(querySnapshot);
+    });
+}

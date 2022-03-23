@@ -12,7 +12,7 @@ loginBtn.addEventListener("click", (event) => {
     }).catch((error) => {
         // alert(error.message);
         if(error.code === "auth/wrong-password") {
-            err="Wrong password";
+            err="Incorrect username and or password";
         } else if(error.code === "auth/user-not-found") {
             err="User not found";
         } else if(error.code === "auth/invalid-email") {

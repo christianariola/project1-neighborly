@@ -124,6 +124,11 @@
                             <option value="help_request">Help Request</option>
                             <option value="giveaway">Giveaway</option>
                         </select></label>
+                        <label for="helprequest_type">Choose Help request type:
+                            <select name="helprequest_type" id="helprequest_type" onchange="filterhelptype(this.value)">
+                                <option value="">Free</option>
+                                <option value="paid">Payment Required</option>
+                            </select></label>
                     </section>
                 </div>
             <button id="createPostBtn">New Post</button>
