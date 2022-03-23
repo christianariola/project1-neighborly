@@ -2,17 +2,18 @@
 const Imgform = document.querySelector('.uploadimgform');
 const Imgfile = document.querySelector('#imgfile');
 const Updbtn = document.querySelector('.uploadimgbtn');
+const Profilebtn = document.querySelector('.profilebtn');
 //Webcam Control elements
 const Scrstart = document.querySelector('#start');
 const Scrsnap = document.querySelector('#snap');
 const Scrstop = document.querySelector('#stop');
 //UID fron Authentication
 const UserId = sessionStorage.getItem("uid");
+const canvasclass = document.querySelector('.imagecanvas');
 
 if(UserId==null){
     window.location.href = "login.html";
 }
-// console.log(UserId);
 
 //Funtion to detect Webcam presence
 function detectWebcam(callback) {
@@ -26,9 +27,21 @@ function detectWebcam(callback) {
 detectWebcam(function (hasWebcam) {
     if (hasWebcam===false) {
         console.log('No webcam detected');
+        Toastify({
+            text: "No webcam detected",
+            duration: 3000,
+            newWindow: true,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: 'center', // `left`, `center` or `right`
+            backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+        }).showToast();
         Scrsnap.disabled = true;
         Scrstop.disabled = true;
         Scrstart.disabled = true;
+        canvasclass.style.display = "none";
+
     }
     else {
 console.log("Webcam detected");
@@ -43,7 +56,17 @@ Updbtn.onclick = function Uploadimage() {
     const ref = firebase.storage().ref('Images/' + UserId);
     //Get the file from Html Input file
     if(Imgfile.files[0]===undefined){
-        alert("Please select an image");
+        Toastify({
+            text: "Please select an image",
+            duration: 3000,
+            newWindow: true,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: 'center', // `left`, `center` or `right`
+            backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+        }).showToast();
+        // alert("Please select an image");
         return false;
     }
     else{
@@ -62,7 +85,17 @@ const task = ref.child(name).put(file, metadata);
 task.then(snapshot => snapshot.ref.getDownloadURL())
 .then(url => {
     console.log(url);
-    alert('Image Uploaded');
+    Toastify({
+        text: "Image Uploaded",
+        duration: 3000,
+        newWindow: true,
+        close: true,
+        gravity: "top", // `top` or `bottom`
+        position: 'center', // `left`, `center` or `right`
+        backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+    }).showToast();
+    // alert('Image Uploaded');
     const image = document.querySelector('#upimage');
     image.src=url;
     Imgfile.value = "";
@@ -83,16 +116,26 @@ context.scale(0.5, 0.5);
 Scrstart.addEventListener("click", function () {
     
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        // Not adding `{ audio: true }` since we only want video now
+        
         navigator.mediaDevices.getUserMedia({
             video: true
         }).then((stream) => {
-            //video.src = window.URL.createObjectURL(stream);
             video.srcObject = stream;
-            // video.play();  // or autplay
+            
         });
     } else {
         console.log("media devices not available in this browser");
+        Toastify({
+            text: "Camera is not available on the device",
+            duration: 3000,
+            newWindow: true,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: 'center', // `left`, `center` or `right`
+            backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+        }).showToast();
+        
     }
 
 });
@@ -116,7 +159,17 @@ function uploadBase64(base64) {
     task.then(snapshot => snapshot.ref.getDownloadURL())
         .then(url => {
             console.log(url);
-            alert('Image Uploaded');
+            Toastify({
+                text: "Image Uploaded",
+                duration: 3000,
+                newWindow: true,
+                close: true,
+                gravity: "top", // `top` or `bottom`
+                position: 'center', // `left`, `center` or `right`
+                backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+            }).showToast();
+            // alert('Image Uploaded');
             const image = document.querySelector('#upimage');
             image.src = url;
         });
@@ -129,7 +182,8 @@ Scrstop.addEventListener("click", () => {
 
 function uploadProfimg(base64) {
     const ref = firebase.storage().ref('Images/' + UserId + '/Profile');
-    const name = new Date() + '-'+ 'Camcap' + '-' + '.jpeg';
+    //Upload behaviour changed to replace file already in Cloud storage under profile folder
+    const name = "Profileimg" + '-' + UserId + '.jpeg';
     const metadata = {
         contentType: 'image/jpeg'
     };
@@ -137,26 +191,48 @@ function uploadProfimg(base64) {
     task.then(snapshot => snapshot.ref.getDownloadURL())
         .then(url => {
             console.log(url);
-            alert('Image Uploaded');
+            Toastify({
+                text: "Profile Image Uploaded",
+                duration: 3000,
+                newWindow: true,
+                close: true,
+                gravity: "top", // `top` or `bottom`
+                position: 'center', // `left`, `center` or `right`
+                backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+            }).showToast();
+            // alert('Image Uploaded');
             const image = document.querySelector('#upimage');
             image.src = url;
         });
     }
 
-    //funtion to upload profile image
-    function UploadProfimage() {
+
+    Profilebtn.onclick = function UploadProfimage() {
+        //funtion to upload profile image
         //Upload selected image to firebase storage
             //Storage reference path
-            const ref = firebase.storage().ref('Images/' + UserId+'/Profile');
+            const ref = firebase.storage().ref('Images/' + UserId + '/Profile');
             //Get the file from Html Input file
             if(Imgfile.files[0]===undefined){
-                alert("Please select an image");
+                // alert("Please select an image");
+                Toastify({
+                    text: "Please select a Profile image",
+                    duration: 3000,
+                    newWindow: true,
+                    close: true,
+                    gravity: "top", // `top` or `bottom`
+                    position: 'center', // `left`, `center` or `right`
+                    backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+                    stopOnFocus: true, // Prevents dismissing of toast on hover
+                }).showToast();
                 return false;
             }
             else{
             const file = Imgfile.files[0];
             //Create a new name reference
-            const name = new Date() + '-' + '-' + file.name;
+            //Upload behaviour changed to replace file already in Cloud storage
+            const name = "Profileimg" + '-' +  UserId;
             //Set file metadata
             const metadata = {
                 contentType: file.type
@@ -169,10 +245,21 @@ function uploadProfimg(base64) {
         task.then(snapshot => snapshot.ref.getDownloadURL())
         .then(url => {
             console.log(url);
-            alert('Image Uploaded');
+            Toastify({
+                text: "Profile Image Uploaded",
+                duration: 3000,
+                newWindow: true,
+                close: true,
+                gravity: "top", // `top` or `bottom`
+                position: 'center', // `left`, `center` or `right`
+                backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+            }).showToast();
+            // alert('Image Uploaded');
             const image = document.querySelector('#upimage');
             image.src=url;
             Imgfile.value = "";
         }
         )}}
+
         

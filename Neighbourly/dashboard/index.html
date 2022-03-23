@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,12 +16,19 @@
     <link rel="stylesheet" href="../css/post.css">
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
+        integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600&family=Mulish&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600&family=Mulish&display=swap"
+        rel="stylesheet">
+
+    <!--Toastify-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js" defer></script>
 
     <!-- Firebase CDN -->
     <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-app-compat.js"></script>
@@ -28,37 +36,39 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-storage-compat.js"></script>
-  
+
     <!-- SCRIPTS -->
     <script src="../js/config.js"></script>
-    <script src="../js/utils.js" ></script>
+    <script src="../js/utils.js"></script>
     <script src="../js/dashboard/main.js" defer></script>
-    <script src="../js/post.js" ></script>
-    <script src="../js/modal.js" ></script>
+    <script src="../js/post.js"></script>
+    <script src="../js/modal.js"></script>
     <script src="../js/offline.js" defer></script>
-    <script src="../js/Imageup.js"defer></script>
+    <script src="../js/Imageup.js" defer></script>
+    <script src="../js/filters.js" defer></script>
 
     <script>
-        if ('serviceWorker' in navigator) {  //if browser supports Service worker
+        if ('serviceWorker' in navigator) { //if browser supports Service worker
             // assuming sw.js is our service worker file in the same directory
             navigator.serviceWorker.register('../sw.js')
-            .then( function (reg) {
-                console.log(`Service Worker Registration`);
-            })
-            .catch( function (error) {
-                console.log(`Service Worker Error (${error})`);       
-            });
+                .then(function (reg) {
+                    console.log(`Service Worker Registration`);
+                })
+                .catch(function (error) {
+                    console.log(`Service Worker Error (${error})`);
+                });
         }
     </script>
 
     <script>
         const uid = sessionStorage.getItem("uid");
 
-        if(uid == null) {
+        if (uid == null) {
             window.location.href = `${BASE_URL}/login.html`;
         }
     </script>
 </head>
+
 <body>
     <div class="offline"></div>
     <div class="wrapper">
@@ -85,33 +95,43 @@
                     <button></button>
                 </div>
 
-                    <!-- <li><a href="login.html" method="post" class="">Notifications</a></li>
+                <!-- <li><a href="login.html" method="post" class="">Notifications</a></li>
                     <li><a href="login.html" method="post" class="">Messages</a></li> -->
 
                 <div class="personal-area">
                     <img src="" alt="">
                     <li><a href="#" id="logout">Logout</a></li>
-                    <li>
-                        <!-- <a href="#" id="logout">
-                            <i class="fas fa-sign-out"></i> -->
+                    <!-- <li>
+                        <a href="#" id="logout">
+                            <i class="fas fa-sign-out"></i>
                         </a>
-                    </li>
+                    </li> -->
                 </div>
             </nav>
         </header>
 
         <main>
             <h2>Dashboard</h2>
-
             <div id="map"></div>
             <input type="range" min="1" max="5" value="5" class="slider" id="myRange">
             <div>Area Radius <span id="radiusKm">5</span>km</div>
+            <p>Filters</p>
+            <div id="filter-input-wrapper">
+                        <label for="posts">Choose Post Type:
+                        <select name="posts" id="posts" onchange="filterSelection(this.value)">
+                            <option value="all">All Posts</option>
+                            <option value="recommendation">Recommendation</option>
+                            <option value="help_request">Help Request</option>
+                            <option value="giveaway">Giveaway</option>
+                        </select></label>
+                    </section>
+                </div>
             <button id="createPostBtn">New Post</button>
             <div id="feed" class="margin-t-1r"></div>
         </main>
 
         <section class="sidebar">
-            <h2>New Help Request</h2> 
+            <h2>New Help Request</h2>
             <div>List of help request from firebase.</div>
         </section>
         
@@ -120,20 +140,22 @@
         <div class="dashboardImageupload">
             <label for="imgfile">
                 <i class="fas fa-camera"></i>
-            <input type="file" id="imgfile" name="imgfile" accept="image/*" /></label>
-            <button class="uploadimgbtn">Upload Image</button>
+                <input type="file" id="imgfile" name="imgfile" accept="image/*" /></label>
+            <button class="uploadimgbtn">Upload Post Image</button>
+            <button class="profilebtn">Upload Profile Image</button>
+            
             <div class="imagecontrols">
                 <img id="upimage" alt="">
                 <button id="start" class="webcam-btn">Start Camera</button>
                 <button id="snap" class="webcam-btn">Snap Photo</button>
                 <button id="stop" class="webcam-btn">Stop Camera</button>
             </div>
-        <div class="imagecanvas">
-            <video id="video" width="320" height="240" autoplay playsinline></video>
-            <br />
-            <canvas id="canvas" width="320" height="240" style="display: none;"></canvas>
+            <div class="imagecanvas">
+                <video id="video" width="320" height="240" autoplay playsinline></video>
+                <br>
+                <canvas id="canvas" width="320" height="240" style="display: none;"></canvas>
             </div>
-            </div>
+        </div>
 
         <footer>
             <p>Copyright &copy 2022. Neighborly. All Rights Reserved.</p>
@@ -142,8 +164,8 @@
 
     <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
     <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnwEPQPWFBiXDhX_2pJp-wQdcyoeX_eNQ&callback=initMap&v=weekly"
-      async
-    ></script>
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnwEPQPWFBiXDhX_2pJp-wQdcyoeX_eNQ&callback=initMap&v=weekly"
+        async></script>
 </body>
+
 </html>

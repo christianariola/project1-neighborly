@@ -11,6 +11,10 @@
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="css/utilities.css">
 
+    <!--Toastify-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js" defer></script>
+
   <!-- Firebase CDN -->
     <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-analytics-compat.js"></script>
@@ -41,11 +45,14 @@
                     <input type="text" id="email" class="input-block" placeholder="Email" required>
                     <button id="resetBtn" class="btn btn-primary input-block resetbtn">Reset</button>
                 </form>
-                <div class="rstfeedbackContainer success">
+                <!-- <div class="rstfeedbackContainer success">
                     <p class="feedbackMessage">Password reset link sent successfully<br>Click <a href="./login.html"><em>here</em></a> to Login</p>
                 </div>
                 <div class="rstfeedbackContainer failure">
-                    <p class="feedbackMessage">Email did not match an existing user.<br>Click <a href="./login.html"><em>here</em></a> to Login/Sign-up</p>
+                    <p class="feedbackMessage">Email did not match an existing user.<br>Click <a href="./login.html"><em>here</em></a> to Login/Sign-up</p> -->
+                <div class="staticmessage">
+                    <p class="StaticMessage">Click <a href="./login.html"><em>here</em></a>
+                   to Login/Sign-up</p>
             </main>
         
             <footer>

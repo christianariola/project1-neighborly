@@ -38,22 +38,23 @@ class Post {
 
     static save(postType) {
         const post = (POST_CLASSES[postType]).create().toJson();
-        db.collection('posts').add(post).then(() => {
-            modalState.close();
+        db.collection('posts').add(post).then(docRef => {  //Get document reference id for the post
+        console.log("Document written with ID: ", docRef.id);
+        modalState.close();
+        // return(docRef.id);
         });
     }
 
     static async toHTMLString(post) {
         let postCard = await Post.getPostTemplate('card');
-        const body = `<div>
-        <span class="block">Type: ${post.type}</span>
-        <span class="block">Description: ${post.description}</span>
-        <span class="block">Created At: ${(dbTimestampToDate(post.createdAt))}</span>
-        <span class="block">Author: ${post.author?.firstName} ${post.author?.lastName}</span>
-        </div>`;
-        postCard = postCard.replace('{header}', post.title);
-        postCard = postCard.replace('{body}', body);
-        return postCard;
+        const parser = new DOMParser();
+		const element = parser.parseFromString(postCard, 'text/html').body.firstChild;
+        element.querySelector('.post-title').innerHTML = post.title;
+        // element.querySelector('.post-type').innerHTML = post.type;
+        element.querySelector('.post-description').innerHTML = post.description;
+        element.querySelector('.post-author').innerHTML = `${post.author?.firstName} ${post.author?.lastName}`;
+        element.querySelector('.post-createdAt').innerHTML = dbTimestampToDate(post.createdAt).toString().substring(0, 25);
+        return element;
     }
 
 }
