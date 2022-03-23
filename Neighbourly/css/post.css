@@ -168,6 +168,9 @@ mask: repeat left center/var(--starsize) var(--symbol);
     display: flex;
 }
 .left-icon-area span {
+    margin-left: 5px;
+}
+.left-icon-unit {
     margin-left: 10px;
 }
 
@@ -193,15 +196,35 @@ li {
     list-style: none;
 }
 
-.dash-header {
-    display: grid;
-    grid-template-columns: 15% 85%;
-    padding: 0 2rem;
+.hide-text {
+        clip: rect(0 0 0 0);
+        clip-path: inset(50%);
+        height: 1px;
+        overflow: hidden;
+        position: absolute;
+        white-space: nowrap;
+        width: 1px;
 }
+
+/* 
 .dash-header nav {
     display: grid;
-    grid-template-columns: 45% 45% 10%;
-}
+} */
+
+/* @media screen and (mid-width: 700px) { */
+    .dash-header {
+        display: grid;
+        grid-template-columns: 15% 85%;
+        padding: 0 2rem;
+    }
+
+    .dash-header nav {
+        display: grid;
+        grid-template-columns: 45% 45% 10%;
+    }
+
+
+
 .menu-icons {
     display: flex;
     flex-flow: row nowrap;
