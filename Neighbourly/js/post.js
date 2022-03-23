@@ -65,8 +65,9 @@ class Post {
         const parser = new DOMParser();
 		const element = parser.parseFromString(postCard, 'text/html').body.firstChild;
         element.querySelector('.post-title').innerHTML = post.title;
-        element.querySelector('.post-type').innerHTML = post.type;
-        element.querySelector('.post-category').innerHTML = post.category ? post.category : '';
+        element.querySelector('.post-type').innerHTML = POST_TYPES_LABELS[post.type];
+        element.querySelector('.post-category').innerHTML = post.category ? `Category: ${POST_CATEGORIES[post.category]}` : '';
+        element.querySelector('.post-condition').innerHTML = post.condition ? `Condition: ${GIVEAWAY_CONDITION[post.condition]}` : '';
         element.querySelector('.post-description').innerHTML = post.description;
         element.querySelector('.post-author').innerHTML = `${post.author?.firstName} ${post.author?.lastName}`;
         element.querySelector('.post-createdAt').innerHTML = dbTimestampToDate(post.createdAt).toString().substring(0, 25);
@@ -77,14 +78,14 @@ class Post {
 
 }
 
-class Recomendation extends Post {
+class Recommendation extends Post {
     constructor({title, description, starRating, photos, location, createdAt, author}) {
         super(title, description, photos, location, createdAt, POST_TYPES.recommendation, author);
         this.starRating = starRating > 0 && starRating < 6  ? Number(starRating): null;
     }
 
     static create() {
-        return new Recomendation({
+        return new Recommendation({
             title: newPostTitle.value,
             starRating: newPostRating.value,
             description: newPostDescription.value,
@@ -131,7 +132,7 @@ class Giveaway extends Post {
 }
 
 const POST_CLASSES = {
-    [POST_TYPES.recommendation]: Recomendation,
+    [POST_TYPES.recommendation]: Recommendation,
     [POST_TYPES.helpRequest]: HelpRequest,
     [POST_TYPES.giveaway]: Giveaway,
 };
