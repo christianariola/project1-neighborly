@@ -138,25 +138,25 @@
                         <div style="background-color: #f1efef">
                             <h4>Working filters (rest is WIP)</h4>
                             <div id="filter-input-wrapper">
-                                <label for="posts">Choose Post Type:
+                                <label for="posts">Post Type:
                                     <select name="posts" id="posts" onchange="filterSelection(this.value)">
                                         <option value="all">All Posts</option>
                                         <option value="recommendation">Recommendation</option>
                                         <option value="help_request">Help Request</option>
                                         <option value="giveaway">Giveaway</option>
                                     </select></label>
-                                <label for="helprequest_type">Choose Help request type:
+
+                                    
+                                <label for="helprequest_type">Help request type:
                                     <select name="helprequest_type" id="helprequest_type" onchange="filterhelptype(this.value)">
                                         <option value="">Free</option>
-                                        <option value="paid">Payment Required</option>
+                                        <option value="paid">Paid</option>
                                     </select>
                                 </label>
                             </div>
                         </div>
 
-                        <div class="title-filter">
-                            <h4>Help Request</h4>
-                        </div>
+                        
 
                         <div class="selected-filters">
                             <div class="header-selected-filters">
@@ -188,29 +188,38 @@
                             <p>5km</p>
                         </div>
 
-                        <div class="categories">
-                            <h4>Categories</h4>
-
-                            <input type="checkbox">
-                            Gardening </input><br>
-
-                            <input type="checkbox">
-                            Grocery Shopping </input><br>
-
-                            <input type="checkbox">
-                            Installation </input><br>
-
-                            <input type="checkbox">
-                            Cleaning </input><br>
-
-                            <input type="checkbox">
-                            Babysitting </input><br>
-
-                            <input type="checkbox">
-                            Other </input><br>
-
-
-                        </div>
+                        <form class="category_form">
+                            <fieldset class="category_fieldset">
+                                <legend>Choose Categories</legend>
+                                <div>
+                                    <input type="checkbox" id="Grocery" name="" value="grocery_shopping">
+                                    <label for="Grocery">Grocery</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="Installation" name="" value="installation">
+                                    <label for="Installation">Installation</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="Cleaning" name="" value="cleaning">
+                                    <label for="Cleaning">Cleaning</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="Babysitting" name="" value="babysitting">
+                                    <label for="Babysitting">Babysitting</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="cooking" name="" value="cooking">
+                                    <label for="cooking">Cooking</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="other" name="" value="other">
+                                    <label for="other">Other</label>
+                                </div>
+                                <div>
+                                    <button id="category_btn" type="Apply">Apply Filters</button>
+                                </div>
+                            </fieldset>
+                        </form>
                     </div>
                 </div>
             </section>

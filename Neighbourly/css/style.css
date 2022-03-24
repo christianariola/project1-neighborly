@@ -279,11 +279,25 @@ footer p {
 
 div#filter-input-wrapper {
     display: flex;
-    flex-flow: row wrap;
-    gap: 1rem;
-    justify-content: center;
+    flex-flow: column nowrap;
+    gap: .5rem;
+    justify-content: flex-start;
 }
 
+.category_fieldset{
+    border:0;
+    padding:.5rem;
+}
+#category_btn{
+    margin-top: 1rem;
+    background-color: #008DCE;
+    color: #fff;
+    border: 0;
+    border-radius: 7px;
+    padding: 1rem 3rem;
+    cursor: pointer;
+    border: 0;
+}
 .user-content {
      display: none;
 }
