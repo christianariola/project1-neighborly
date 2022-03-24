@@ -83,11 +83,11 @@
             <nav>
                 <div class="menu-icons">
 
-                        <li><i class="fa-solid fa-house-chimney"><a href="#home" class="hide-text">Home</a></i></li>
+                    <li><i class="fa-solid fa-house-chimney"><a href="#home" class="hide-text">Home</a></i></li>
 
-                        <li><i class="fa-regular fa-comment"><a href="#discuss" class="hide-text">Discuss</a></i></li>
+                    <li><i class="fa-regular fa-comment"><a href="#discuss" class="hide-text">Discuss</a></i></li>
 
-                        <li><i class="fa-regular fa-bell" ></i><a href="#info" class="hide-text">Info</a></li>
+                    <li><i class="fa-regular fa-bell"></i><a href="#info" class="hide-text">Info</a></li>
 
                 </div>
 
@@ -123,7 +123,8 @@
             <section class="sidebar filters-container">
                 <div class="filters-title flex justify-s-between">
                     <h1 class="flex align-center">Filters</h1>
-                    <span onclick="filterSection.classList.add('open');" class="open-filters pointer flex align-center justify-center">
+                    <span onclick="filterSection.classList.add('open');"
+                        class="open-filters pointer flex align-center justify-center">
                         <i class="fa-solid fa-gear"></i>
                     </span>
                 </div>
@@ -138,6 +139,7 @@
                         <div style="background-color: #f1efef">
                             <h4>Working filters (rest is WIP)</h4>
                             <div id="filter-input-wrapper">
+                                <div class="post-type-filter">
                                 <label for="posts">Post Type:
                                     <select name="posts" id="posts" onchange="filterSelection(this.value)">
                                         <option value="all">All Posts</option>
@@ -145,18 +147,71 @@
                                         <option value="help_request">Help Request</option>
                                         <option value="giveaway">Giveaway</option>
                                     </select></label>
+                                </div>
 
-                                    
-                                <label for="helprequest_type">Help request type:
+                                <!-- <label for="helprequest_type">Help request type:
                                     <select name="helprequest_type" id="helprequest_type" onchange="filterhelptype(this.value)">
                                         <option value="">Free</option>
                                         <option value="paid">Paid</option>
                                     </select>
-                                </label>
+                                </label> -->
+
+                                <form class="helpreqfilter_form">
+                                    <h4>Request Filters</h4><br>
+                                    <fieldset class="comp_fieldset">
+                                        <legend>Select Compensation type</legend>
+                                        <div>
+                                            <input type="checkbox" id="free" name="compensation" value=""
+                                                onclick="onlytwo(this)">
+                                            <label for="free">Free</label>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" id="Paid" name="compensation" value="Paid"
+                                                onclick="onlytwo(this)">
+                                            <label for="Paid">Paid</label>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset class="category_fieldset">
+                                        <legend>Select Category</legend>
+                                        <div>
+                                            <input type="checkbox" id="grocery" name="category" value="grocery_shopping"
+                                                onclick="onlyOne(this)">
+                                            <label for="Grocery">Grocery</label>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" id="installation" name="category"
+                                                value="installation" onclick="onlyOne(this)">
+                                            <label for="Installation">Installation</label>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" id="cleaning" name="category" value="cleaning"
+                                                onclick="onlyOne(this)">
+                                            <label for="Cleaning">Cleaning</label>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" id="babysitting" name="category" value="babysitting"
+                                                onclick="onlyOne(this)">
+                                            <label for="Babysitting">Babysitting</label>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" id="gardening" name="category" value="gardening"
+                                                onclick="onlyOne(this)">
+                                            <label for="gardening">Gardening</label>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" id="other" name="category" value="other"
+                                                onclick="onlyOne(this)">
+                                            <label for="other">Other</label>
+                                        </div>
+                                        <div>
+                                            <button id="category_btn" type="Apply">Apply Filters</button>
+                                        </div>
+                                    </fieldset>
+                                </form>
                             </div>
                         </div>
 
-                        
 
                         <div class="selected-filters">
                             <div class="header-selected-filters">
@@ -171,55 +226,12 @@
                             </div>
                         </div>
 
-                        <div class="payment">
-                            <h4>Payment</h4>
-
-                            <input type="checkbox">
-                            Paid </input><br>
-
-                            <input type="checkbox">
-                            Unpaid </input><br>
-
-
-                        </div>
-
                         <div class="area">
                             <h4>Area</h4>
                             <p>5km</p>
                         </div>
 
-                        <form class="category_form">
-                            <fieldset class="category_fieldset">
-                                <legend>Choose Categories</legend>
-                                <div>
-                                    <input type="checkbox" id="Grocery" name="" value="grocery_shopping">
-                                    <label for="Grocery">Grocery</label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" id="Installation" name="" value="installation">
-                                    <label for="Installation">Installation</label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" id="Cleaning" name="" value="cleaning">
-                                    <label for="Cleaning">Cleaning</label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" id="Babysitting" name="" value="babysitting">
-                                    <label for="Babysitting">Babysitting</label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" id="cooking" name="" value="cooking">
-                                    <label for="cooking">Cooking</label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" id="other" name="" value="other">
-                                    <label for="other">Other</label>
-                                </div>
-                                <div>
-                                    <button id="category_btn" type="Apply">Apply Filters</button>
-                                </div>
-                            </fieldset>
-                        </form>
+
                     </div>
                 </div>
             </section>

@@ -21,3 +21,7 @@ const BASE_URL = '/Neighbourly'
 const dbCollection = (collection, orderBy = 'createdAt') => {
   return db.collection(collection).orderBy(orderBy, 'desc');
 };
+
+const dbCollectioncomp = (collection) => {
+  return db.collection(collection);
+}

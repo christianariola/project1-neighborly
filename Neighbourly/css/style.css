@@ -284,9 +284,11 @@ div#filter-input-wrapper {
     flex-flow: column nowrap;
     gap: .5rem;
     justify-content: flex-start;
+    
 }
 
-.category_fieldset{
+.category_fieldset,
+.comp_fieldset {
     border:0;
     padding:.5rem;
 }
@@ -314,6 +316,23 @@ div#filter-input-wrapper {
 
 /* END USER DASHBOARD ====================== */
 
+/* START FILTER ========================== */
+
+.helpreqfilter_form{
+    /* padding-top: 1rem; */
+    border-top:black solid 1px;
+    padding: 1rem 0 1rem .4rem;
+}
+
+.post-type-filter{
+    padding: 1rem 0 1rem .4rem;
+}
+
+.comp_fieldset{
+    border-bottom:black solid 1px;
+}
+
+/*  END FILTER  ========================== */
 @media screen and (min-width: 769px) {
     h1 .desktop {
         display: block;
