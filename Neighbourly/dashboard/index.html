@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="../css/utilities.css">
     <link rel="stylesheet" href="../css/modal.css">
     <link rel="stylesheet" href="../css/post.css">
+    <link rel="stylesheet" href="../css/filters.css">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
@@ -111,28 +112,107 @@
         </header>
 
         <main>
-            <h2>Dashboard</h2>
-            <div id="map"></div>
-            <input type="range" min="1" max="5" value="5" class="slider" id="myRange">
-            <div>Area Radius <span id="radiusKm">5</span>km</div>
-            <p>Filters</p>
-            <div id="filter-input-wrapper">
-                        <label for="posts">Choose Post Type:
-                        <select name="posts" id="posts" onchange="filterSelection(this.value)">
-                            <option value="all">All Posts</option>
-                            <option value="recommendation">Recommendation</option>
-                            <option value="help_request">Help Request</option>
-                            <option value="giveaway">Giveaway</option>
-                        </select></label>
-                        <label for="helprequest_type">Choose Help request type:
-                            <select name="helprequest_type" id="helprequest_type" onchange="filterhelptype(this.value)">
-                                <option value="">Free</option>
-                                <option value="paid">Payment Required</option>
-                            </select></label>
-                    </section>
+            <div class="map-container">
+                <h2>Dashboard</h2>
+                <div id="map"></div>
+                <input type="range" min="1" max="5" value="5" class="slider" id="myRange">
+                <div>Area Radius <span id="radiusKm">5</span>km</div>
+                <p>Filters</p>
+                <div id="filter-input-wrapper">
+                    <label for="posts">Choose Post Type:
+                    <select name="posts" id="posts" onchange="filterSelection(this.value)">
+                        <option value="all">All Posts</option>
+                        <option value="recommendation">Recommendation</option>
+                        <option value="help_request">Help Request</option>
+                        <option value="giveaway">Giveaway</option>
+                    </select></label>
+                    <label for="helprequest_type">Choose Help request type:
+                        <select name="helprequest_type" id="helprequest_type" onchange="filterhelptype(this.value)">
+                            <option value="">Free</option>
+                            <option value="paid">Payment Required</option>
+                        </select>
+                    </label>
                 </div>
-            <button id="createPostBtn">New Post</button>
-            <div id="feed" class="margin-t-1r"></div>
+                <button id="createPostBtn">New Post</button>
+            </div>
+
+            <section class="sidebar filters-container">
+                <div class="filters-title flex justify-s-between">
+                    <h1 class="flex align-center">Filters</h1>
+                    <span onclick="filterSection.classList.add('open');" class="open-filters pointer flex align-center justify-center">
+                        <i class="fas fa-cog"></i>
+                    </span>
+                </div>
+                <div id="filterSection" class="filters">
+                    <div class="mobile-filters-header flex justify-s-between">
+                        <h1 class="flex align-center">Filters</h1>
+                        <span onclick="filterSection.classList.remove('open');" class="close-filters pointer">
+                            <i class="fas fa-times"></i>
+                        </span>
+                    </div>
+                    <div class="filter-help-request">
+                        <div class="title-filter">
+                            <h4>Help Request</h4>
+                        </div>
+
+                        <div class="selected-filters">
+                            <div class="header-selected-filters">
+                                <h4>Selected Filters</h4>
+                                <span>Clear</span>
+                            </div>
+
+                            <div class="chosen-selected-filters">
+                                <p>Paid</p>
+                                <p>Appliances</p>
+                                <p>5 km</p>
+                            </div>
+                        </div>
+
+                        <div class="payment">
+                            <h4>Payment</h4>
+
+                            <input type="checkbox">
+                            Paid </input><br>
+
+                            <input type="checkbox">
+                            Unpaid </input><br>
+
+
+                        </div>
+
+                        <div class="area">
+                            <h4>Area</h4>
+                            <p>5km</p>
+                        </div>
+
+                        <div class="categories">
+                            <h4>Categories</h4>
+
+                            <input type="checkbox">
+                            Gardening </input><br>
+
+                            <input type="checkbox">
+                            Grocery Shopping </input><br>
+
+                            <input type="checkbox">
+                            Installation </input><br>
+
+                            <input type="checkbox">
+                            Cleaning </input><br>
+
+                            <input type="checkbox">
+                            Babysitting </input><br>
+
+                            <input type="checkbox">
+                            Other </input><br>
+
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div id="feed" class="feed margin-t-1r"></div>
 
 
             <label for="imgfile" class="visually-hidden">
@@ -162,11 +242,6 @@
                 </div>
             </div>
         </main>
-
-        <section class="sidebar">
-            <!-- <h2>New Help Request</h2>
-            <div>List of help request from firebase.</div> -->
-        </section>
 
 
         <div id="modal"></div>
