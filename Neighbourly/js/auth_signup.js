@@ -76,11 +76,11 @@ function fillInAddress() {
     postalField.value = postcode;
 
     // get lat
-    lat = place.geometry.location.lat();
+    document.querySelector("#latitude").value = place.geometry.location.lat();
     // get lng
-    lng = place.geometry.location.lng();
+    document.querySelector("#longitude").value = place.geometry.location.lng();
 
-    console.log("Latitude: "+lat+" - "+"Longitude: "+lng);
+    //console.log("Latitude: "+lat+" - "+"Longitude: "+lng);
 }
 
 const signupBtn = document.getElementById("signupBtn");
@@ -224,7 +224,8 @@ function getuserLocation(){
                 });
             },
             () => {
-                handleLocationError(true, infoWindow, map.getCenter());
+                //handleLocationError(true, infoWindow, map.getCenter());
+                console.error("ERROR")
             }
         );
     } else {
@@ -241,8 +242,6 @@ function getuserLocation(){
     }
 }
 
-
-
 const getLocation = document.getElementById("getLocation");
 
 getLocation.addEventListener("click", (event) => {
@@ -250,5 +249,3 @@ getLocation.addEventListener("click", (event) => {
 
     getuserLocation();
 });
-
-
