@@ -9,8 +9,9 @@ const populateFeed = async (allPosts) => {
     feed.innerHTML = '';
     for(const doc of allPosts.docs) {
         let author;
+        let replies = [];
         const postRaw = doc.data();
-        if (!postRaw?.type) return; 
+        if (!postRaw?.type) return;
         if (postRaw.author) {
             await db.collection("users").where("userId", "==", postRaw.author).get()
             .then(({ docs }) => {
@@ -21,7 +22,21 @@ const populateFeed = async (allPosts) => {
                 }
             });
         }
-        const post = new POST_CLASSES[postRaw.type]({...postRaw, author });
+
+        for(const postReply of (postRaw.replies || [])) {
+            let replyAuthor;
+            await db.collection("users").where("userId", "==", postReply.author).get()
+            .then(({ docs }) => {
+                const doc = docs[0];
+                if (doc?.exists) {
+                    const { firstName, lastName, userId } = doc.data();
+                    replyAuthor = { firstName, lastName, userId };
+                }
+                replies.push(new Reply({ ...postReply, author: replyAuthor }));
+            });
+        }
+
+        const post = new POST_CLASSES[postRaw.type]({...postRaw, author, replies, id:doc.id });
         const postHTMLString = await Post.toHTMLString(post)
         feed.appendChild(postHTMLString);
     }
@@ -139,7 +154,7 @@ slider.oninput = function() {
 }
 
 // Calculation if coords is inside radius
-function arePointsNear(marker, circle, radius) { 
+function arePointsNear(marker, circle, radius) {
     // var ky = 40000 / 360;
     // var kx = Math.cos(Math.PI * centerPoint.lat / 180.0) * ky;
     // var dx = Math.abs(centerPoint.lng - checkPoint.lng) * kx;
@@ -149,7 +164,7 @@ function arePointsNear(marker, circle, radius) {
     var km = radius/1000;
     var kx = Math.cos(Math.PI * circle.lat / 180) * 111;
     var dx = Math.abs(circle.lng - marker.lng) * kx;
-    var dy = Math.abs(circle.lat - marker.lat) * 111;  
+    var dy = Math.abs(circle.lat - marker.lat) * 111;
     return Math.sqrt(dx * dx + dy * dy) <= km;
 }
 
@@ -196,13 +211,13 @@ function initMap(latitude, longitude, rad, zoomLvl, nearList) {
     });
 
     // using for...in
-    for (let key in nearList) { 
+    for (let key in nearList) {
         let value;
 
         // get the value
         value = nearList[key].location.lat;
 
-        console.log(key + " - " +  value); 
+        console.log(key + " - " +  value);
 
         nearbyLoc = new google.maps.LatLng(nearList[key].location.lat, nearList[key].location.lng);
 
@@ -212,7 +227,7 @@ function initMap(latitude, longitude, rad, zoomLvl, nearList) {
             map: map,
             icon: image2
         });
-    } 
+    }
 
 
 
@@ -240,7 +255,7 @@ const logout = document.querySelector('#logout');
 logout.addEventListener('click', (e) => {
     e.preventDefault();
 
-    auth.signOut().then(() => { 
+    auth.signOut().then(() => {
         sessionStorage.removeItem("uid");
         // alert('You have succesfully logout.');
         Toastify({

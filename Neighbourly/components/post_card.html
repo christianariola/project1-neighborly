@@ -1,7 +1,7 @@
 <div class="box-shadow padding-1r margin-b-1r card-line ">
     <!-- <hr class="hr"> -->
 
-    <div class="card-content">
+    <div data-id="" class="post-card card-content">
             <div class="top-part">
                 <div class="top-left-part">
                     <div class="post-avatar">
@@ -44,9 +44,29 @@
            </div>
            <hr class="grey-line">
            <div class="footer-part">
-               <input type="text" class="card-footer-comment" placeholder="Comment">
+               <div class="post-reply-input-container">
+                   <input type="text" class="post-reply-input card-footer-comment" placeholder="Comment">
 
-               <button><i class="fa-solid fa-arrow-turn-down-left"></i><a href="" class="hide-text">enter</a></button>
+                   <button onclick="Reply.postReply(this)" class="border-none padding-1r bg-white">
+                        <!-- <i class="fa-solid fa-arrow-turn-down-left"></i> -->
+                        <i class="fa-regular fa-paper-plane"></i>
+                        <a href="" class="hide-text">enter</a>
+                    </button>
+               </div>
+               <div class="post-replies">
+                   <div class="post-reply-container" data-id="">
+                       <div class="post-reply-author flex align-center">
+                           <div class="post-reply-author-avatar">
+                               <img alt="" >
+                           </div>
+                           <div class="flex flex-column">
+                               <p><b class="post-reply-author-name"></b></p>
+                               <p class="post-reply-createdAt"></p>
+                           </div>
+                       </div>
+                       <div class="post-reply-text"></div>
+                   </div>
+               </div>
             </div>
 
    </div>

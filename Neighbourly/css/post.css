@@ -180,7 +180,19 @@ mask: repeat left center/var(--starsize) var(--symbol);
     max-width: 50rem;
     margin-top: 1rem;
 }
-
+.post-reply-author {
+    margin: .5rem 0;
+}
+.post-reply-author-avatar img{
+    width: 32px;
+    border-radius: 50%;
+}
+.post-reply-author {
+    font-size: .8rem;
+}
+.post-reply-createdAt {
+    font-size: .6rem;
+}
 /* icons */
 .iconnum {
     color: black;
@@ -228,7 +240,7 @@ li {
         width: 1px;
 }
 
-/* 
+/*
 .dash-header nav {
     display: grid;
 } */
