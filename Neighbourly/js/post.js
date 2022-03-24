@@ -1,7 +1,8 @@
 class Post {
     static templates = {};
     constructor(id, title, description, replies= [], photos = [], location = {}, createdAt, type, author) {
-        this.id = id;
+        const uid = sessionStorage.getItem("uid");
+        this.id = id || `${uid}-${Date.now().toString(36)}`;
         this.title = title;
         this.description = description;
         this.photos = photos;
