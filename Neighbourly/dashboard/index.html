@@ -117,22 +117,6 @@
                 <div id="map"></div>
                 <input type="range" min="1" max="5" value="5" class="slider" id="myRange">
                 <div>Area Radius <span id="radiusKm">5</span>km</div>
-                <p>Filters</p>
-                <div id="filter-input-wrapper">
-                    <label for="posts">Choose Post Type:
-                    <select name="posts" id="posts" onchange="filterSelection(this.value)">
-                        <option value="all">All Posts</option>
-                        <option value="recommendation">Recommendation</option>
-                        <option value="help_request">Help Request</option>
-                        <option value="giveaway">Giveaway</option>
-                    </select></label>
-                    <label for="helprequest_type">Choose Help request type:
-                        <select name="helprequest_type" id="helprequest_type" onchange="filterhelptype(this.value)">
-                            <option value="">Free</option>
-                            <option value="paid">Payment Required</option>
-                        </select>
-                    </label>
-                </div>
                 <button id="createPostBtn">New Post</button>
             </div>
 
@@ -151,6 +135,25 @@
                         </span>
                     </div>
                     <div class="filter-help-request">
+                        <div style="background-color: #f1efef">
+                            <h4>Working filters (rest is WIP)</h4>
+                            <div id="filter-input-wrapper">
+                                <label for="posts">Choose Post Type:
+                                    <select name="posts" id="posts" onchange="filterSelection(this.value)">
+                                        <option value="all">All Posts</option>
+                                        <option value="recommendation">Recommendation</option>
+                                        <option value="help_request">Help Request</option>
+                                        <option value="giveaway">Giveaway</option>
+                                    </select></label>
+                                <label for="helprequest_type">Choose Help request type:
+                                    <select name="helprequest_type" id="helprequest_type" onchange="filterhelptype(this.value)">
+                                        <option value="">Free</option>
+                                        <option value="paid">Payment Required</option>
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
+
                         <div class="title-filter">
                             <h4>Help Request</h4>
                         </div>

@@ -14,7 +14,7 @@ onloadsetshow();
 
 function filterhelptype(c) {
     if (stopListineng) stopListineng();
-    const postsCollection = c == '' ? dbCollection("posts").where("compensation", "==", c) : dbCollection("posts").where("compensation", "!=", c);
+    const postsCollection = c == '' ? dbCollection("posts").where("compensation", "==", c) : dbCollection("posts", 'compensation').orderBy('createdAt').where("compensation", "!=", c);
     stopListineng = postsCollection.onSnapshot(async (querySnapshot) => {
         await populateFeed(querySnapshot);
     });
