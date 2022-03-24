@@ -39,7 +39,7 @@ h3 {
     white-space: nowrap;
     width: 1px;
 }
-  
+
 /* Responsive Images ============ */
 img {
     max-width: 100%;
@@ -246,15 +246,40 @@ footer p {
 }
 /*Rough and needs to be removed/replaced*/
 .dashboardImageupload {
+    /*display: flex;*/
+    /*flex-flow: column;*/
+    /*justify-content: center;*/
+    /*align-items: center;*/
+    /*gap: 1rem;*/
+    /*margin-top: 1rem;*/
+    /*padding: .5rem;*/
+    /*border: 1px solid black;*/
+
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    background-color: hsl(0deg 0% 0% / 75%);
     display: flex;
-    flex-flow: column;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
-    margin-top: 1rem;
-    padding: .5rem;
-    border: 1px solid black;
 }
+
+.closeImageUploader {
+    position: fixed;
+    right: 0;
+    top: 0;
+    font-size: 2rem;
+    color: white;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 div#filter-input-wrapper {
     display: flex;
     flex-flow: row wrap;
@@ -307,7 +332,7 @@ div#filter-input-wrapper {
         margin-right: auto;
         padding: 2rem 7%;
     }
-    
+
     #featured {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -324,7 +349,7 @@ div#filter-input-wrapper {
     #featured h2 {
         font-size: 4rem;
     }
-    
+
     .feat-image {
         display: block;
     }

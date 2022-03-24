@@ -11,6 +11,7 @@
 
 /* BG color */
 .bg-white { background-color: #fff; }
+.bg-light-gray { background-color: #F2F2F2; }
 .bg-light-green { background-color: #DDFFEE; }
 .bg-vivid-green { background-color: #009C4E; }
 
@@ -22,6 +23,10 @@
     margin-top:1rem;
     margin-bottom:1rem;
  }
+.margin-h-1r {
+    margin-left:1rem;
+    margin-right:1rem;
+ }
 
 /* Padding */
 .padding-1r { padding:1rem; }
@@ -31,9 +36,14 @@
     padding-top:1rem;
     padding-bottom:1rem;
  }
+.padding-h-1r {
+    padding-left:1rem;
+    padding-right:1rem;
+ }
 
 /* Border */
 .br-default { border-radius: 5px; }
+.border-none { border: none; }
 
 /*  */
 .relative { position: relative; }
@@ -48,11 +58,12 @@
 
 .flex-wrap { flex-wrap: wrap; }
 
-.direction-row { flex-direction: row; }
-.direction-column { flex-direction: column; }
+.flex-row { flex-direction: row; }
+.flex-column { flex-direction: column; }
 
 .justify-center { justify-content: center; }
 .justify-s-around { justify-content: space-around; }
+.justify-s-between { justify-content: space-between; }
 .align-start { align-items: start; }
 .align-center { align-items: center; }
 .align-c-start { align-content: start; }
@@ -64,6 +75,7 @@
 .h-100 { height: 100% }
 .w-100 { width: 100%; }
 
+.pointer { cursor: pointer; }
 
 .box-shadow {
     box-shadow: 0px 4px 30px 0px rgba(0, 0, 0, .1);

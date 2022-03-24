@@ -26,6 +26,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600&family=Mulish&display=swap"
         rel="stylesheet">
 
+    <!--Toastify-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js" defer></script>
+
     <!-- Firebase CDN -->
     <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-analytics-compat.js"></script>
@@ -78,9 +82,11 @@
             <nav>
                 <div class="menu-icons">
 
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#discuss">Discuss</a></li>
-                    <li><a href="#info">Info</a></li>
+                        <li><i class="fa-solid fa-house-chimney"><a href="#home" class="hide-text">Home</a></i></li>
+
+                        <li><i class="fa-regular fa-comment"><a href="#discuss" class="hide-text">Discuss</a></i></li>
+
+                        <li><i class="fa-regular fa-bell" ></i><a href="#info" class="hide-text">Info</a></li>
 
                 </div>
 
@@ -118,37 +124,52 @@
                             <option value="help_request">Help Request</option>
                             <option value="giveaway">Giveaway</option>
                         </select></label>
+                        <label for="helprequest_type">Choose Help request type:
+                            <select name="helprequest_type" id="helprequest_type" onchange="filterhelptype(this.value)">
+                                <option value="">Free</option>
+                                <option value="paid">Payment Required</option>
+                            </select></label>
                     </section>
                 </div>
             <button id="createPostBtn">New Post</button>
             <div id="feed" class="margin-t-1r"></div>
+
+
+            <label for="imgfile" class="visually-hidden">
+                <i class="fas fa-camera"></i>
+                <input type="file" id="imgfile" name="imgfile" accept="image/*" />
+            </label>
+            <div id="imageUploadHandler" class="dashboardImageupload visually-hidden">
+                <div>
+                    <span onclick="closeCamPreview();" class="closeImageUploader pointer">
+                        <i class="fas fa-times"></i>
+                    </span>
+
+                    <div class="imagecanvas">
+                        <img id="upimage" alt="">
+                        <video id="video" width="320" height="240" autoplay playsinline></video>
+                        <br>
+                        <canvas id="canvas" width="320" height="240" style="display: none;"></canvas>
+                    </div>
+                    <button class="uploadimgbtn visually-hidden">Upload Post Image</button>
+                    <button class="profilebtn visually-hidden">Upload Profile Image</button>
+
+                    <div class="imagecontrols">
+                        <button id="start" class="webcam-btn" style="display: none;">Start Camera</button>
+                        <button id="snap" class="webcam-btn">Snap Photo</button>
+                        <button id="stop" class="webcam-btn">Stop Camera</button>
+                    </div>
+                </div>
+            </div>
         </main>
 
         <section class="sidebar">
-            <h2>New Help Request</h2>
-            <div>List of help request from firebase.</div>
+            <!-- <h2>New Help Request</h2>
+            <div>List of help request from firebase.</div> -->
         </section>
 
+
         <div id="modal"></div>
-        <div class="dashboardImageupload">
-            <label for="imgfile">
-                <i class="fas fa-camera"></i>
-                <input type="file" id="imgfile" name="imgfile" accept="image/*" /></label>
-            <button class="uploadimgbtn">Upload Post Image</button>
-            <button class="profilebtn">Upload Profile Image</button>
-            
-            <div class="imagecontrols">
-                <img id="upimage" alt="">
-                <button id="start" class="webcam-btn">Start Camera</button>
-                <button id="snap" class="webcam-btn">Snap Photo</button>
-                <button id="stop" class="webcam-btn">Stop Camera</button>
-            </div>
-            <div class="imagecanvas">
-                <video id="video" width="320" height="240" autoplay playsinline></video>
-                <br>
-                <canvas id="canvas" width="320" height="240" style="display: none;"></canvas>
-            </div>
-        </div>
 
         <footer>
             <p>Copyright &copy 2022. Neighborly. All Rights Reserved.</p>

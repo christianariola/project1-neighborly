@@ -1,11 +1,41 @@
-<div class="post new-post relative h-100">
-    <h3 class="w-100 text-center margin-t-1r">New Post</h3>
-    <div class="w-100 flex justify-center margin-v-1r"><span class="new-post-separator"></span></div>
-    <label for="postTypeSelect">Choose a category:</label>
-    <select class="w-100" name="postTypeSelect" id="postTypeSelect" onchange="">
-        <option value="recommendation">Recommendation</option>
-        <option value="help_request">Help Request</option>
-        <option value="giveaway">Giveaway</option>
-    </select>
-    <button class="w-100 btn br-default bg-vivid-green text-light-green bold margin-v-1r" onclick="Post.loadPostForm()">Next</button>
+<div class="new-post relative h-100 flex flex-column">
+  <div class="new-post-header flex justify-s-between">
+    <h3 class="text-center">Add a Post</h3>
+    <span onclick="modalState.close()" class="pointer"
+      ><i class="fas fa-times"></i
+    ></span>
+  </div>
+  <span class="new-post-separator"></span>
+  <div class="new-post-body">
+    <h4>Recommendation</h4>
+    <input id="postTypeInput" type="text" class="visually-hidden" />
+    <ul class="post-type-selector">
+      <li onclick="Post.loadPostForm(POST_TYPES.recommendation)">
+        Recommendation
+      </li>
+      <li onclick="Post.loadPostForm(POST_TYPES.helpRequest)">Help Request</li>
+      <li onclick="Post.loadPostForm(POST_TYPES.giveaway)">Give away</li>
+    </ul>
+  </div>
+  <span class="new-post-separator"></span>
+  <div>
+    <div class="new-post-body" id="postTypeContainer"></div>
+
+    <div class="flex justify-center padding-h-1r">
+      <img id="newPostImage" class="newPostImage" src="" alt="">
+    </div>
+    <div id="newPostAddImageButtons" class="flex justify-s-between padding-h-1r visually-hidden">
+      <span onclick="start.click()">
+        <i class="fas fa-camera"></i>
+        Capture image/video
+      </span>
+      <span onclick="imgfile.click()">
+        <i class="fas fa-camera"></i>
+        Add image/video
+      </span>
+    </div>
+  </div>
+  <div class="new-post-footer flex justify-center">
+    <button disabled class="btn br-default" onclick="Post.save()">Post</button>
+  </div>
 </div>

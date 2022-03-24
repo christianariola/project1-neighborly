@@ -107,12 +107,28 @@ signupBtn.addEventListener("click", (event) => {
     .get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
             if(doc.data().email === email) {
-                alert('Email already exists, please choose a different one.');
+                // alert('Email already exists, please choose a different one.');
+                Toastify({
+                    text: 'Email already exists, please choose a different one.',
+                    duration: 5000,
+                    close: true,
+                    gravity: "top", // `top` or `bottom`
+                    position: 'center', // `left`, `center` or `right`
+                    backgroundColor: "linear-gradient(to right, #00b09b, #70C782)",
+                }).showToast();
                 return false;
             }
         })
     }).catch(error => {
         console.log("Unable to fetch document", error);
+        Toastify({
+            text: 'Please try again later.',
+            duration: 5000,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: 'center', // `left`, `center` or `right`
+            backgroundColor: "linear-gradient(to right, #00b09b, #70C782)",
+        }).showToast();
     })
 
     document.getElementById("signupBtn").disabled = true;
@@ -134,13 +150,34 @@ signupBtn.addEventListener("click", (event) => {
         }).then(() => {
             // remove array from first page
             sessionStorage.removeItem("UserInfoHome");
-
-            alert('You have succesfully registered.');
+            Toastify({
+                text: 'You have succesfully registered.',
+                duration: 5000,
+                close: true,
+                gravity: "top", // `top` or `bottom`
+                position: 'center', // `left`, `center` or `right`
+                backgroundColor: "linear-gradient(to right, #00b09b, #70C782)",
+            }).showToast();
+            // alert('You have succesfully registered.');
             document.getElementById("signupBtn").disabled = false;
             window.location.href = `${BASE_URL}/login.html`;
         });
     }).catch(error => {
-        alert(error.message);
+        Toastify({
+            text: 'You are being redirected to signup.',
+            duration: 5000,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: 'center', // `left`, `center` or `right`
+            backgroundColor: "linear-gradient(to right, #00b09b, #70C782)",
+        }).showToast();
+
+        setTimeout(() => {
+            window.location.href = `${BASE_URL}/index.html`;
+        }, 5000);
+        
+        // alert(error.message);
+        // alert(error.code);
         console.log(error);
         document.getElementById("signupBtn").disabled = false;
         return false;
@@ -176,6 +213,14 @@ function getuserLocation(){
                     document.querySelector("#longitude").value = data.results[0].geometry.location.lng;
                 }).catch(function() {
                     console.log("Ooops something went wrong.");
+                    Toastify({
+                        text: 'Please try again later.',
+                        duration: 5000,
+                        close: true,
+                        gravity: "top", // `top` or `bottom`
+                        position: 'center', // `left`, `center` or `right`
+                        backgroundColor: "linear-gradient(to right, #00b09b, #70C782)",
+                    }).showToast();
                 });
             },
             () => {
@@ -185,6 +230,15 @@ function getuserLocation(){
         );
     } else {
         console.log('Browser does not support geolocation.');
+        Toastify({
+            text: 'Browser does not support geolocation.',
+            duration: 5000,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: 'center', // `left`, `center` or `right`
+            backgroundColor: "linear-gradient(to right, #00b09b, #70C782)",
+        }).showToast();
+        
     }
 }
 

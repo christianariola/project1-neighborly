@@ -82,7 +82,17 @@ class Dashboard {
 
             initMap(snapshot.data().location.latitude, snapshot.data().location.longitude, rad, zoomLvl, nearList);
         } else {
-            alert('Sorry no document found.')
+            // alert('Sorry no document found.')
+            Toastify({
+                text: "Sorry no document found.",
+                duration: 3000,
+                newWindow: true,
+                close: true,
+                gravity: "top", // `top` or `bottom`
+                position: 'center', // `left`, `center` or `right`
+                backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+            }).showToast();
         }
     }
 
@@ -205,6 +215,7 @@ function initMap(latitude, longitude, rad, zoomLvl, nearList) {
     } 
 
 
+
     //marker.setIcon(image);
     infoWindow.setContent("Your Location");
     infoWindow.open(map);
@@ -212,18 +223,6 @@ function initMap(latitude, longitude, rad, zoomLvl, nearList) {
     new google.maps.LatLng(lati, long)
     map.setCenter(pos);
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 infoWindow.setPosition(pos);
@@ -243,9 +242,21 @@ logout.addEventListener('click', (e) => {
 
     auth.signOut().then(() => { 
         sessionStorage.removeItem("uid");
-        alert('You have succesfully logout.');
+        // alert('You have succesfully logout.');
+        Toastify({
+            text: "You have succesfully logged out.",
+            duration: 2000,
+            newWindow: true,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: 'center', // `left`, `center` or `right`
+            backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+        }).showToast();
+        setTimeout(() => {
+            window.location.href = `${BASE_URL}/index.html`;
+        }, 3000);
         console.log('user signed out');
-        window.location.href = `${BASE_URL}/index.html`;
     }).catch(error => {
         alert(error.message);
         return false;

@@ -19,21 +19,48 @@ const fauth = getAuth();
 
 auth.useDeviceLanguage();
 
-const resetPasswordFunction = () => {
-        event.preventDefault();
+const resetPasswordFunction = (e) => {
+        e.preventDefault();
         const email = mailField.value;
 sendPasswordResetEmail(fauth, email)
     .then(() => {
         console.log('Password Reset Email Sent Successfully!');
-        failureModal.style.display = 'none';
-        successModal.style.display = 'block';
+        Toastify({
+            text: 'Password Reset Email Sent Successfully!',
+            duration: 3000,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: 'center', // `left`, `center` or `right`
+            backgroundColor: "linear-gradient(to right, #00b09b, #70C782)",
+        }).showToast();
+        setTimeout(() => {
+            window.location.href = `${BASE_URL}/index.html`;
+        }, 4000);
+        // failureModal.style.display = 'none';
+        // successModal.style.display = 'block';
         
     })
     .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         failureModal.style.display = 'block';
-        console.log(errorCode);
+        let err = "";
+        if(errorCode === "auth/user-not-found") {
+            err="User not found";
+        } else if(errorCode === "auth/invalid-email") {
+            err="Invalid email Format";
+        }
+        else if (errorCode === "auth/missing-email") {
+            err="Enter a valid email address";
+        }
+        Toastify({
+            text: err,
+            duration: 2000,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: 'center', // `left`, `center` or `right`
+            backgroundColor: "linear-gradient(to right, #00b09b, #70C782)",
+        }).showToast();
         console.log(errorMessage);
     });
 };
