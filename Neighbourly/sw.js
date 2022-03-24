@@ -1,6 +1,11 @@
 
-const cacheName = "v1";    
-const urlsToCache = [ "/Neighbourly/" , "/Neighbourly/index.html", "/Neighbourly/css/style.css", "/Neighbourly/js/app.js" ]; 
+const cacheName = "v1";
+const urlsToCache = [
+  "/Neighbourly/",
+   "/Neighbourly/index.html",
+   "/Neighbourly/css/style.css",
+   "/Neighbourly/js/app.js"
+];
 
 self.addEventListener('install', event => {
     // it is invoked when the browser installs the service worker

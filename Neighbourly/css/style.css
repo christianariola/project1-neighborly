@@ -132,7 +132,9 @@ input {
 }
 
 /* END OF GLOBAL FORM STYLES ===================== */
-
+main {
+  margin: 3rem auto 4rem auto;
+}
 
 .feat-image {
     display: none;
@@ -335,7 +337,7 @@ div#filter-input-wrapper {
     }
     /* END OF SIGN UP PAGE ======================== */
 
-    main {
+    .dashboard main {
         margin: 3rem auto 4rem auto;
         display: grid;
         grid-template-columns: 4fr 2fr;
