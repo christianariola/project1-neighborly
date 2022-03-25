@@ -46,10 +46,10 @@ class Post {
       const postType = postTypeInput.value;
       if (POST_CLASSES[postType]) {
         const post = (POST_CLASSES[postType]).create().toJson();
-          db.collection('posts').add(post).then(docRef => {  //Get document reference id for the post
-          console.log("Document written with ID: ", docRef.id);
-          modalState.close();
-          Toastify({
+        modalState.close();
+        db.collection('posts').add(post).then(docRef => {  //Get document reference id for the post
+        console.log("Document written with ID: ", docRef.id);
+        Toastify({
             text: "Post created successfully!",
             duration: 2000,
             close: true,
@@ -63,7 +63,7 @@ class Post {
       }
     }
 
-    static async toHTMLString(post) {
+    static async toHTMLElement(post) {
         let postCard = await Post.getPostTemplate('card');
         const parser = new DOMParser();
         const element = parser.parseFromString(postCard, 'text/html').body.firstChild;

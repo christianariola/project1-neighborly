@@ -37,8 +37,8 @@ const populateFeed = async (allPosts) => {
         }
 
         const post = new POST_CLASSES[postRaw.type]({...postRaw, author, replies, id:doc.id });
-        const postHTMLString = await Post.toHTMLString(post)
-        feed.appendChild(postHTMLString);
+        const postHTMLElement = await Post.toHTMLElement(post)
+        feed.appendChild(postHTMLElement);
     }
 };
 
