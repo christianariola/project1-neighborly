@@ -63,35 +63,66 @@ class Post {
       }
     }
 
+    static applyChanges(postElement, post) {
+        postElement.querySelector('.post-card').dataset.id = post.id;
+        postElement.querySelector('.post-title').innerHTML = post.title;
+        postElement.querySelector('.post-type').innerHTML = POST_TYPES_LABELS[post.type];
+        postElement.querySelector('.post-category').innerHTML = post.category ? `Category: ${POST_CATEGORIES[post.category]}` : '';
+        postElement.querySelector('.post-condition').innerHTML = post.condition ? `Condition: ${GIVEAWAY_CONDITION[post.condition]}` : '';
+        postElement.querySelector('.post-description').innerHTML = post.description;
+        postElement.querySelector('.post-author').innerHTML = `${post.author?.firstName} ${post.author?.lastName}`;
+        postElement.querySelector('.post-createdAt').innerHTML = dbTimestampToDate(post.createdAt).toString().substring(0, 25);
+        postElement.querySelector('.post-img').src = post.photos?.length ? post.photos[0] : '';
+        postElement.querySelector('.post-avatar img').src = `https://i.pravatar.cc/150?u=${post.author?.userId}`;
+
+        const populateReply = (replyElement, postReply) => {
+            replyElement.dataset.id = postReply.id;
+            replyElement.querySelector('.post-reply-author-avatar img').src = `https://i.pravatar.cc/150?u=${postReply.author?.userId}`;
+            replyElement.querySelector('.post-reply-author-name').innerHTML = `${postReply.author?.firstName} ${postReply.author?.lastName}`;
+            replyElement.querySelector('.post-reply-text').innerHTML = postReply.text;
+            replyElement.querySelector('.post-reply-createdAt').innerHTML = dbTimestampToDate(postReply.createdAt).toString().substring(0, 25);
+        };
+
+        const repliesContainerElement = postElement.querySelector('.post-replies');
+        const emptyReplyElement = repliesContainerElement.querySelector('.post-reply-container.visually-hidden');
+
+        post.replies.forEach((postReply, idx) => {
+            const existingElement = repliesContainerElement.querySelector(`.post-reply-container[data-id="${postReply.id}"]`);
+            const element = existingElement || emptyReplyElement.cloneNode(true);
+            element.classList.remove('visually-hidden');
+            populateReply(element, postReply);
+            if (!existingElement) {
+                repliesContainerElement.appendChild(element)
+            }
+        });
+
+        return postElement;
+    }
+
     static async toHTMLElement(post) {
         let postCard = await Post.getPostTemplate('card');
         const parser = new DOMParser();
         const element = parser.parseFromString(postCard, 'text/html').body.firstChild;
-        element.querySelector('.post-card').dataset.id = post.id;
-        element.querySelector('.post-title').innerHTML = post.title;
-        element.querySelector('.post-type').innerHTML = POST_TYPES_LABELS[post.type];
-        element.querySelector('.post-category').innerHTML = post.category ? `Category: ${POST_CATEGORIES[post.category]}` : '';
-        element.querySelector('.post-condition').innerHTML = post.condition ? `Condition: ${GIVEAWAY_CONDITION[post.condition]}` : '';
-        element.querySelector('.post-description').innerHTML = post.description;
-        element.querySelector('.post-author').innerHTML = `${post.author?.firstName} ${post.author?.lastName}`;
-        element.querySelector('.post-createdAt').innerHTML = dbTimestampToDate(post.createdAt).toString().substring(0, 25);
-        element.querySelector('.post-img').src = post.photos?.length ? post.photos[0] : '';
-        element.querySelector('.post-avatar img').src = `https://i.pravatar.cc/150?u=${post.author?.userId}`;
+        return Post.applyChanges(element, post);
+    }
 
-        const repliesContainerElement = element.querySelector('.post-replies');
-        const replyElement = element.querySelector('.post-reply-container');
+    static async addNewPostCardToFeed(post, appendElement = true) {
+        const postHTMLElement = await Post.toHTMLElement(post)
+        if (appendElement) {
+            feed.append(postHTMLElement);
+        } else {
+            feed.prepend(postHTMLElement);
+        }
+    }
 
-        post.replies.forEach((postReply, idx) => {
-            const reply = replyElement.cloneNode(true);
-            reply.dataset.id = postReply.id;
-            reply.querySelector('.post-reply-author-avatar img').src = `https://i.pravatar.cc/150?u=${postReply.author?.userId}`;
-            reply.querySelector('.post-reply-author-name').innerHTML = `${postReply.author?.firstName} ${postReply.author?.lastName}`;
-            reply.querySelector('.post-reply-text').innerHTML = postReply.text;
-            reply.querySelector('.post-reply-createdAt').innerHTML = dbTimestampToDate(postReply.createdAt).toString().substring(0, 25);
-            repliesContainerElement.appendChild(reply)
-        });
 
-        return element;
+    static async updatePostCard(post) {
+        const element = feed.querySelector(`.post-card[data-id="${post.id}"]`);
+        if (element) {
+            Post.applyChanges(element.parentElement, post);
+        } else {
+            await Post.addNewPostCardToFeed(post, false);
+        }
     }
 
 }
@@ -152,7 +183,7 @@ class Giveaway extends Post {
 class Reply {
     constructor({ id, text, postId, parentId, createdAt, author }) {
         const uid = sessionStorage.getItem("uid");
-        this.id = `${uid}-${Date.now()}`;
+        this.id = id || `${uid}-${Date.now()}`;
         this.text = text;
         this.postId = postId;
         this.parentId = parentId || null;
@@ -167,7 +198,9 @@ class Reply {
     static async postReply(messageInput) {
         const postContainer = messageInput.closest('.post-card');
         const replyContainer = messageInput.closest('.post-reply-input-container');
-        const text = replyContainer?.querySelector('input.post-reply-input').value;
+        const input = replyContainer?.querySelector('input.post-reply-input');
+        const text = input.value;
+        input.value = '';
         if (messageInput && text.trim()) {
             const postId = postContainer?.dataset?.id;
             const message = (new Reply({ text, postId })).toJson();

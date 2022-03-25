@@ -31,7 +31,15 @@ let stopListineng;
 async function onloadsetshow(){
     filterSelection("all");
 }
+
+const resetFeed = () => {
+    //In order to remove post that dont match the filters criteria, this should be executed every time we apply a new filter
+    feed.innerHTML = '';
+    feedHasBeenPopulated = false;
+}
+
 async function filterSelection(c) {
+    resetFeed();
     if (stopListineng) stopListineng();
     const postsCollection = c == 'all' ? dbCollection("posts") :dbCollection("posts").where("type", "==", c);
 
@@ -63,6 +71,7 @@ function filterhelptype(c) {
 
 const btn = document.querySelector('#category_btn');
 btn.addEventListener('click', (event) => {
+    resetFeed();
     event.preventDefault();
     let checkboxes = document.querySelectorAll('input[name="category"]:checked');
     let values = [];
