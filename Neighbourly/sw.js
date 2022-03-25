@@ -31,7 +31,7 @@ self.addEventListener('fetch', event => {
     // Fires whenever the app requests a resource (file or data)  normally this is where the service worker would check to see
     // if the requested resource is in the local cache before going to the server to get it. 
 
-    // console.log(`[SW] Fetch event for ${event.request.url}`);
+    console.log(`[SW] Fetch event for ${event.request.url}`);
 
     //1. No Strategy, simply forward the request to server (i.e. No Offline Capability)
     event.respondWith(fetch(event.request));
