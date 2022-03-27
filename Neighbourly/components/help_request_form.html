@@ -1,15 +1,20 @@
-<div class="w-100 flex flex-column">
+<div class="w-100 flex flex-column" id="outerframe">
 
-  <div>
-    <label>Category</label>
-    <input class="visually-hidden" id="helpRequestCategory" type="text" />
+    <h4>Help Request</h4>
+
+
+  <div class="selection-space">
+    <!-- <label>Category</label>  -->
+    <input class="visually-hidden" id="helpRequestCategory" type="text" placeholder="Choose Category" />
     <div
             class="flex justify-s-between bg-light-gray br-default padding-1r"
             onclick="helpRequestCategoriesSelector.classList.toggle('visually-hidden');"
     >
-      <span id="helpRequestCategoryLabel">Choose a category </span>
+      <span id="helpRequestCategoryLabel" style="color: #959595">Choose Category</span>
       <i class="fas fa-chevron-down"></i>
     </div>
+
+
     <ul
             id="helpRequestCategoriesSelector"
             class="giveaway-categories visually-hidden"
@@ -24,25 +29,26 @@
     </ul>
   </div>
 
-  <label class="flex flex-column" for="newPostTitle">
-    Title
-    <input type="text" id="newPostTitle" class="bg-light-gray border-none" placeholder="What do you need help with?"/>
+  <label class="flex flex-column selection-space" for="newPostTitle">
+  
+    <input type="text" id="newPostTitle" class="bg-light-gray border-none" placeholder="  Title"/>
   </label>
 
   <div>
-    <label for="newPostCompensation">Offer Compensation:
-      <input required class="bg-light-gray border-none" type="number" name="newPostCompensation" id="newPostCompensation">
+    <label for="newPostCompensation">Offer Compensation
+      <input required class="bg-light-gray border-none" type="number" name="newPostCompensation" id="newPostCompensation" placeholder="$ Expected Pay">
     </label>
 
+    <br>
     <label class="margin-h-1r">
       <input class="bg-light-gray" type="checkbox" onclick="newPostCompensation.disabled = !newPostCompensation.disabled; newPostCompensation.value=''">
-      No compensation
+      No offer
     </label>
   </div>
 
 
   <label class="flex flex-column" class="flex flex-column" for="newPostDescription">
-    Description
-    <textarea id="newPostDescription" class="margin-v-1r br-default bg-light-gray border-none" rows="4"></textarea>
+
+    <textarea id="newPostDescription" class="margin-v-1r br-default bg-light-gray border-none" rows="4" placeholder="Description"></textarea>
   </label>
 </div>
