@@ -367,10 +367,34 @@ div#filter-input-wrapper {
     ;
     }
 
+    /* MAP CONTAINER GOES FROM HERE */
+
     .map-container {
         grid-area: map;
     }
 
+    .map-container {
+        position: relative;
+    }
+
+    .map-control {
+        position: absolute;
+        bottom: 50px;
+        right: 30px;
+        display: flex;
+        justify-content: end;
+        background-color: white;
+        gap: .5rem;
+        padding: 0 .5rem;
+        box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.4);
+        border-radius: 8px;
+    }
+    .map-control h5 {
+        align-self: center;
+    }
+    .controler {
+        align-self: center;
+    }
     .feed {
         grid-area: feed;
     }
@@ -378,6 +402,8 @@ div#filter-input-wrapper {
     .filters-container {
         grid-area: filters;
     }
+
+
 }
 
 @media screen and (min-width: 900px) {
