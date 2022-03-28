@@ -1,3 +1,24 @@
+.filters-container {
+    filter: drop-shadow(0px 4px 30px rgba(0, 0, 0, 0.1));
+
+}
+.sidebar {
+    background-color: white;
+    border-radius: 8px;
+    padding: .5rem;
+}
+input[type="checkbox"] {
+    background: #F2F2F2;
+    border-radius: 4px;
+    transform: matrix(1, 0, 0, -1, 0, 0);
+}
+
+.filters-title.flex.justify-s-between>h1 {
+    flex-grow: 1;
+    text-align: center;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+}
 .filters-container .filters.open {
     position: fixed;
     top: 0;
@@ -12,11 +33,6 @@
     display: none;
 }
 
-.filters-container h1 {
-    display: flex;
-    justify-content: center;
-}
-
 .filters-container h2, h3 {
     margin-top: 12px;
     margin-bottom: 12px;
@@ -29,7 +45,6 @@
 }
 
 .filters-container .header-selected-filters {
-    display: flex;
     justify-content: space-between;
 
 }
@@ -41,6 +56,12 @@
     border-bottom: 1px solid gray;
     }
 
+legend {
+    font-weight: 700;
+    margin: .2rem 0 .3rem;
+    font-size: small;
+
+}
 
 .filters-container .chosen-selected-filters p {
     color: blue;

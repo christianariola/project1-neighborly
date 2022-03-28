@@ -288,20 +288,35 @@ div#filter-input-wrapper {
 }
 
 .category_fieldset,
-.comp_fieldset {
+.comp_fieldset,
+.giveawaycon_fieldset,
+.GiveawayCategory_fieldset {
     border:0;
     padding:.5rem;
 }
-#category_btn{
+#category_btn,
+#GiveCategory_btn,
+#reset_btn,
+#catreset_btn {
     margin-top: 1rem;
     background-color: #008DCE;
     color: #fff;
     border: 0;
     border-radius: 7px;
-    padding: 1rem 3rem;
+    padding: .8rem 2rem;
     cursor: pointer;
     border: 0;
 }
+
+.btngrid {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: .5rem;
+    justify-content: flex-start;
+    align-content: center;
+    align-items: center;
+}
+
 .user-content {
      display: none;
 }
@@ -318,7 +333,8 @@ div#filter-input-wrapper {
 
 /* START FILTER ========================== */
 
-.helpreqfilter_form{
+.helpreqfilter_form,
+.giveawayfilter_form {
     /* padding-top: 1rem; */
     border-top:black solid 1px;
     padding: 1rem 0 1rem .4rem;
@@ -328,8 +344,16 @@ div#filter-input-wrapper {
     padding: 1rem 0 1rem .4rem;
 }
 
-.comp_fieldset{
+.comp_fieldset,
+.giveawaycon_fieldset{
     border-bottom:black solid 1px;
+}
+
+/* .giveawayfilter_form{
+    border-top: .5rem solid black;
+} */
+.giveawayfilter_form h4{
+    margin-top: 1rem;
 }
 
 /*  END FILTER  ========================== */
@@ -367,10 +391,34 @@ div#filter-input-wrapper {
     ;
     }
 
+    /* MAP CONTAINER GOES FROM HERE */
+
     .map-container {
         grid-area: map;
     }
 
+    .map-container {
+        position: relative;
+    }
+
+    .map-control {
+        position: absolute;
+        bottom: 50px;
+        right: 30px;
+        display: flex;
+        justify-content: end;
+        background-color: white;
+        gap: .5rem;
+        padding: 0 .5rem;
+        box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.4);
+        border-radius: 8px;
+    }
+    .map-control h5 {
+        align-self: center;
+    }
+    .controler {
+        align-self: center;
+    }
     .feed {
         grid-area: feed;
     }
@@ -378,6 +426,8 @@ div#filter-input-wrapper {
     .filters-container {
         grid-area: filters;
     }
+
+
 }
 
 @media screen and (min-width: 900px) {

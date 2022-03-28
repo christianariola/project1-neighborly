@@ -13,6 +13,8 @@
 .modal-content {
     background: #fff;
     position: relative;
+    max-height: 60vh;
+    overflow: scroll;
 }
 
 .modal-container .icon-close {

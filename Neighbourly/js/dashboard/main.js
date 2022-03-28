@@ -2,10 +2,13 @@
 const postCardTemplate = fetch(POST_TEMPLATES.card)
     .then(response => response.text());
 
+let feedHasBeenPopulated = false;
+
 createPostBtn.addEventListener('click', () => Post.loadPostSelection());
 
 const populateFeed = async (allPosts) => {
-    feed.innerHTML = '';
+    const postMethodHandler = feedHasBeenPopulated ? Post.updatePostCard : Post.addNewPostCardToFeed;
+    feedHasBeenPopulated = true;
     for(const doc of allPosts.docs) {
         let author;
         let replies = [];
@@ -31,13 +34,13 @@ const populateFeed = async (allPosts) => {
                     const { firstName, lastName, userId } = doc.data();
                     replyAuthor = { firstName, lastName, userId };
                 }
-                replies.push(new Reply({ ...postReply, author: replyAuthor }));
+                const reply = new Reply({ ...postReply, author: replyAuthor });
+                replies.push(reply);
             });
         }
 
         const post = new POST_CLASSES[postRaw.type]({...postRaw, author, replies, id:doc.id });
-        const postHTMLString = await Post.toHTMLString(post)
-        feed.appendChild(postHTMLString);
+        await postMethodHandler(post);
     }
 };
 

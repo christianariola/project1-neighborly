@@ -193,6 +193,10 @@ mask: repeat left center/var(--starsize) var(--symbol);
 .post-reply-createdAt {
     font-size: .6rem;
 }
+
+.footer-part button.border-none.padding-1r.bg-white.pointer {
+    padding: 0 0 0 5px;
+}
 /* icons */
 .iconnum {
     color: black;
@@ -280,4 +284,21 @@ li {
 .personal-area {
     display: flex;
     align-self: center;
+}
+
+
+/* HELP REQUEST FORM STYLING====== */
+
+#helpRequestCategoriesSelector {
+    background-color: white;
+}
+#helpRequestCategoriesSelector ul li {
+    list-style: none;
+    margin-left: 1rem;
+}
+.selection-space {
+    margin-bottom: 1rem;
+}
+textarea {
+    padding: .5rem;
 }

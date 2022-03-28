@@ -41,10 +41,10 @@ const POST_CATEGORIES = {
 };
 
 const GIVEAWAY_CONDITION = {
-'new': 'New',
-'like_new': 'Like New',
-'used': 'Used',
-'needs_reparing': 'Needs Reparing',
+    'new': 'New',
+    'like_new': 'Like New',
+    'used': 'Used',
+    'needs_reparing': 'Needs Reparing',
 }
 
 const toJson = (object) => {
