@@ -1,0 +1,108 @@
+.filters-container {
+    filter: drop-shadow(0px 4px 30px rgba(0, 0, 0, 0.1));
+
+}
+.sidebar {
+    background-color: white;
+    border-radius: 8px;
+    padding: .5rem;
+}
+input[type="checkbox"] {
+    background: #F2F2F2;
+    border-radius: 4px;
+    transform: matrix(1, 0, 0, -1, 0, 0);
+}
+
+.filters-title.flex.justify-s-between>h1 {
+    flex-grow: 1;
+    text-align: center;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+}
+.filters-container .filters.open {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: white;
+    z-index: 1;
+}
+
+.filters-container .filters:not(.open) {
+    display: none;
+}
+
+.filters-container h2, h3 {
+    margin-top: 12px;
+    margin-bottom: 12px;
+    margin-left: 16px;
+}
+
+.filters-container input {
+    margin-left: 16px;
+    margin-bottom: 12px;
+}
+
+.filters-container .header-selected-filters {
+    justify-content: space-between;
+
+}
+
+.filters-container .chosen-selected-filters {
+    display: flex;
+    justify-content: space-around;
+
+    border-bottom: 1px solid gray;
+    }
+
+legend {
+    font-weight: 700;
+    margin: .2rem 0 .3rem;
+    font-size: small;
+
+}
+
+.filters-container .chosen-selected-filters p {
+    color: blue;
+    border: 1px solid blue;
+}
+
+.filters-container .title-filter {
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
+}
+
+.filters-container .payment {
+    border-bottom: 1px solid gray;
+}
+
+.filters-container .area {
+    border-bottom: 1px solid gray;
+}
+
+.filters-container .area p {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 16px;
+}
+
+.filters-container .condition {
+    border-bottom: 1px solid gray;
+}
+
+@media screen and (min-width: 769px) {
+
+    .filters-container .open-filters,
+    .filters-container .mobile-filters-header{
+        display: none;
+    }
+
+    .filters-container .filters.open,
+    .filters-container .filters:not(.open) {
+        display: inherit;
+    }
+
+}

@@ -39,7 +39,7 @@ h3 {
     white-space: nowrap;
     width: 1px;
 }
-  
+
 /* Responsive Images ============ */
 img {
     max-width: 100%;
@@ -83,6 +83,15 @@ h1 .mobile {
     max-width: 60px;
 }
 
+.offline-box span{
+    background-color: #000;
+    background-image: linear-gradient(180deg, #000, #333);
+    padding: 2rem 3rem;
+    border-radius: 10px;
+    box-shadow: 5px 4px 5px 0px rgba(0, 0, 0, 0.34);
+    border: 1px solid rgba(100, 100, 100, 1);
+}
+
 /* GLOBAL BUTTON STYLES ===================== */
 
 .btn {
@@ -123,9 +132,8 @@ input {
 }
 
 /* END OF GLOBAL FORM STYLES ===================== */
-
 main {
-    margin: 3rem auto 4rem auto;
+  margin: 3rem auto 4rem auto;
 }
 
 .feat-image {
@@ -237,18 +245,119 @@ footer p {
 }
 /*Rough and needs to be removed/replaced*/
 .dashboardImageupload {
+    /*display: flex;*/
+    /*flex-flow: column;*/
+    /*justify-content: center;*/
+    /*align-items: center;*/
+    /*gap: 1rem;*/
+    /*margin-top: 1rem;*/
+    /*padding: .5rem;*/
+    /*border: 1px solid black;*/
+
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    background-color: hsl(0deg 0% 0% / 75%);
     display: flex;
-    flex-flow: column;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
-    margin-top: 1rem;
-    padding: .5rem;
-    border: 1px solid black;
 }
+
+.closeImageUploader {
+    position: fixed;
+    right: 0;
+    top: 0;
+    font-size: 2rem;
+    color: white;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+div#filter-input-wrapper {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: .5rem;
+    justify-content: flex-start;
+    
+}
+
+.category_fieldset,
+.comp_fieldset,
+.giveawaycon_fieldset,
+.GiveawayCategory_fieldset {
+    border:0;
+    padding:.5rem;
+}
+#category_btn,
+#GiveCategory_btn,
+#reset_btn,
+#catreset_btn {
+    margin-top: 1rem;
+    background-color: #008DCE;
+    color: #fff;
+    border: 0;
+    border-radius: 7px;
+    padding: .8rem 2rem;
+    cursor: pointer;
+    border: 0;
+}
+
+.btngrid {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: .5rem;
+    justify-content: flex-start;
+    align-content: center;
+    align-items: center;
+}
+
+.user-content {
+     display: none;
+}
+
+.show {
+    display: block;
+}
+
+.user-content.box-shadow.padding-1r.margin-b-1r.card-line.show{
+    display: grid;
+}
+
 /* END USER DASHBOARD ====================== */
 
-@media screen and (min-width: 700px) {
+/* START FILTER ========================== */
+
+.helpreqfilter_form,
+.giveawayfilter_form {
+    /* padding-top: 1rem; */
+    border-top:black solid 1px;
+    padding: 1rem 0 1rem .4rem;
+}
+
+.post-type-filter{
+    padding: 1rem 0 1rem .4rem;
+}
+
+.comp_fieldset,
+.giveawaycon_fieldset{
+    border-bottom:black solid 1px;
+}
+
+/* .giveawayfilter_form{
+    border-top: .5rem solid black;
+} */
+.giveawayfilter_form h4{
+    margin-top: 1rem;
+}
+
+/*  END FILTER  ========================== */
+@media screen and (min-width: 769px) {
     h1 .desktop {
         display: block;
     }
@@ -270,6 +379,55 @@ footer p {
         flex-flow: column nowrap;
     }
     /* END OF SIGN UP PAGE ======================== */
+
+    .dashboard main {
+        margin: 3rem auto 4rem auto;
+        display: grid;
+        grid-template-columns: 4fr 2fr;
+        gap: 2rem;
+        grid-template-areas:
+        "map map"
+        "feed filters"
+    ;
+    }
+
+    /* MAP CONTAINER GOES FROM HERE */
+
+    .map-container {
+        grid-area: map;
+    }
+
+    .map-container {
+        position: relative;
+    }
+
+    .map-control {
+        position: absolute;
+        bottom: 50px;
+        right: 30px;
+        display: flex;
+        justify-content: end;
+        background-color: white;
+        gap: .5rem;
+        padding: 0 .5rem;
+        box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.4);
+        border-radius: 8px;
+    }
+    .map-control h5 {
+        align-self: center;
+    }
+    .controler {
+        align-self: center;
+    }
+    .feed {
+        grid-area: feed;
+    }
+
+    .filters-container {
+        grid-area: filters;
+    }
+
+
 }
 
 @media screen and (min-width: 900px) {
@@ -279,7 +437,7 @@ footer p {
         margin-right: auto;
         padding: 2rem 7%;
     }
-    
+
     #featured {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -296,7 +454,7 @@ footer p {
     #featured h2 {
         font-size: 4rem;
     }
-    
+
     .feat-image {
         display: block;
     }

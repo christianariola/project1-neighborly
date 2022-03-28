@@ -1,7 +1,11 @@
 
-const cacheName = "v1";    
-const urlsToCache = [ "/" , "/index.html", "/css/style.css", "/js/app.js" ]; 
-
+const cacheName = "v1";
+const urlsToCache = [
+  "/Neighbourly/",
+   "/Neighbourly/index.html",
+   "/Neighbourly/css/style.css",
+   "/Neighbourly/js/app.js"
+];
 
 self.addEventListener('install', event => {
     // it is invoked when the browser installs the service worker
@@ -26,11 +30,11 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
     // Fires whenever the app requests a resource (file or data)  normally this is where the service worker would check to see
     // if the requested resource is in the local cache before going to the server to get it. 
+
     console.log(`[SW] Fetch event for ${event.request.url}`);
 
     //1. No Strategy, simply forward the request to server (i.e. No Offline Capability)
     event.respondWith(fetch(event.request));
- 
-
 
 });
+

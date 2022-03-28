@@ -1,16 +1,19 @@
 // Feed
-
 const postCardTemplate = fetch(POST_TEMPLATES.card)
     .then(response => response.text());
 
+let feedHasBeenPopulated = false;
+
 createPostBtn.addEventListener('click', () => Post.loadPostSelection());
 
-const buildFeedElements = async (allPosts) => {
-    let feedElements = '';
+const populateFeed = async (allPosts) => {
+    const postMethodHandler = feedHasBeenPopulated ? Post.updatePostCard : Post.addNewPostCardToFeed;
+    feedHasBeenPopulated = true;
     for(const doc of allPosts.docs) {
         let author;
+        let replies = [];
         const postRaw = doc.data();
-        if (!postRaw?.type) return; 
+        if (!postRaw?.type) return;
         if (postRaw.author) {
             await db.collection("users").where("userId", "==", postRaw.author).get()
             .then(({ docs }) => {
@@ -21,33 +24,109 @@ const buildFeedElements = async (allPosts) => {
                 }
             });
         }
-        const post = new POST_CLASSES[postRaw.type]({...postRaw, author });
-        const postHTMLString = await Post.toHTMLString(post)
-        feedElements += postHTMLString;
+
+        for(const postReply of (postRaw.replies || [])) {
+            let replyAuthor;
+            await db.collection("users").where("userId", "==", postReply.author).get()
+            .then(({ docs }) => {
+                const doc = docs[0];
+                if (doc?.exists) {
+                    const { firstName, lastName, userId } = doc.data();
+                    replyAuthor = { firstName, lastName, userId };
+                }
+                const reply = new Reply({ ...postReply, author: replyAuthor });
+                replies.push(reply);
+            });
+        }
+
+        const post = new POST_CLASSES[postRaw.type]({...postRaw, author, replies, id:doc.id });
+        await postMethodHandler(post);
     }
-    return feedElements;
 };
 
-db.collection("posts").onSnapshot(async (querySnapshot) => {
-    feed.innerHTML = await buildFeedElements(querySnapshot);
-});
 
-// Logout
-const logout = document.querySelector('#logout');
+// MAP ======================================================================
 
-// Get user document
-async function getUser(userid) {
-    // Make the initial query
-    const query = await db.collection('users').where('userId', '==', userid).get();
-        if (!query.empty) {
-        const snapshot = query.docs[0];
-        const data = snapshot.data();
+let map, infoWindow, ltude, lngtude, rad, zoomLvl, userIdent;
+const nearList = [];
+const uids = [];
+// const userIdent = sessionStorage.getItem("uid");
 
-        //console.log(snapshot.data().location.latitude);
-        initMap(snapshot.data().location.latitude, snapshot.data().location.longitude);
+class Dashboard {
+    constructor(userid, rad, zoomLvl) {
+        this.userid = userid;
+        this.rad = rad;
+        this.zoomLvl = zoomLvl;
+    }
 
-    } else {
-        alert('Sorry no document found.')
+    // Get user document
+    async getUser(userid, rad, zoomLvl) {
+        // Make the initial query
+        const query = await db.collection('users').where('userId', '==', userid).get();
+            if (!query.empty) {
+            const snapshot = query.docs[0];
+            const data = snapshot.data();
+
+            ltude = snapshot.data().location.latitude;
+            lngtude = snapshot.data().location.longitude;
+
+            if(rad == null){
+                rad = 5000;
+            } else {
+                rad = rad;
+            }
+
+            if(zoomLvl == null){
+                zoomLvl = 12;
+            } else {
+                zoomLvl = zoomLvl;
+            }
+
+            //console.log(rad);
+
+            //get list of users with the same locality and state
+            const usersCollectionRef = db.collection('users')
+            const usersQuery = usersCollectionRef.where('address.locality', '==', snapshot.data().address.locality).where('userId', '!=', userid);
+            const usersSnapshot = await usersQuery.get();
+
+            usersSnapshot.forEach(doc => {
+                uids.push(doc.data());
+                //console.log("ADDRESS: "+doc.data().userId);
+            });
+
+            const postsRef = db.collection('posts');
+            for (const uid of uids) {
+                let postRef = postsRef.where('author', '==', uid.userId);
+                let postSnapshot = await postRef.get();
+
+                let checkPoint = { lat: uid.location.latitude, lng: uid.location.longitude };
+                let centerPoint = { lat: snapshot.data().location.latitude, lng: snapshot.data().location.longitude};
+                //check if nearby users lat lng is near logged in user
+                let checker = arePointsNear(checkPoint, centerPoint, rad)
+
+
+                if(checker) {
+                    postSnapshot.forEach(postdoc => {
+                        let postData = {postInfo: postdoc.data(), location: checkPoint }
+                        nearList.push(postData);
+                    });
+                }
+            }
+
+            initMap(snapshot.data().location.latitude, snapshot.data().location.longitude, rad, zoomLvl, nearList);
+        } else {
+            // alert('Sorry no document found.')
+            Toastify({
+                text: "Sorry no document found.",
+                duration: 3000,
+                newWindow: true,
+                close: true,
+                gravity: "top", // `top` or `bottom`
+                position: 'center', // `left`, `center` or `right`
+                backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+            }).showToast();
+        }
     }
 
 }
@@ -55,65 +134,123 @@ async function getUser(userid) {
 // retriving info
 auth.onAuthStateChanged(user => {
     if (user) {
-      const userinfo = getUser(user.uid);
+        const dashboard = new Dashboard;
+        userIdent = user.uid;
+        dashboard.getUser(user.uid, null, null);
     }
     else {
-      console.log('user is not signed in to retrive document');
+        console.log('user is not signed in to retrive document');
     }
 })
 
-// Note: This example requires that you consent to location sharing when
-// prompted by your browser. If you see the error "The Geolocation service
-// failed.", it means you probably did not give permission for the browser to
-// locate you.
-let map, infoWindow;
+// Update the current slider value (each time you drag the slider handle)
+let slider = document.getElementById("myRange");
+let outputKM = document.getElementById("radiusKm");
+slider.oninput = function() {
 
-function initMap($latitude, $longitude) {
+    rad = this.value*1000;
+    //console.log("TEST "+this.value);
+
+    if(this.value == 5){
+        zoomLvl = 12;
+    } else if(this.value == 4) {
+        zoomLvl = 12.6;
+    } else if(this.value == 3) {
+        zoomLvl = 13.1;
+    } else if(this.value == 2) {
+        zoomLvl = 13.8;
+    } else if(this.value == 1) {
+        zoomLvl = 13.8;
+    } else {
+        zoomLvl = 12;
+    }
+
+    //console.log("TEST "+rad);
+
+    const dashboard2 = new Dashboard;
+    dashboard2.getUser(userIdent, rad, zoomLvl);
+
+    //initMap(ltude, lngtude, rad, zoomLvl);
+
+    outputKM.innerHTML = this.value;
+}
+
+// Calculation if coords is inside radius
+function arePointsNear(marker, circle, radius) {
+    var km = radius/1000;
+    var kx = Math.cos(Math.PI * circle.lat / 180) * 111;
+    var dx = Math.abs(circle.lng - marker.lng) * kx;
+    var dy = Math.abs(circle.lat - marker.lat) * 111;
+    return Math.sqrt(dx * dx + dy * dy) <= km;
+}
+
+function initMap(latitude, longitude, rad, zoomLvl, nearList) {
+
+    let lati = parseFloat(latitude);
+    let long = parseFloat(longitude);
+    let latlng = new google.maps.LatLng(lati, long);
+
+    // console.log("RAD: "+rad);
+    // console.log("ZOOM: "+zoomLvl);
+
     map = new google.maps.Map(document.getElementById("map"), {
-        center: { lat: -34.397, lng: 150.644 },
-        zoom: 15,
+        center: { lat: 49.22493043847068, lng: -123.10865688997087 },
+        zoom: zoomLvl,
+        disableDefaultUI: true,
     });
+    let image = 'http://www.google.com/intl/en_us/mapfiles/ms/micons/red-dot.png';
+    let image2 = 'http://www.google.com/intl/en_us/mapfiles/ms/micons/green-dot.png';
+
     infoWindow = new google.maps.InfoWindow();
 
     const locationButton = document.createElement("button");
 
     var circle = new google.maps.Circle({
-        center: { lat: $latitude, lng: $longitude },
+        center: { lat: lati, lng: long },
         map: map,
-        radius: 600,          // IN METERS.
+        radius: rad,          // IN METERS.
         fillColor: '#009C4E',
         fillOpacity: 0.3,
-        strokeColor: "#FFF",
+        strokeColor: "#077740",
         strokeWeight: 0         // DON'T SHOW CIRCLE BORDER.
     });
 
-    // Try HTML5 geolocation.
-    if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-        (position) => {
-            console.log($latitude);
-        const pos = {
-            
-            // lat: position.coords.latitude,
-            // lng: position.coords.longitude,
-            lat: parseFloat($latitude),
-            lng: parseFloat($longitude),
-        };
+    const pos = {
+        lat: lati,
+        lng: long,
+    };
 
-        infoWindow.setPosition(pos);
-        infoWindow.setContent("Your Location");
-        infoWindow.open(map);
-        map.setCenter(pos);
-        },
-        () => {
-        handleLocationError(true, infoWindow, map.getCenter());
-        }
-    );
-    } else {
-    // Browser doesn't support Geolocation
-    handleLocationError(false, infoWindow, map.getCenter());
+    marker = new google.maps.Marker({
+        position: latlng,
+        map: map,
+        icon: image
+    });
+
+    // using for...in
+    for (let key in nearList) {
+        let value;
+
+        // get the value
+        value = nearList[key].location.lat;
+
+        console.log(key + " - " +  value);
+
+        nearbyLoc = new google.maps.LatLng(nearList[key].location.lat, nearList[key].location.lng);
+
+        new google.maps.Marker({
+            position: nearbyLoc,
+            title: 'Location',
+            map: map,
+            icon: image2
+        });
     }
-    
+
+    //marker.setIcon(image);
+    infoWindow.setContent("Your Location");
+    infoWindow.open(map);
+
+    new google.maps.LatLng(lati, long)
+    map.setCenter(pos);
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -126,15 +263,31 @@ infoWindow.setContent(
 infoWindow.open(map);
 }
 
+// END OF MAP ======================================================================
+
+// Logout
+const logout = document.querySelector('#logout');
 
 logout.addEventListener('click', (e) => {
     e.preventDefault();
 
-    auth.signOut().then(() => { 
+    auth.signOut().then(() => {
         sessionStorage.removeItem("uid");
-        alert('You have succesfully logout.');
+        // alert('You have succesfully logout.');
+        Toastify({
+            text: "You have succesfully logged out.",
+            duration: 2000,
+            newWindow: true,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: 'center', // `left`, `center` or `right`
+            backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+        }).showToast();
+        setTimeout(() => {
+            window.location.href = `${BASE_URL}/index.html`;
+        }, 3000);
         console.log('user signed out');
-        window.location.href = "/index.html";
     }).catch(error => {
         alert(error.message);
         return false;

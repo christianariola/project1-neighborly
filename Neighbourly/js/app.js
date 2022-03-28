@@ -27,5 +27,5 @@ signupHome.addEventListener("submit", function (event) {
 
     sessionStorage.setItem('UserInfoHome', JSON.stringify(userSignup));
 
-    window.location.href = 'signup.html';
+    window.location.href = `${BASE_URL}/signup.html`;
 });

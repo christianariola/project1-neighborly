@@ -28,6 +28,7 @@ function initAutocomplete() {
 function fillInAddress() {
     // Get the place details from the autocomplete object.
     const place = autocomplete.getPlace();
+    console.log('Place:'+place);
     let address1 = "";
     let postcode = "";
 
@@ -75,11 +76,11 @@ function fillInAddress() {
     postalField.value = postcode;
 
     // get lat
-    lat = place.geometry.location.lat();
+    document.querySelector("#latitude").value = place.geometry.location.lat();
     // get lng
-    lng = place.geometry.location.lng();
+    document.querySelector("#longitude").value = place.geometry.location.lng();
 
-    console.log("Latitude: "+lat+" - "+"Longitude: "+lng);
+    //console.log("Latitude: "+lat+" - "+"Longitude: "+lng);
 }
 
 const signupBtn = document.getElementById("signupBtn");
@@ -99,17 +100,35 @@ signupBtn.addEventListener("click", (event) => {
     const state = signupForm.querySelector("#state");
     const country = signupForm.querySelector("#country");
     const postcode = signupForm.querySelector("#postcode");
+    const latitude = signupForm.querySelector("#latitude");
+    const longitude = signupForm.querySelector("#longitude");
  
     db.collection("users").where("email", "==", email)
     .get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
             if(doc.data().email === email) {
-                alert('Email already exists, please choose a different one.');
+                // alert('Email already exists, please choose a different one.');
+                Toastify({
+                    text: 'Email already exists, please choose a different one.',
+                    duration: 5000,
+                    close: true,
+                    gravity: "top", // `top` or `bottom`
+                    position: 'center', // `left`, `center` or `right`
+                    backgroundColor: "linear-gradient(to right, #00b09b, #70C782)",
+                }).showToast();
                 return false;
             }
         })
     }).catch(error => {
         console.log("Unable to fetch document", error);
+        Toastify({
+            text: 'Please try again later.',
+            duration: 5000,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: 'center', // `left`, `center` or `right`
+            backgroundColor: "linear-gradient(to right, #00b09b, #70C782)",
+        }).showToast();
     })
 
     document.getElementById("signupBtn").disabled = true;
@@ -123,23 +142,110 @@ signupBtn.addEventListener("click", (event) => {
             firstName: firstName,
             lastName: lastName,
             email: email,
-            password: password,
+            //password: password,
             phonenumber: phonenumber,
             address: { street: shipaddress.value, locality: locality.value, state: state.value, country: country.value, postcode: postcode.value },
-            location: { latitude: lat, longitude: lng },
+            location: { latitude: latitude.value, longitude: longitude.value },
             created_at: new Date(),
         }).then(() => {
             // remove array from first page
             sessionStorage.removeItem("UserInfoHome");
-
-            alert('You have succesfully registered.');
+            Toastify({
+                text: 'You have succesfully registered.',
+                duration: 5000,
+                close: true,
+                gravity: "top", // `top` or `bottom`
+                position: 'center', // `left`, `center` or `right`
+                backgroundColor: "linear-gradient(to right, #00b09b, #70C782)",
+            }).showToast();
+            // alert('You have succesfully registered.');
             document.getElementById("signupBtn").disabled = false;
-            window.location.href = "login.html";
+            window.location.href = `${BASE_URL}/login.html`;
         });
     }).catch(error => {
-        alert(error.message);
+        Toastify({
+            text: 'You are being redirected to signup.',
+            duration: 5000,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: 'center', // `left`, `center` or `right`
+            backgroundColor: "linear-gradient(to right, #00b09b, #70C782)",
+        }).showToast();
+
+        setTimeout(() => {
+            window.location.href = `${BASE_URL}/index.html`;
+        }, 5000);
+        
+        // alert(error.message);
+        // alert(error.code);
         console.log(error);
         document.getElementById("signupBtn").disabled = false;
         return false;
     });
+});
+
+
+
+function getuserLocation(){
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                //console.log(position);
+                const pos = {  
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                };
+
+                var locAPI = "https://maps.googleapis.com/maps/api/geocode/json?latlng="+position.coords.latitude+","+position.coords.longitude+"&key=AIzaSyBnwEPQPWFBiXDhX_2pJp-wQdcyoeX_eNQ&sensor=true";
+                //console.log("show position: "+locAPI);
+
+                fetch(locAPI).then(function(response) {
+                    return response.json();
+                }).then(function(data) {
+                    console.log(data);
+
+                    document.querySelector("#ship-address").value = data.results[0].address_components[0].long_name+" "+data.results[0].address_components[1].long_name;
+                    document.querySelector("#locality").value = data.results[0].address_components[3].long_name;
+                    document.querySelector("#state").value = data.results[0].address_components[5].short_name;
+                    document.querySelector("#country").value = data.results[0].address_components[6].long_name;
+                    document.querySelector("#postcode").value = data.results[0].address_components[7].long_name;
+                    document.querySelector("#latitude").value = data.results[0].geometry.location.lat;
+                    document.querySelector("#longitude").value = data.results[0].geometry.location.lng;
+                }).catch(function() {
+                    console.log("Ooops something went wrong.");
+                    Toastify({
+                        text: 'Please try again later.',
+                        duration: 5000,
+                        close: true,
+                        gravity: "top", // `top` or `bottom`
+                        position: 'center', // `left`, `center` or `right`
+                        backgroundColor: "linear-gradient(to right, #00b09b, #70C782)",
+                    }).showToast();
+                });
+            },
+            () => {
+                //handleLocationError(true, infoWindow, map.getCenter());
+                console.error("ERROR")
+            }
+        );
+    } else {
+        console.log('Browser does not support geolocation.');
+        Toastify({
+            text: 'Browser does not support geolocation.',
+            duration: 5000,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: 'center', // `left`, `center` or `right`
+            backgroundColor: "linear-gradient(to right, #00b09b, #70C782)",
+        }).showToast();
+        
+    }
+}
+
+const getLocation = document.getElementById("getLocation");
+
+getLocation.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    getuserLocation();
 });

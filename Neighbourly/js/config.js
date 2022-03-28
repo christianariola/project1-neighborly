@@ -14,4 +14,14 @@ firebase.initializeApp(firebaseConfig);
 // make auth and firestore references
 const auth = firebase.auth();
 const db = firebase.firestore();
+const firestore = firebase.firestore;
 const storage = firebase.storage();
+const BASE_URL = '/Neighbourly'
+
+const dbCollection = (collection, orderBy = 'createdAt') => {
+  return db.collection(collection).orderBy(orderBy, 'desc');
+};
+
+const dbCollectioncomp = (collection) => {
+  return db.collection(collection);
+}
