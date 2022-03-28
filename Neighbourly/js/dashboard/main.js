@@ -1,5 +1,4 @@
 // Feed
-
 const postCardTemplate = fetch(POST_TEMPLATES.card)
     .then(response => response.text());
 
@@ -42,27 +41,45 @@ const populateFeed = async (allPosts) => {
     }
 };
 
-let map, infoWindow, ltude, lngtude, rad, zoomLvl;
+
+// MAP ======================================================================
+
+let map, infoWindow, ltude, lngtude, rad, zoomLvl, userIdent;
+const nearList = [];
+const uids = [];
+// const userIdent = sessionStorage.getItem("uid");
 
 class Dashboard {
-    constructor(userid) {
+    constructor(userid, rad, zoomLvl) {
         this.userid = userid;
+        this.rad = rad;
+        this.zoomLvl = zoomLvl;
     }
 
     // Get user document
-    async getUser(userid) {
+    async getUser(userid, rad, zoomLvl) {
         // Make the initial query
         const query = await db.collection('users').where('userId', '==', userid).get();
             if (!query.empty) {
             const snapshot = query.docs[0];
             const data = snapshot.data();
-            const nearList = [];
-            const uids = [];
 
             ltude = snapshot.data().location.latitude;
             lngtude = snapshot.data().location.longitude;
-            rad = 5000;
-            zoomLvl = 12;
+
+            if(rad == null){
+                rad = 5000;
+            } else {
+                rad = rad;
+            }
+
+            if(zoomLvl == null){
+                zoomLvl = 12;
+            } else {
+                zoomLvl = zoomLvl;
+            }
+
+            //console.log(rad);
 
             //get list of users with the same locality and state
             const usersCollectionRef = db.collection('users')
@@ -73,7 +90,6 @@ class Dashboard {
                 uids.push(doc.data());
                 //console.log("ADDRESS: "+doc.data().userId);
             });
-
 
             const postsRef = db.collection('posts');
             for (const uid of uids) {
@@ -92,7 +108,6 @@ class Dashboard {
                         nearList.push(postData);
                     });
                 }
-
             }
 
             initMap(snapshot.data().location.latitude, snapshot.data().location.longitude, rad, zoomLvl, nearList);
@@ -117,7 +132,8 @@ class Dashboard {
 auth.onAuthStateChanged(user => {
     if (user) {
         const dashboard = new Dashboard;
-        dashboard.getUser(user.uid);
+        userIdent = user.uid;
+        dashboard.getUser(user.uid, null, null);
     }
     else {
         console.log('user is not signed in to retrive document');
@@ -130,7 +146,7 @@ let outputKM = document.getElementById("radiusKm");
 slider.oninput = function() {
 
     rad = this.value*1000;
-    console.log("TEST "+this.value);
+    //console.log("TEST "+this.value);
 
     if(this.value == 5){
         zoomLvl = 12;
@@ -146,21 +162,18 @@ slider.oninput = function() {
         zoomLvl = 12;
     }
 
-    console.log("TEST "+zoomLvl);
+    //console.log("TEST "+rad);
 
-    initMap(ltude, lngtude, rad, zoomLvl);
+    const dashboard2 = new Dashboard;
+    dashboard2.getUser(userIdent, rad, zoomLvl);
+
+    //initMap(ltude, lngtude, rad, zoomLvl);
 
     outputKM.innerHTML = this.value;
 }
 
 // Calculation if coords is inside radius
 function arePointsNear(marker, circle, radius) {
-    // var ky = 40000 / 360;
-    // var kx = Math.cos(Math.PI * centerPoint.lat / 180.0) * ky;
-    // var dx = Math.abs(centerPoint.lng - checkPoint.lng) * kx;
-    // var dy = Math.abs(centerPoint.lat - checkPoint.lat) * ky;
-    // return Math.sqrt(dx * dx + dy * dy) <= km;
-
     var km = radius/1000;
     var kx = Math.cos(Math.PI * circle.lat / 180) * 111;
     var dx = Math.abs(circle.lng - marker.lng) * kx;
@@ -229,8 +242,6 @@ function initMap(latitude, longitude, rad, zoomLvl, nearList) {
         });
     }
 
-
-
     //marker.setIcon(image);
     infoWindow.setContent("Your Location");
     infoWindow.open(map);
@@ -248,6 +259,8 @@ infoWindow.setContent(
 );
 infoWindow.open(map);
 }
+
+// END OF MAP ======================================================================
 
 // Logout
 const logout = document.querySelector('#logout');
