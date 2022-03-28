@@ -120,23 +120,32 @@
                 <button id="createPostBtn">New Post</button>
             </div>
 
+
+            <!-- FILTERS GOES FROM HERE============= -->
+            
             <section class="sidebar filters-container">
                 <div class="filters-title flex justify-s-between">
-                    <h1 class="flex align-center">Filters</h1>
+                    <h1>Filters</h1>
+
                     <span onclick="filterSection.classList.add('open');"
                         class="open-filters pointer flex align-center justify-center">
                         <i class="fa-solid fa-gear"></i>
                     </span>
                 </div>
+
                 <div id="filterSection" class="filters">
                     <div class="mobile-filters-header flex justify-s-between">
-                        <h1 class="flex align-center">Filters</h1>
+                        <h1>Filters</h1>
+
+
                         <span onclick="filterSection.classList.remove('open');" class="close-filters pointer">
                             <i class="fas fa-times"></i>
                         </span>
                     </div>
+
+
                     <div class="filter-help-request">
-                        <div style="background-color: #f1efef">
+                        <div>
                             <h4>Working filters (rest is WIP)</h4>
                             <div id="filter-input-wrapper">
                                 <div class="post-type-filter">
@@ -219,11 +228,11 @@
                                 <span>Clear</span>
                             </div>
 
-                            <div class="chosen-selected-filters">
+                            <!-- <div class="chosen-selected-filters">
                                 <p>Paid</p>
                                 <p>Appliances</p>
                                 <p>5 km</p>
-                            </div>
+                            </div> -->
                         </div>
 
                         <div class="area">
