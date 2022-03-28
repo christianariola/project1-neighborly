@@ -295,16 +295,28 @@ div#filter-input-wrapper {
     padding:.5rem;
 }
 #category_btn,
-#GiveCategory_btn {
+#GiveCategory_btn,
+#reset_btn,
+#catreset_btn {
     margin-top: 1rem;
     background-color: #008DCE;
     color: #fff;
     border: 0;
     border-radius: 7px;
-    padding: 1rem 3rem;
+    padding: .8rem 2rem;
     cursor: pointer;
     border: 0;
 }
+
+.btngrid {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: .5rem;
+    justify-content: flex-start;
+    align-content: center;
+    align-items: center;
+}
+
 .user-content {
      display: none;
 }
@@ -321,7 +333,8 @@ div#filter-input-wrapper {
 
 /* START FILTER ========================== */
 
-.helpreqfilter_form{
+.helpreqfilter_form,
+.giveawayfilter_form {
     /* padding-top: 1rem; */
     border-top:black solid 1px;
     padding: 1rem 0 1rem .4rem;
@@ -336,9 +349,9 @@ div#filter-input-wrapper {
     border-bottom:black solid 1px;
 }
 
-.giveawayfilter_form{
+/* .giveawayfilter_form{
     border-top: .5rem solid black;
-}
+} */
 .giveawayfilter_form h4{
     margin-top: 1rem;
 }

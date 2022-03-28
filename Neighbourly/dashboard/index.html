@@ -178,13 +178,11 @@
                                     <fieldset class="comp_fieldset">
                                         <legend>Select Compensation type</legend>
                                         <div>
-                                            <input type="checkbox" id="free" name="compensation" value=""
-                                                onclick="onlytwo(this)">
+                                            <input type="radio" id="free" name="compensation" value="">
                                             <label for="free">Free</label>
                                         </div>
                                         <div>
-                                            <input type="checkbox" id="Paid" name="compensation" value="Paid"
-                                                onclick="onlytwo(this)">
+                                            <input type="radio" id="Paid" name="compensation" value="Paid">
                                             <label for="Paid">Paid</label>
                                         </div>
                                     </fieldset>
@@ -192,136 +190,128 @@
                                     <fieldset class="category_fieldset">
                                         <legend>Select Help Request Category</legend>
                                         <div>
-                                            <input type="checkbox" id="grocery" name="category" value="grocery_shopping"
-                                                onclick="onlyOne(this)">
+                                            <input type="checkbox" id="grocery" name="category"
+                                                value="grocery_shopping">
                                             <label for="Grocery">Grocery</label>
                                         </div>
                                         <div>
                                             <input type="checkbox" id="installation" name="category"
-                                                value="installation" onclick="onlyOne(this)">
+                                                value="installation">
                                             <label for="Installation">Installation</label>
                                         </div>
                                         <div>
-                                            <input type="checkbox" id="cleaning" name="category" value="cleaning"
-                                                onclick="onlyOne(this)">
+                                            <input type="checkbox" id="cleaning" name="category" value="cleaning">
                                             <label for="Cleaning">Cleaning</label>
                                         </div>
                                         <div>
-                                            <input type="checkbox" id="babysitting" name="category" value="babysitting"
-                                                onclick="onlyOne(this)">
+                                            <input type="checkbox" id="babysitting" name="category" value="babysitting">
                                             <label for="Babysitting">Babysitting</label>
                                         </div>
                                         <div>
-                                            <input type="checkbox" id="gardening" name="category" value="gardening"
-                                                onclick="onlyOne(this)">
+                                            <input type="checkbox" id="gardening" name="category" value="gardening">
                                             <label for="gardening">Gardening</label>
                                         </div>
                                         <div>
-                                            <input type="checkbox" id="other" name="category" value="other"
-                                                onclick="onlyOne(this)">
+                                            <input type="checkbox" id="other" name="category" value="other">
                                             <label for="other">Other</label>
                                         </div>
-                                        <div>
-                                            <button id="category_btn" type="Apply">Apply Filters</button>
+                                        <div class="btngrid">
+                                            <button id="category_btn" type="Apply">Apply</button>
+                                            <button id="reset_btn" type="reset">Reset</button>
                                         </div>
                                     </fieldset>
                                 </form>
 
                                 <form class="giveawayfilter_form">
                                     <h4>Giveaway Filters</h4><br>
-                                    <fieldset class="giveawaycon_fieldset">
+                                <!--  <fieldset class="giveawaycon_fieldset">
                                         <legend>Select Condition type</legend>
                                         <div>
-                                            <input type="checkbox" id="new" name="condition" value="new"
-                                                onclick="onlythree(this)">
+                                            <input type="radio" id="new" name="condition" value="new">
                                             <label for="new">New</label>
                                         </div>
                                         <div>
-                                            <input type="checkbox" id="likenew" name="condition" value="like_new"
-                                                onclick="onlythree(this)">
+                                            <input type="radio" id="likenew" name="condition" value="like_new">
                                             <label for="likenew">Like New</label>
                                         </div>
                                         <div>
-                                            <input type="checkbox" id="used" name="condition" value="used"
-                                                onclick="onlythree(this)">
+                                            <input type="radio" id="used" name="condition" value="used">
                                             <label for="used">Used</label>
                                         </div>
                                         <div>
-                                            <input type="checkbox" id="needrepair" name="condition"
-                                                value="needs_reparing" onclick="onlythree(this)">
+                                            <input type="radio" id="needrepair" name="condition" value="needs_reparing">
                                             <label for="needrepair">Needs Repair</label>
                                         </div>
-                                    </fieldset>
+                                    </fieldset> -->
 
                                     <fieldset class="GiveawayCategory_fieldset">
                                         <legend>Select Giveaway Category</legend>
                                         <div>
                                             <input type="checkbox" id="appliances" name="GiveawayCategory"
-                                                value="appliances" onclick="onlyfour(this)">
+                                                value="appliances">
                                             <label for="appliances">Appliances</label>
                                         </div>
                                         <div>
                                             <input type="checkbox" id="baby_and_kids" name="GiveawayCategory"
-                                                value="baby_and_kids" onclick="onlyfour(this)">
+                                                value="baby_and_kids">
                                             <label for="baby_and_kids">Baby & Kids</label>
                                         </div>
                                         <div>
                                             <input type="checkbox" id="car_parts" name="GiveawayCategory"
-                                                value="car_parts" onclick="onlyfour(this)">
+                                                value="car_parts">
                                             <label for="car_parts">Car Parts</label>
                                         </div>
                                         <div>
                                             <input type="checkbox" id="clothing_and_accessories" name="GiveawayCategory"
-                                                value="clothing_and_accessories" onclick="onlyfour(this)">
+                                                value="clothing_and_accessories">
                                             <label for="clothing_and_accessories">Clothing & Accessories</label>
                                         </div>
                                         <div>
                                             <input type="checkbox" id="electronics" name="GiveawayCategory"
-                                                value="electronics" onclick="onlyfour(this)">
+                                                value="electronics">
                                             <label for="electronics">Electronics</label>
                                         </div>
                                         <div>
                                             <input type="checkbox" id="furniture" name="GiveawayCategory"
-                                                value="furniture" onclick="onlyfour(this)">
+                                                value="furniture">
                                             <label for="furniture">Furniture</label>
                                         </div>
                                         <div>
                                             <input type="checkbox" id="bicycles" name="GiveawayCategory"
-                                                value="bicycles" onclick="onlyfour(this)">
+                                                value="bicycles">
                                             <label for="bicycles">Bicycles</label>
                                         </div>
                                         <div>
                                             <input type="checkbox" id="home_decor" name="GiveawayCategory"
-                                                value="home_decor" onclick="onlyfour(this)">
+                                                value="home_decor">
                                             <label for="home_decor">Home Decor</label>
                                         </div>
                                         <div>
                                             <input type="checkbox" id="musical_instruments" name="GiveawayCategory"
-                                                value="musical_instruments" onclick="onlyfour(this)">
+                                                value="musical_instruments">
                                             <label for="musical_instruments">Musical Instruments</label>
                                         </div>
                                         <div>
                                             <input type="checkbox" id="property_rental" name="GiveawayCategory"
-                                                value="property_rental" onclick="onlyfour(this)">
+                                                value="property_rental">
                                             <label for="property_rental">Property Rental</label>
                                         </div>
                                         <div>
                                             <input type="checkbox" id="property_sales" name="GiveawayCategory"
-                                                value="property_sales" onclick="onlyfour(this)">
+                                                value="property_sales">
                                             <label for="property_sales">Property Sales</label>
                                         </div>
                                         <div>
-                                            <input type="checkbox" id="tools" name="GiveawayCategory" value="tools"
-                                                onclick="onlyfour(this)">
+                                            <input type="checkbox" id="tools" name="GiveawayCategory" value="tools">
                                             <label for="tools">Tools</label>
                                         </div>
                                         <div>
-                                            <input type="checkbox" id="toys" name="GiveawayCategory" value="toys"
-                                                onclick="onlyfour(this)">
+                                            <input type="checkbox" id="toys" name="GiveawayCategory" value="toys">
                                             <label for="toys">Toys</label>
                                         </div>
-                                        <div>
-                                            <button id="GiveCategory_btn" type="Apply">Apply Filters</button>
+                                        <div class="btngrid">
+                                            <button id="GiveCategory_btn" type="Apply">Apply</button>
+                                            <button id="catreset_btn" type="reset">Reset</button>
                                         </div>
                                     </fieldset>
                                 </form>
@@ -329,8 +319,8 @@
                         </div>
                         <div class="selected-filters">
                             <div class="header-selected-filters">
-                                <h4>Selected Filters</h4>
-                                <span>Clear</span>
+                                <!-- <h4>Selected Filters</h4>
+                                <span>Clear</span> -->
                             </div>
 
                             <!-- <div class="chosen-selected-filters">
@@ -339,13 +329,6 @@
                                 <p>5 km</p>
                             </div> -->
                         </div>
-
-                        <div class="area">
-                            <h4>Area</h4>
-                            <p>5km</p>
-                        </div>
-
-
                     </div>
                 </div>
             </section>

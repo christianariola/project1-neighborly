@@ -21,7 +21,7 @@ const appliances = document.getElementById("appliances");
 const helprequest_type = document.getElementById("helprequest_type");
 
 let stopListineng;
-async function onloadsetshow(){
+async function onloadsetshow() {
     filterSelection("all");
 }
 
@@ -34,7 +34,7 @@ const resetFeed = () => {
 async function filterSelection(c) {
     resetFeed();
     if (stopListineng) stopListineng();
-    const postsCollection = c == 'all' ? dbCollection("posts") :dbCollection("posts").where("type", "==", c);
+    const postsCollection = c == 'all' ? dbCollection("posts") : dbCollection("posts").where("type", "==", c);
 
     stopListineng = postsCollection.onSnapshot(async (querySnapshot) => {
         await populateFeed(querySnapshot);
@@ -42,19 +42,36 @@ async function filterSelection(c) {
 }
 onloadsetshow();
 
+
+//reset filters and reload feed
+const reset_btn = document.getElementById("reset_btn");
+reset_btn.addEventListener("click", () => {
+    onloadsetshow();
+    resetFeed();
+});
+const catreset_btn = document.getElementById("catreset_btn");
+catreset_btn.addEventListener("click", () => {
+    onloadsetshow();
+    resetFeed();
+});
+
+
+//filter by Help request category and Compensation
 const btn = document.querySelector('#category_btn');
 btn.addEventListener('click', (event) => {
     resetFeed();
     event.preventDefault();
     let checkboxes = document.querySelectorAll('input[name="category"]:checked');
     let values = [];
+    //store the values of the checked checkboxes in an array
     checkboxes.forEach((checkbox) => {
         values.push(checkbox.value);
     });
 
     let Compcheckboxes = document.querySelectorAll('input[name="compensation"]:checked');
     console.log(Compcheckboxes.length);
-    if (Compcheckboxes.length == 0 ||checkboxes.length == 0) {
+    //check that both filters are selected
+    if (Compcheckboxes.length == 0 || checkboxes.length == 0) {
         Toastify({
             text: "Please select compensation and Category",
             duration: 2000,
@@ -64,11 +81,11 @@ btn.addEventListener('click', (event) => {
             backgroundColor: "linear-gradient(to right, #00b09b, #70C782)",
         }).showToast();
         setTimeout(() => {
-        window.location.reload();
+            window.location.reload();
         }, 1000);
         return;
     }
-    console.log(Compcheckboxes[0].value);
+    // console.log(Compcheckboxes[0].value);
     let c = Compcheckboxes[0].value;
     // Compcheckboxes.forEach((c) => {
     //     values.push(c.value);
@@ -77,15 +94,16 @@ btn.addEventListener('click', (event) => {
     // console.log(c.value);
     if (stopListineng) stopListineng();
     if (c == '') {
-    const postsCollection = dbCollectioncomp("posts").where("compensation", "==", c && "type", "==", "help_request").where("category", "in", values);
-    stopListineng = postsCollection.onSnapshot(async (querySnapshot) => {
-        await populateFeed(querySnapshot);
-    });
+        //query for all posts where compensation matches the selected value and category matches the selected values
+        const postsCollection = dbCollectioncomp("posts").where("compensation", "==", c && "type", "==", "help_request").where("category", "in", values);
+        stopListineng = postsCollection.onSnapshot(async (querySnapshot) => {
+            await populateFeed(querySnapshot);
+        });
     } else {
-    const postsCollection = dbCollectioncomp("posts").where("compensation", "!=", '' && "type", "==", "help_request").where("category", "in", values);
-    stopListineng = postsCollection.onSnapshot(async (querySnapshot) => {
-        await populateFeed(querySnapshot);
-    });
+        const postsCollection = dbCollectioncomp("posts").where("compensation", "!=", '' && "type", "==", "help_request").where("category", "in", values);
+        stopListineng = postsCollection.onSnapshot(async (querySnapshot) => {
+            await populateFeed(querySnapshot);
+        });
     }
 });
 
@@ -95,14 +113,14 @@ btn.addEventListener('click', (event) => {
 
 const givebtn = document.querySelector('#GiveCategory_btn');
 givebtn.addEventListener('click', (event) => {
-    event.preventDefault();
     resetFeed();
+    event.preventDefault();
     let givecheckboxes = document.querySelectorAll('input[name="GiveawayCategory"]:checked');
     let values = [];
     givecheckboxes.forEach((checkbox) => {
         values.push(checkbox.value);
     });
-
+    //firebase "in" query cannot handle more than 10 values, so limit to ten
     if (values.length > 10) {
         Toastify({
             text: "Please select less than 10 categories",
@@ -118,42 +136,84 @@ givebtn.addEventListener('click', (event) => {
         return;
     }
 
-    let Condcheckboxes = document.querySelectorAll('input[name="condition"]:checked');
-    console.log(Condcheckboxes.length);
-    if (Condcheckboxes.length == 0 || givecheckboxes.length == 0) {
-        Toastify({
-            text: "Please select compensation and Category",
-            duration: 2000,
-            close: true,
-            gravity: "bottom", // `top` or `bottom`
-            position: 'center', // `left`, `center` or `right`
-            backgroundColor: "linear-gradient(to right, #00b09b, #70C782)",
-        }).showToast();
-        setTimeout(() => {
-            window.location.reload();
-        }, 1000);
-        return;
-    }
-    console.log(Condcheckboxes[0].value);
-    let c = Condcheckboxes[0].value;
-    // Compcheckboxes.forEach((c) => {
-    //     values.push(c.value);
-    // });
-    // const c = document.getElementById("helprequest_type");
-    // console.log(c.value);
+    // let Condcheckboxes = document.querySelectorAll('input[name="condition"]:checked');
+    // console.log(Condcheckboxes.length);
+    // if (Condcheckboxes.length == 0 || givecheckboxes.length == 0) {
+    //     Toastify({
+    //         text: "Please select compensation and Category",
+    //         duration: 2000,
+    //         close: true,
+    //         gravity: "bottom", // `top` or `bottom`
+    //         position: 'center', // `left`, `center` or `right`
+    //         backgroundColor: "linear-gradient(to right, #00b09b, #70C782)",
+    //     }).showToast();
+    //     setTimeout(() => {
+    //         window.location.reload();
+    //     }, 1000);
+    //     return;
+    // }
+    // console.log(Condcheckboxes[0].value);
+    // let c = Condcheckboxes[0].value;
+    //// Compcheckboxes.forEach((c) => {
+    ////     values.push(c.value);
+    //// });
+    //// const c = document.getElementById("helprequest_type");
+    //// console.log(c.value);
     if (stopListineng) stopListineng();
-    if (c == '') {
-        const postsCollection = dbCollectioncomp("posts").where("condition", "==", c && "type", "==", "giveaway").where("category", "in", values);
-        stopListineng = postsCollection.onSnapshot(async (querySnapshot) => {
-            await populateFeed(querySnapshot);
-        });
-    } else {
-        const postsCollection = dbCollectioncomp("posts").where("condition", "!=", '' && "type", "==", "giveaway").where("category", "in", values);
-        stopListineng = postsCollection.onSnapshot(async (querySnapshot) => {
-            await populateFeed(querySnapshot);
-        });
-    }
+    const postCollection = dbCollection("posts").where("type", "==", "giveaway").where("category", "in", values);
+    stopListineng = postCollection.onSnapshot(async (querySnapshot) => {
+        await populateFeed(querySnapshot);
+    });
+    // if (c == 'new') {
+    //     const postsCollection = dbCollection("posts").where("condition", "==", 'new' && "type", "==", "giveaway").where("category", "in", values);
+    //     stopListineng = postsCollection.onSnapshot(async (querySnapshot) => {
+    //         await populateFeed(querySnapshot);
+    //     });
+    // } else if(c == 'used') {
+    //     const postsCollection = dbCollection("posts").where("condition", "==", 'used' && "type", "==", "giveaway").where("category", "in", values);
+    //     stopListineng = postsCollection.onSnapshot(async (querySnapshot) => {
+    //         await populateFeed(querySnapshot);
+    //     });
+    // } else if(c == 'like_new') {
+    //     const postsCollection = dbCollection("posts").where("condition", "==", 'like_new' && "type", "==", "giveaway").where("category", "in", values);
+    //     stopListineng = postsCollection.onSnapshot(async (querySnapshot) => {
+    //         await populateFeed(querySnapshot);
+    //     });
+    // } else if(c == 'needs_reparing') {
+    //     const postsCollection = dbCollection("posts").where("condition", "==", 'needs_reparing' && "type", "==", "giveaway").where("category", "in", values);
+    //     stopListineng = postsCollection.onSnapshot(async (querySnapshot) => {
+    //         await populateFeed(querySnapshot);
+    //     });
+    // } else{
+    //     console.log('error');
+    // }
+
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -171,6 +231,7 @@ function onlytwo(checkbox) {
         if (item !== checkbox) item.checked = false
     })
 }
+
 function onlythree(checkbox) {
     var checkboxes = document.getElementsByName('condition')
     checkboxes.forEach((item) => {
