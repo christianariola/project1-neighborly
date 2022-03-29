@@ -1,12 +1,13 @@
 class Post {
     static templates = {};
-    constructor(id, title, description, replies= [], photos = [], location = {}, createdAt, type, author) {
+    constructor(id, title, description, likes = [], replies= [], photos = [], location = {}, createdAt, type, author) {
         const uid = sessionStorage.getItem("uid");
         this.id = id || `${uid}-${Date.now().toString(36)}`;
         this.title = title;
         this.description = description;
         this.photos = photos;
-        this.location = location;
+        this.photos = photos;
+        this.likes = likes;
         this.createdAt = createdAt || new Date();
         this.modifiedAt = createdAt ? new Date() : null;
         this.type = type;
@@ -75,6 +76,15 @@ class Post {
         postElement.querySelector('.post-img').src = post.photos?.length ? post.photos[0] : '';
         postElement.querySelector('.post-avatar img').src = `https://i.pravatar.cc/150?u=${post.author?.userId}`;
 
+        if (post.likes?.length) {
+            postElement.querySelector('.post-likes').innerHTML = post.likes?.length;
+            if (post.likes.includes(post.author.userId)) {
+                postElement.querySelector('.post-like-action').classList.add('visually-hidden');
+            }
+        } else {
+            postElement.querySelector('.post-likes').parentElement.classList.add('visually-hidden');
+        }
+
         const populateReply = (replyElement, postReply) => {
             replyElement.dataset.id = postReply.id;
             replyElement.querySelector('.post-reply-author-avatar img').src = `https://i.pravatar.cc/150?u=${postReply.author?.userId}`;
@@ -125,11 +135,24 @@ class Post {
         }
     }
 
+    static async like(element) {
+        element.classList.add('visually-hidden');
+        const postContainer = element.closest('.post-card');
+        const postId = postContainer.dataset?.id;
+        const likesCountElement = postContainer.querySelector('.post-likes');
+        likesCountElement.parentElement.classList.remove('visually-hidden');
+
+        likesCountElement.innerHTML = Number(likesCountElement.innerHTML || 0) + 1;
+        db.collection('posts').doc(postId).update({
+            likes: firestore.FieldValue.arrayUnion(sessionStorage.getItem("uid"))
+        })
+    }
+
 }
 
 class Recommendation extends Post {
-    constructor({ id, title, description, replies, starRating, photos, location, createdAt, author }) {
-        super(id, title, description, replies, photos, location, createdAt, POST_TYPES.recommendation, author);
+    constructor({ id, title, description, likes, replies, starRating, photos, location, createdAt, author }) {
+        super(id, title, description, likes, replies, photos, location, createdAt, POST_TYPES.recommendation, author);
         this.starRating = starRating > 0 && starRating < 6  ? Number(starRating): null;
     }
 
@@ -144,8 +167,8 @@ class Recommendation extends Post {
 }
 
 class HelpRequest extends Post {
-    constructor({ id, title, description, replies, photos, location, createdAt, compensation, author, category }) {
-        super(id, title, description, replies, photos, location, createdAt, POST_TYPES.helpRequest, author);
+    constructor({ id, title, description, likes, replies, photos, location, createdAt, compensation, author, category }) {
+        super(id, title, description, likes, replies, photos, location, createdAt, POST_TYPES.helpRequest, author);
         this.compensation = compensation;
         this.category = category;
     }
@@ -162,8 +185,8 @@ class HelpRequest extends Post {
 }
 
 class Giveaway extends Post {
-    constructor({ id, title, description, replies, photos, location, createdAt, condition, category, author }) {
-        super(id, title, description, replies, photos, location, createdAt, POST_TYPES.giveaway, author);
+    constructor({ id, title, description, likes, replies, photos, location, createdAt, condition, category, author }) {
+        super(id, title, description, likes, replies, photos, location, createdAt, POST_TYPES.giveaway, author);
         this.condition = condition;
         this.category = category;
     }
