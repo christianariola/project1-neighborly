@@ -20,6 +20,7 @@ const baby_and_kids = document.getElementById("baby_and_kids");
 const appliances = document.getElementById("appliances");
 const helprequest_type = document.getElementById("helprequest_type");
 const searchInput = document.getElementById("searchInput");
+let allPostsBackup = document.createElement('div');
 
 let stopListineng;
 async function onloadsetshow() {
@@ -29,6 +30,8 @@ async function onloadsetshow() {
 const resetFeed = () => {
     //In order to remove post that dont match the filters criteria, this should be executed every time we apply a new filter
     feed.innerHTML = '';
+    searchInput.value = '';
+    allPostsBackup.innerHTML = '';
     feedHasBeenPopulated = false;
 }
 
@@ -268,18 +271,32 @@ searchInput.addEventListener('change', (event) => {
     const search = event?.target?.value || '';
     if (search.trim()) {
         const container = document.createElement('div');
-        feed.querySelectorAll('.post-card.card-content').forEach(card => {
+        const displayedPosts = feed.querySelectorAll('.post-wrapper');
+        const backupPosts = allPostsBackup?.childNodes;
+        const allPosts = displayedPosts.length > backupPosts.length ? displayedPosts : backupPosts;
+        allPosts.forEach((card, idx) => {
             let cardContents = '';
+            const clonedCard = card.cloneNode(true);
+            allPostsBackup.append(clonedCard);
             cardContents += `${card.querySelector('.post-title').innerHTML?.toLowerCase()} `;
             cardContents += `${card.querySelector('.post-description').innerHTML?.toLowerCase()} `;
             card.querySelectorAll('.post-reply-text').forEach(reply => {
                 cardContents += `${reply.innerHTML?.toLowerCase()} `;
             });
             if (cardContents.includes(search.toLowerCase())) {
-                container.append(card.parentElement);
+                container.append(card.cloneNode(true));
             }
         });
+
+
+        if (!container.innerHTML.length) {
+            container.innerHTML = `There are no post that contain the word <span class="bold">${search}</span>`;
+        }
         feed.innerHTML = container.innerHTML;
-        searchInput.value = '';
+    } else {
+
+        if (allPostsBackup.childNodes.length) {
+            feed.innerHTML = allPostsBackup.innerHTML;
+        }
     }
 });
