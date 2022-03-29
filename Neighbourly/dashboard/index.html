@@ -154,7 +154,7 @@
 
                     <div class="filter-help-request">
                         <div>
-                            <h4>Working filters (rest is WIP)</h4>
+                            <h4>Working filters</h4>
                             <div id="filter-input-wrapper">
                                 <div class="post-type-filter">
                                     <label for="posts">Post Type:
@@ -218,6 +218,20 @@
                                         <div class="btngrid">
                                             <button id="category_btn" type="Apply">Apply</button>
                                             <button id="reset_btn" type="reset">Reset</button>
+                                        </div>
+                                    </fieldset>
+                                </form>
+
+                                <form class="recommendfilter_form">
+                                    <h4>Recommendation Filters</h4><br>
+                                    <fieldset class="crec_fieldset">
+                                        <legend>Select Recommendation Rating</legend>
+                                        <div>
+                                            <label class="starRating rating-label" for="five"></label>
+                                            <input type="range" id="five" class="rating" max="5" step="1" value="0" name="rating" onchange="filterReco(this.value)">
+                                        </div>
+                                        <div>
+                                            <button id="recreset_btn" type="reset">Reset</button>
                                         </div>
                                     </fieldset>
                                 </form>
