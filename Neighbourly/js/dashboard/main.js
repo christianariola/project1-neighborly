@@ -4,7 +4,7 @@ const postCardTemplate = fetch(POST_TEMPLATES.card)
 
 let feedHasBeenPopulated = false;
 
-createPostBtn.addEventListener('click', () => Post.loadPostSelection());
+createPostInput.addEventListener('click', () => Post.loadPostSelection());
 
 const populateFeed = async (allPosts) => {
     const postMethodHandler = feedHasBeenPopulated ? Post.updatePostCard : Post.addNewPostCardToFeed;

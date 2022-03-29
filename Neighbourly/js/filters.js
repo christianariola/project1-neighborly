@@ -19,6 +19,7 @@ const car_parts = document.getElementById("car_parts");
 const baby_and_kids = document.getElementById("baby_and_kids");
 const appliances = document.getElementById("appliances");
 const helprequest_type = document.getElementById("helprequest_type");
+const searchInput = document.getElementById("searchInput");
 
 let stopListineng;
 async function onloadsetshow() {
@@ -46,7 +47,7 @@ onloadsetshow();
 async function filterReco(c) {
     resetFeed();
     const values = parseInt(c);
-    
+
     console.log(typeof values);
     if (stopListineng) stopListineng();
 
@@ -262,3 +263,23 @@ function onlythree(checkbox) {
 //         if (item !== checkbox) item.checked = false
 //     })
 // }
+
+searchInput.addEventListener('change', (event) => {
+    const search = event?.target?.value || '';
+    if (search.trim()) {
+        const container = document.createElement('div');
+        feed.querySelectorAll('.post-card.card-content').forEach(card => {
+            let cardContents = '';
+            cardContents += `${card.querySelector('.post-title').innerHTML} `;
+            cardContents += `${card.querySelector('.post-description').innerHTML} `;
+            card.querySelectorAll('.post-reply-text').forEach(reply => {
+                cardContents += `${reply.innerHTML} `;
+            });
+            if (cardContents.includes(search)) {
+                container.append(card.parentElement);
+            }
+        });
+        feed.innerHTML = container.innerHTML;
+        searchInput.value = '';
+    }
+});
