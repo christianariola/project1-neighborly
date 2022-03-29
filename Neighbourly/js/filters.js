@@ -270,12 +270,12 @@ searchInput.addEventListener('change', (event) => {
         const container = document.createElement('div');
         feed.querySelectorAll('.post-card.card-content').forEach(card => {
             let cardContents = '';
-            cardContents += `${card.querySelector('.post-title').innerHTML} `;
-            cardContents += `${card.querySelector('.post-description').innerHTML} `;
+            cardContents += `${card.querySelector('.post-title').innerHTML?.toLowerCase()} `;
+            cardContents += `${card.querySelector('.post-description').innerHTML?.toLowerCase()} `;
             card.querySelectorAll('.post-reply-text').forEach(reply => {
-                cardContents += `${reply.innerHTML} `;
+                cardContents += `${reply.innerHTML?.toLowerCase()} `;
             });
-            if (cardContents.includes(search)) {
+            if (cardContents.includes(search.toLowerCase())) {
                 container.append(card.parentElement);
             }
         });
