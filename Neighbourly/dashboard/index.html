@@ -174,7 +174,8 @@
                                                 name="rating" onchange="filterReco(this.value)">
                                         </div>
                                         <div>
-                                            <button id="recreset_btn" class="reset_feed_btn" type="reset" onclick="reloadfeed()">Reset</button>
+                                            <button id="recreset_btn" class="reset_feed_btn" type="reset"
+                                                onclick="reloadfeed()">Reset</button>
                                         </div>
                                     </fieldset>
                                 </form>
@@ -230,7 +231,8 @@
                                         </div>
                                         <div class="btngrid">
                                             <button id="category_btn" type="Apply">Apply</button>
-                                            <button id="reset_btn" class="reset_feed_btn" type="reset" onclick="reloadfeed()">Reset</button>
+                                            <button id="reset_btn" class="reset_feed_btn" type="reset"
+                                                onclick="reloadfeed()">Reset</button>
                                         </div>
                                     </fieldset>
                                 </form>
@@ -239,26 +241,31 @@
 
                                 <form class="giveawayfilter_form">
                                     <h4>Giveaway Filters</h4><br>
-                                     <fieldset class="giveawaycon_fieldset">
+                                    <fieldset class="giveawaycon_fieldset">
                                         <legend>Filter by Condition type</legend>
                                         <div>
-                                            <input type="radio" id="new" name="condition" value="new" onchange="filtergiveCon(this.value)">
+                                            <input type="radio" id="new" name="condition" value="new"
+                                                onchange="filtergiveCon(this.value)">
                                             <label for="new">New</label>
                                         </div>
                                         <div>
-                                            <input type="radio" id="likenew" name="condition" value="like_new" onchange="filtergiveCon(this.value)">
+                                            <input type="radio" id="likenew" name="condition" value="like_new"
+                                                onchange="filtergiveCon(this.value)">
                                             <label for="likenew">Like New</label>
                                         </div>
                                         <div>
-                                            <input type="radio" id="used" name="condition" value="used" onchange="filtergiveCon(this.value)">
+                                            <input type="radio" id="used" name="condition" value="used"
+                                                onchange="filtergiveCon(this.value)">
                                             <label for="used">Used</label>
                                         </div>
                                         <div>
-                                            <input type="radio" id="needrepair" name="condition" value="needs_reparing" onchange="filtergiveCon(this.value)">
+                                            <input type="radio" id="needrepair" name="condition" value="needs_reparing"
+                                                onchange="filtergiveCon(this.value)">
                                             <label for="needrepair">Needs Repair</label>
                                         </div>
                                         <div>
-                                            <button id="giveconreset_btn" class="reset_feed_btn" type="reset" onclick="reloadfeed()">Reset</button>
+                                            <button id="giveconreset_btn" class="reset_feed_btn" type="reset"
+                                                onclick="reloadfeed()">Reset</button>
                                         </div>
                                     </fieldset><br>
 
@@ -329,7 +336,8 @@
                                         </div>
                                         <div class="btngrid">
                                             <button id="GiveCategory_btn" type="Apply">Apply</button>
-                                            <button id="catreset_btn" class="reset_feed_btn" type="reset" onclick="reloadfeed()">Reset</button>
+                                            <button id="catreset_btn" class="reset_feed_btn" type="reset"
+                                                onclick="reloadfeed()">Reset</button>
                                         </div>
                                     </fieldset>
                                 </form>
@@ -352,8 +360,9 @@
             </section>
 
             <div class="feed-column">
-                <form>
-                    <input id="createPostInput" type="text" name="new-post-dashboard" placeholder="What is happening in your neighborhood?">
+                <form class="createPostInput">
+                    <input id="createPostInput" type="text" name="new-post-dashboard"
+                        placeholder="What is happening in your neighborhood?">
                 </form>
                 <div id="feed" class="feed margin-t-1r"></div>
             </div>
