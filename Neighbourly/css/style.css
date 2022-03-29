@@ -410,7 +410,6 @@ div#filter-input-wrapper {
     padding: 1rem 0 1rem .4rem;
 }
 
-<<<<<<< HEAD
 .comp_fieldset,
 .giveawaycon_fieldset{
     border-bottom:black solid 1px;
@@ -431,8 +430,6 @@ div#filter-input-wrapper {
 
 
 
-=======
->>>>>>> 8f82aa8d50799792c90d56f0dd7e2f97efe02d98
 /*  END FILTER  ========================== */
 @media screen and (min-width: 769px) {
     h1 .desktop {
