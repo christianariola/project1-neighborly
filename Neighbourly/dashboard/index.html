@@ -124,8 +124,6 @@
                     <div class="controler"><span id="radiusKm">5</span>km</div>
                 </div>
 
-
-                <button id="createPostBtn">New Post</button>
             </div>
 
 
@@ -353,7 +351,12 @@
                 </div>
             </section>
 
-            <div id="feed" class="feed margin-t-1r"></div>
+            <div class="feed-column">
+                <form>
+                    <input id="createPostInput" type="text" name="new-post-dashboard" placeholder="What is happening in your neighborhood?">
+                </form>
+                <div id="feed" class="feed margin-t-1r"></div>
+            </div>
 
 
             <label for="imgfile" class="visually-hidden">

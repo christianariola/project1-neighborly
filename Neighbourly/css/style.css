@@ -105,7 +105,7 @@ h1 .mobile {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         grid-template-rows: repeat(2, 1fr);
-        
+
     }
 
     .menu-icons {
@@ -345,7 +345,7 @@ div#filter-input-wrapper {
     flex-flow: column nowrap;
     gap: .5rem;
     justify-content: flex-start;
-    
+
 }
 
 .category_fieldset,
@@ -493,7 +493,7 @@ div#filter-input-wrapper {
     .controler {
         align-self: center;
     }
-    .feed {
+    .feed-column {
         grid-area: feed;
     }
 
