@@ -275,7 +275,7 @@ li {
     .dash-header {
         display: grid;
         grid-template-columns: 15% 85%;
-        padding: 0 2rem;
+        /*padding: 0 2rem;*/
     }
 
     .dash-header nav {
@@ -288,7 +288,7 @@ li {
 .menu-icons {
     display: flex;
     flex-flow: row nowrap;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
 }
 
