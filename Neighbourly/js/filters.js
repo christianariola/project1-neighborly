@@ -43,18 +43,36 @@ async function filterSelection(c) {
 onloadsetshow();
 
 
-//reset filters and reload feed
-const reset_btn = document.getElementById("reset_btn");
-reset_btn.addEventListener("click", () => {
-    onloadsetshow();
+async function filterReco(c) {
     resetFeed();
-});
-const catreset_btn = document.getElementById("catreset_btn");
-catreset_btn.addEventListener("click", () => {
-    onloadsetshow();
-    resetFeed();
-});
+    const values = parseInt(c);
+    
+    console.log(typeof values);
+    if (stopListineng) stopListineng();
 
+    const postCollection = dbCollection("posts").where("starRating", "==", values).where("type", "==", "recommendation");
+
+    stopListineng = postCollection.onSnapshot(async (querySnapshot) => {
+        await populateFeed(querySnapshot);
+    });
+}
+
+async function filtergiveCon(c){
+    resetFeed();
+    if (stopListineng) stopListineng();
+    const postCollection = dbCollection("posts").where("condition", "==", c).where("type", "==", "giveaway");
+
+    stopListineng = postCollection.onSnapshot(async (querySnapshot) => {
+        await populateFeed(querySnapshot);
+    });
+}
+
+//reset filters and reload feed
+
+function reloadfeed() {
+    resetFeed();
+    onloadsetshow();
+}
 
 //filter by Help request category and Compensation
 const btn = document.querySelector('#category_btn');

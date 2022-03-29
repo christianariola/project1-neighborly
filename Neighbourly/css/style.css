@@ -351,14 +351,18 @@ div#filter-input-wrapper {
 .category_fieldset,
 .comp_fieldset,
 .giveawaycon_fieldset,
-.GiveawayCategory_fieldset {
+.GiveawayCategory_fieldset,
+.crec_fieldset {
     border:0;
     padding:.5rem;
 }
+
+.giveawaycon_fieldset{
+    border-bottom: 1px solid black;
+}
 #category_btn,
 #GiveCategory_btn,
-#reset_btn,
-#catreset_btn {
+.reset_feed_btn{
     margin-top: 1rem;
     background-color: #008DCE;
     color: #fff;
@@ -395,16 +399,18 @@ div#filter-input-wrapper {
 /* START FILTER ========================== */
 
 .helpreqfilter_form,
-.giveawayfilter_form {
+.giveawayfilter_form,
+.recommendfilter_form {
     /* padding-top: 1rem; */
     border-top:black solid 1px;
-    padding: 1rem 0 1rem .4rem;
+    padding: 1rem 0 0rem 0;
 }
 
 .post-type-filter{
     padding: 1rem 0 1rem .4rem;
 }
 
+<<<<<<< HEAD
 .comp_fieldset,
 .giveawaycon_fieldset{
     border-bottom:black solid 1px;
@@ -425,6 +431,8 @@ div#filter-input-wrapper {
 
 
 
+=======
+>>>>>>> 8f82aa8d50799792c90d56f0dd7e2f97efe02d98
 /*  END FILTER  ========================== */
 @media screen and (min-width: 769px) {
     h1 .desktop {
