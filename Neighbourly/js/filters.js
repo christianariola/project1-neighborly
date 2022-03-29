@@ -43,6 +43,20 @@ async function filterSelection(c) {
 onloadsetshow();
 
 
+async function filterReco(c) {
+    resetFeed();
+    const values = parseInt(c);
+    
+    console.log(typeof values);
+    if (stopListineng) stopListineng();
+
+    const postCollection = dbCollection("posts").where("starRating", "==", values);
+
+    stopListineng = postCollection.onSnapshot(async (querySnapshot) => {
+        await populateFeed(querySnapshot);
+    });
+}
+
 //reset filters and reload feed
 const reset_btn = document.getElementById("reset_btn");
 reset_btn.addEventListener("click", () => {
@@ -51,6 +65,11 @@ reset_btn.addEventListener("click", () => {
 });
 const catreset_btn = document.getElementById("catreset_btn");
 catreset_btn.addEventListener("click", () => {
+    onloadsetshow();
+    resetFeed();
+});
+const recreset_btn = document.getElementById("recreset_btn");
+recreset_btn.addEventListener("click", () => {
     onloadsetshow();
     resetFeed();
 });

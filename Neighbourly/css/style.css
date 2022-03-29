@@ -290,14 +290,16 @@ div#filter-input-wrapper {
 .category_fieldset,
 .comp_fieldset,
 .giveawaycon_fieldset,
-.GiveawayCategory_fieldset {
+.GiveawayCategory_fieldset,
+.crec_fieldset {
     border:0;
     padding:.5rem;
 }
 #category_btn,
 #GiveCategory_btn,
 #reset_btn,
-#catreset_btn {
+#catreset_btn,
+#recreset_btn {
     margin-top: 1rem;
     background-color: #008DCE;
     color: #fff;
@@ -334,7 +336,8 @@ div#filter-input-wrapper {
 /* START FILTER ========================== */
 
 .helpreqfilter_form,
-.giveawayfilter_form {
+.giveawayfilter_form,
+.recommendfilter_form {
     /* padding-top: 1rem; */
     border-top:black solid 1px;
     padding: 1rem 0 1rem .4rem;
@@ -344,10 +347,11 @@ div#filter-input-wrapper {
     padding: 1rem 0 1rem .4rem;
 }
 
-.comp_fieldset,
-.giveawaycon_fieldset{
+/* .comp_fieldset,
+.giveawaycon_fieldset,
+.crec_fieldset {
     border-bottom:black solid 1px;
-}
+} */
 
 /* .giveawayfilter_form{
     border-top: .5rem solid black;
