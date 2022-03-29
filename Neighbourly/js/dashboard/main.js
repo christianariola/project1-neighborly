@@ -5,6 +5,7 @@ const postCardTemplate = fetch(POST_TEMPLATES.card)
 let feedHasBeenPopulated = false;
 
 createPostInput.addEventListener('click', () => Post.loadPostSelection());
+document.querySelector('.create-post-avatar img').src = `https://i.pravatar.cc/150?u=${sessionStorage.getItem("uid")}`;
 
 const populateFeed = async (allPosts) => {
     const postMethodHandler = feedHasBeenPopulated ? Post.updatePostCard : Post.addNewPostCardToFeed;

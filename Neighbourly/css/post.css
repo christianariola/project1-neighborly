@@ -146,10 +146,12 @@ mask: repeat left center/var(--starsize) var(--symbol);
     display: flex;
     flex-grow: 1;
 }
+.create-post-avatar,
 .post-avatar {
     height: auto;
     width: 64px;
 }
+.create-post-avatar img,
 .post-avatar img {
     border-radius: 50%;
 }
