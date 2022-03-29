@@ -29,6 +29,12 @@ h3 {
     font-size: 2rem;
 }
 
+
+.map-container {
+    border-bottom: 1px solid yellow;
+}
+
+
 /* Class to hide content accessibly ======== */
 .visually-hidden {
     clip: rect(0 0 0 0);
@@ -91,6 +97,61 @@ h1 .mobile {
     box-shadow: 5px 4px 5px 0px rgba(0, 0, 0, 0.34);
     border: 1px solid rgba(100, 100, 100, 1);
 }
+
+
+
+@media screen and (max-width: 769px) {
+    .dash-header {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        
+    }
+
+    .menu-icons {
+        grid-column-start: 1;
+        grid-column-end: 3;
+
+        grid-row-start: 2;
+        grid-row-end: 2;
+      }
+
+      .menu-search {
+        grid-column-start: 2;
+        grid-column-end: 2;
+      }
+
+}
+
+/* Area Radius ============ */
+
+.map-container {
+    grid-area: map;
+}
+
+.map-container {
+    position: relative;
+}
+
+.map-control {
+    position: absolute;
+    bottom: 50px;
+    right: 30px;
+    display: flex;
+    justify-content: end;
+    background-color: white;
+    gap: .5rem;
+    padding: 0 .5rem;
+    box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.4);
+    border-radius: 8px;
+}
+.map-control h5 {
+    align-self: center;
+}
+.controler {
+    align-self: center;
+}
+
 
 /* GLOBAL BUTTON STYLES ===================== */
 
@@ -355,6 +416,14 @@ div#filter-input-wrapper {
 .giveawayfilter_form h4{
     margin-top: 1rem;
 }
+
+
+
+
+
+
+
+
 
 /*  END FILTER  ========================== */
 @media screen and (min-width: 769px) {

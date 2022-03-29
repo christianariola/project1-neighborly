@@ -131,6 +131,10 @@ mask: repeat left center/var(--starsize) var(--symbol);
     grid-template-rows: 15%, 75%,10%;
 }
 
+.flex-column {
+    margin-left: 10px;
+}
+
 /* card header part =======*/
 .top-part {
     display: flex;
@@ -167,6 +171,16 @@ mask: repeat left center/var(--starsize) var(--symbol);
     color: #FEE9CC;
 }
 
+.post-createdAt {
+    font-size: x-small;
+}
+
+.midl-part h3 {
+    font-size: large;
+
+    margin: 0;
+}
+
 /* card body part =======*/
 .post-body-text {
     display: flex;
@@ -180,6 +194,14 @@ mask: repeat left center/var(--starsize) var(--symbol);
     max-width: 50rem;
     margin-top: 1rem;
 }
+
+@media screen and (max-width: 769px) {
+   .midl-part span {
+    display: none;
+}
+}
+
+
 .post-reply-author {
     margin: .5rem 0;
 }
