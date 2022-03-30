@@ -137,7 +137,7 @@ class Dashboard {
                     close: true,
                     gravity: "top", // `top` or `bottom`
                     position: 'center', // `left`, `center` or `right`
-                    backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+                    backgroundColor: "linear-gradient(to right, #00b09b, #70C782)",
                     stopOnFocus: true, // Prevents dismissing of toast on hover
                 }).showToast();
             }
@@ -417,7 +417,7 @@ logout.addEventListener('click', (e) => {
             close: true,
             gravity: "top", // `top` or `bottom`
             position: 'center', // `left`, `center` or `right`
-            backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+            backgroundColor: "linear-gradient(to right, #00b09b, #70C782)",
             stopOnFocus: true, // Prevents dismissing of toast on hover
         }).showToast();
         setTimeout(() => {

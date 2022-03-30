@@ -95,16 +95,17 @@ btn.addEventListener('click', (event) => {
     //check that both filters are selected
     if (Compcheckboxes.length == 0 || checkboxes.length == 0) {
         Toastify({
-            text: "Please select compensation and Category",
+            text: "Please select both Compensation and Category",
             duration: 3000,
             close: true,
             gravity: "top", // `top` or `bottom`
             position: 'center', // `left`, `center` or `right`
             backgroundColor: "linear-gradient(to right, #00b09b, #70C782)",
         }).showToast();
-        setTimeout(() => {
-            window.location.reload();
-        }, 1500);
+        // setTimeout(() => {
+        //     window.location.reload();
+        // }, 1500);
+        // reloadfeed();
         return;
     }
 
@@ -136,19 +137,30 @@ givebtn.addEventListener('click', (event) => {
     givecheckboxes.forEach((checkbox) => {
         values.push(checkbox.value);
     });
+    if (values.length == 0) {
+        Toastify({
+            text: "Please select at least one Category",
+            duration: 3000,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: 'center', // `left`, `center` or `right`
+            backgroundColor: "linear-gradient(to right, #00b09b, #70C782)",
+        }).showToast();
+        return;
+    }
     //firebase "in" query cannot handle more than 10 values, so limit to ten
     if (values.length > 10) {
         Toastify({
             text: "Please select less than 10 categories",
-            duration: 2000,
+            duration: 3000,
             close: true,
-            gravity: "bottom", // `top` or `bottom`
+            gravity: "top", // `top` or `bottom`
             position: 'center', // `left`, `center` or `right`
             backgroundColor: "linear-gradient(to right, #00b09b, #70C782)",
         }).showToast();
-        setTimeout(() => {
-            window.location.reload();
-        }, 1000);
+        // setTimeout(() => {
+        //     window.location.reload();
+        // }, 1000);
         return;
     }
 
@@ -198,6 +210,14 @@ searchInput.addEventListener('change', (event) => {
 
         if (!container.innerHTML.length) {
             container.innerHTML = `There are no post that contain the word <span class="bold">${search}</span>`;
+            Toastify({
+                text: "There are no post that contain the word: " + search,
+                duration: 2000,
+                close: true,
+                gravity: "top", // `top` or `bottom`
+                position: 'center', // `left`, `center` or `right`
+                backgroundColor: "linear-gradient(to right, #00b09b, #70C782)",
+            }).showToast();
         }
         feed.innerHTML = container.innerHTML;
     } else {
