@@ -104,6 +104,26 @@ h1 .mobile {
     max-width: 60px;
 }
 
+.loader-content {
+    display: grid;
+    justify-items: center;
+    grid-gap: 1rem;
+}
+
+#loader img{
+    width: 70px;
+    animation: rotation 2s infinite linear;
+}
+
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(359deg);
+    }
+}
+
 .offline-box span{
     background-color: #000;
     background-image: linear-gradient(180deg, #000, #333);
@@ -113,6 +133,19 @@ h1 .mobile {
     border: 1px solid rgba(100, 100, 100, 1);
 }
 
+.post-popup-type span{
+    text-transform: uppercase;
+}
+
+#bodyContent p {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+#bodyContent a {
+    text-decoration: underline;
+    color: #008DCE;
+}
 
 
 @media screen and (max-width: 769px) {

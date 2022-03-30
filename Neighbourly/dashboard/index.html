@@ -71,6 +71,14 @@
 </head>
 
 <body class="dashboard">
+    <div id="loader">
+        <div class="overlay">
+            <div class="overlay-content loader-content text-white">
+                <div><img src="../images/neighbourly-mobile-logo.svg" alt="Loader"></div>
+                <div>Please wait. Fetching nearby posts.</div>
+            </div>
+        </div>
+    </div>
     <div class="offline"></div>
     <div class="wrapper">
         <header class="dash-header">
@@ -114,6 +122,7 @@
         <main>
             <div class="map-container">
                 <h2>Dashboard</h2>
+                
                 <div id="map"></div>
 
                 <div class="map-control">
