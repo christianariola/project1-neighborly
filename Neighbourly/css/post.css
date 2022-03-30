@@ -135,6 +135,10 @@ mask: repeat left center/var(--starsize) var(--symbol);
     margin-left: 10px;
 }
 
+#modal .flex-column {
+    margin-left: initial;
+}
+
 /* card header part =======*/
 .top-part {
     display: flex;
@@ -243,8 +247,12 @@ mask: repeat left center/var(--starsize) var(--symbol);
     font-size: .6rem;
 }
 
-.footer-part button.border-none.padding-1r.bg-white.pointer {
-    padding: 0 0 0 5px;
+.footer-part .post-reply-input-container button {
+    padding: 0;
+}
+.footer-part .post-reply-input-container button > i {
+    font-size: 1.2rem;
+    color: #008DCE;
 }
 /* icons */
 .iconnum {
@@ -267,10 +275,14 @@ mask: repeat left center/var(--starsize) var(--symbol);
     margin-top: 23px;
     margin-bottom: 15px;
 }
+.post-reply-input-container {
+    display: grid;
+    grid-template-columns: auto minmax(10%, 50px);
+}
 .card-footer-comment {
     background-color: #F2F2F2;
     border-radius: 8px;
-    width: 92%;
+    /*width: 92%;*/
     height: 60px;
     border: unset;
 }
