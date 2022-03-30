@@ -112,7 +112,9 @@ class Post {
         const icon = postElement.querySelector('.post-like-action i');
         if (post.likes?.length) {
             postElement.querySelector('.post-likes').innerHTML = post.likes?.length;
-            if (post.likes.includes(post.author)) {
+
+            const userId = sessionStorage.getItem("uid");
+            if (post.likes.includes(userId)) {
                 icon.parentElement.classList.remove('pointer');
             } else {
                 icon.classList.remove('fa-light');
