@@ -290,7 +290,7 @@
             '<div id="siteNotice">' +
             "</div>" +
             '<h4>'+ nearList[key].postInfo.title +'</h4>' +
-            '<p>'+ nearList[key].postInfo.createdAt +'</p>' +
+            '<p>'+ nearList[key].postInfo.id +'</p>' +
             '<div id="bodyContent">' +
             '<p>' + nearList[key].postInfo.description + '</p>' +
             '<p>' + nearList[key].postInfo.type + '</p>' +
