@@ -203,6 +203,14 @@ mask: repeat left center/var(--starsize) var(--symbol);
 }
 }
 
+.post-pills > div{
+    width: fit-content;
+    box-shadow: 0 1px 8px 0 rgba(0, 0, 0, .1);
+    margin: 0 0.2rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 5px;
+    font-size: 0.8rem;
+}
 
 .post-reply-author {
     margin: .5rem 0;

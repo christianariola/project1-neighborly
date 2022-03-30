@@ -65,21 +65,34 @@ class Post {
     }
 
     static applyChanges(postElement, post) {
+        const postTypePill = postElement.querySelector('.post-type');
+        const categoryPill = postElement.querySelector('.post-category');
+        const conditionPill = postElement.querySelector('.post-condition');
+
         postElement.querySelector('.post-card').dataset.id = post.id;
         postElement.querySelector('.post-title').innerHTML = post.title;
-        postElement.querySelector('.post-type').innerHTML = POST_TYPES_LABELS[post.type];
-        postElement.querySelector('.post-category').innerHTML = post.category ? `Category: ${POST_CATEGORIES[post.category]}` : '';
-        postElement.querySelector('.post-condition').innerHTML = post.condition ? `Condition: ${GIVEAWAY_CONDITION[post.condition]}` : '';
         postElement.querySelector('.post-description').innerHTML = post.description;
         postElement.querySelector('.post-author').innerHTML = `${post.author?.firstName} ${post.author?.lastName}`;
         postElement.querySelector('.post-createdAt').innerHTML = dbTimestampToDate(post.createdAt).toString().substring(0, 25);
         postElement.querySelector('.post-img').src = post.photos?.length ? post.photos[0] : '';
         postElement.querySelector('.post-avatar img').src = `https://i.pravatar.cc/150?u=${post.author?.userId}`;
+        postTypePill.innerHTML = POST_TYPES_LABELS[post.type];
+
+        if (post.category) {
+            categoryPill.innerHTML = POST_CATEGORIES[post.category];
+            categoryPill.classList.remove('visually-hidden');
+        }
+
+        if (post.condition) {
+            conditionPill.innerHTML = GIVEAWAY_CONDITION[post.condition];
+            conditionPill.classList.remove('visually-hidden');
+        }
 
         if (post.starRating) {
             const starRatingInput = postElement.querySelector('.post-card-star-rating');
             starRatingInput.classList.remove('visually-hidden');
             starRatingInput.value = post.starRating;
+            postTypePill.classList.add('visually-hidden');
         }
 
         if (post.likes?.length) {
