@@ -12,22 +12,25 @@
                     <p class="post-createdAt"></p>
                 </div>
             </div>
-            <div class="recommand">
-                <!-- <p>&e28b;</p> -->
-                <i class="fa-solid fa-star-sharp"></i>
-                <i class="fa-solid fa-star-sharp" className="yellow"></i>
-                <i class="fa-solid fa-star-sharp" className="yellow"></i>
-                <i class="fa-solid fa-star-sharp" className="light"></i>
-                <i class="fa-solid fa-star-sharp" className="light"></i>
+            <div class="recommand flex align-center">
+                <input
+                       disabled
+                       id="newPostRating"
+                       class="rating visually-hidden post-card-star-rating"
+                       max="5"
+                       step="1"
+                       type="range">
             </div>
         </div>
         <div class="midl-part">
             <h3 class="post-title"></h3>
             <img class="post-img" src="" alt="">
             <p class="post-description"></p>
-            <div class="post-type"></div>
-            <div class="post-category"></div>
-            <div class="post-condition"></div>
+            <div>
+                <div class="post-type"></div>
+                <div class="post-category"></div>
+                <div class="post-condition"></div>
+            </div>
             <div class="post-body-text">
                 <div style="color:#EF3B43;"><i class="fa fa-light fa-heart"></i><span class="iconnum post-likes"></span></div>
 

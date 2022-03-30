@@ -76,6 +76,12 @@ class Post {
         postElement.querySelector('.post-img').src = post.photos?.length ? post.photos[0] : '';
         postElement.querySelector('.post-avatar img').src = `https://i.pravatar.cc/150?u=${post.author?.userId}`;
 
+        if (post.starRating) {
+            const starRatingInput = postElement.querySelector('.post-card-star-rating');
+            starRatingInput.classList.remove('visually-hidden');
+            starRatingInput.value = post.starRating;
+        }
+
         if (post.likes?.length) {
             postElement.querySelector('.post-likes').innerHTML = post.likes?.length;
             if (post.likes.includes(post.author.userId)) {
