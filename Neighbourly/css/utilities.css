@@ -64,6 +64,7 @@
 .justify-center { justify-content: center; }
 .justify-s-around { justify-content: space-around; }
 .justify-s-between { justify-content: space-between; }
+.justify-end { justify-content: end; }
 .align-start { align-items: start; }
 .align-center { align-items: center; }
 .align-c-start { align-content: start; }

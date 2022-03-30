@@ -81,18 +81,18 @@
                 <span class="visually-hidden">Neighborly</span>
             </h1>
             <nav>
-                <div class="menu-icons">
+                <div class="menu-icons margin-h-1r">
 
                     <li><i class="fa-solid fa-house-chimney"><a href="#home" class="hide-text">Home</a></i></li>
 
-                    <li><i class="fa-regular fa-comment"><a href="#discuss" class="hide-text">Discuss</a></i></li>
+                    <!--                    <li><i class="fa-regular fa-comment"><a href="#discuss" class="hide-text">Discuss</a></i></li>-->
 
-                    <li><i class="fa-regular fa-bell"></i><a href="#info" class="hide-text">Info</a></li>
+                    <!--                    <li><i class="fa-regular fa-bell"></i><a href="#info" class="hide-text">Info</a></li>-->
 
                 </div>
 
                 <div class="menu-search">
-                    <input type="text" placeholder="search">
+                    <input id="searchInput" type="text" placeholder="search">
                     <button></button>
                 </div>
 
@@ -124,8 +124,6 @@
                     <div class="controler"><span id="radiusKm">5</span>km</div>
                 </div>
 
-
-                <button id="createPostBtn">New Post</button>
             </div>
 
 
@@ -154,7 +152,7 @@
 
                     <div class="filter-help-request">
                         <div>
-                            <h4>Working filters (rest is WIP)</h4>
+                            <h4>Working filters</h4>
                             <div id="filter-input-wrapper">
                                 <div class="post-type-filter">
                                     <label for="posts">Post Type:
@@ -166,12 +164,21 @@
                                         </select></label>
                                 </div>
 
-                                <!-- <label for="helprequest_type">Help request type:
-                                    <select name="helprequest_type" id="helprequest_type" onchange="filterhelptype(this.value)">
-                                        <option value="">Free</option>
-                                        <option value="paid">Paid</option>
-                                    </select>
-                                </label> -->
+                                <form class="recommendfilter_form">
+                                    <h4>Recommendation Filters</h4><br>
+                                    <fieldset class="crec_fieldset">
+                                        <legend>Select Recommendation Rating</legend>
+                                        <div>
+                                            <label class="starRating rating-label" for="five"></label>
+                                            <input type="range" id="five" class="rating" max="5" step=".5" value="0"
+                                                name="rating" onchange="filterReco(this.value)">
+                                        </div>
+                                        <div>
+                                            <button id="recreset_btn" class="reset_feed_btn" type="reset"
+                                                onclick="reloadfeed()">Reset</button>
+                                        </div>
+                                    </fieldset>
+                                </form>
 
                                 <form class="helpreqfilter_form">
                                     <h4>Request Filters</h4><br>
@@ -217,35 +224,44 @@
                                         </div>
                                         <div class="btngrid">
                                             <button id="category_btn" type="Apply">Apply</button>
-                                            <button id="reset_btn" type="reset">Reset</button>
+                                            <button id="reset_btn" class="reset_feed_btn" type="reset"
+                                                onclick="reloadfeed()">Reset</button>
                                         </div>
                                     </fieldset>
                                 </form>
 
                                 <form class="giveawayfilter_form">
                                     <h4>Giveaway Filters</h4><br>
-                                <!--  <fieldset class="giveawaycon_fieldset">
-                                        <legend>Select Condition type</legend>
+                                    <fieldset class="giveawaycon_fieldset">
+                                        <legend>Filter by Condition type</legend>
                                         <div>
-                                            <input type="radio" id="new" name="condition" value="new">
+                                            <input type="radio" id="new" name="condition" value="new"
+                                                onchange="filtergiveCon(this.value)">
                                             <label for="new">New</label>
                                         </div>
                                         <div>
-                                            <input type="radio" id="likenew" name="condition" value="like_new">
+                                            <input type="radio" id="likenew" name="condition" value="like_new"
+                                                onchange="filtergiveCon(this.value)">
                                             <label for="likenew">Like New</label>
                                         </div>
                                         <div>
-                                            <input type="radio" id="used" name="condition" value="used">
+                                            <input type="radio" id="used" name="condition" value="used"
+                                                onchange="filtergiveCon(this.value)">
                                             <label for="used">Used</label>
                                         </div>
                                         <div>
-                                            <input type="radio" id="needrepair" name="condition" value="needs_reparing">
+                                            <input type="radio" id="needrepair" name="condition" value="needs_reparing"
+                                                onchange="filtergiveCon(this.value)">
                                             <label for="needrepair">Needs Repair</label>
                                         </div>
-                                    </fieldset> -->
+                                        <div>
+                                            <button id="giveconreset_btn" class="reset_feed_btn" type="reset"
+                                                onclick="reloadfeed()">Reset</button>
+                                        </div>
+                                    </fieldset><br>
 
                                     <fieldset class="GiveawayCategory_fieldset">
-                                        <legend>Select Giveaway Category</legend>
+                                        <legend>Filter by Giveaway Category</legend>
                                         <div>
                                             <input type="checkbox" id="appliances" name="GiveawayCategory"
                                                 value="appliances">
@@ -311,7 +327,8 @@
                                         </div>
                                         <div class="btngrid">
                                             <button id="GiveCategory_btn" type="Apply">Apply</button>
-                                            <button id="catreset_btn" type="reset">Reset</button>
+                                            <button id="catreset_btn" class="reset_feed_btn" type="reset"
+                                                onclick="reloadfeed()">Reset</button>
                                         </div>
                                     </fieldset>
                                 </form>
@@ -323,18 +340,23 @@
                                 <span>Clear</span> -->
                             </div>
 
-                            <!-- <div class="chosen-selected-filters">
-                                <p>Paid</p>
-                                <p>Appliances</p>
-                                <p>5 km</p>
-                            </div> -->
                         </div>
                     </div>
                 </div>
             </section>
 
-            <div id="feed" class="feed margin-t-1r"></div>
-
+            <div class="feed-column">
+                <div class="createPostInput">
+                    <div class="flex">
+                        <div class="create-post-avatar flex align-center">
+                            <img alt="">
+                        </div>
+                        <input id="createPostInput" type="text" class="new-post-dashboard"
+                            placeholder="What is happening in your neighborhood?">
+                    </div>
+                </div>
+                <div id="feed" class="feed margin-t-1r"></div>
+            </div>
 
             <label for="imgfile" class="visually-hidden">
                 <i class="fas fa-camera"></i>

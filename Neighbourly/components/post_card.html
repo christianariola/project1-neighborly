@@ -1,73 +1,79 @@
-<div class="box-shadow padding-1r margin-b-1r card-line ">
+<div class="box-shadow padding-1r margin-b-1r card-line post-wrapper">
     <!-- <hr class="hr"> -->
 
     <div data-id="" class="post-card card-content">
-            <div class="top-part">
-                <div class="top-left-part">
-                    <div class="post-avatar">
-                        <img alt="" >
-                    </div>
-                    <div class="small-chunk">
-                        <p><b class="post-author"></b></p>
-                        <p class="post-createdAt"></p>
-                    </div>
+        <div class="top-part">
+            <div class="top-left-part">
+                <div class="post-avatar">
+                    <img alt="">
                 </div>
-                <div class="recommand">
-                    <!-- <p>&e28b;</p> -->
-                    <i class="fa-solid fa-star-sharp"></i>
-                    <i class="fa-solid fa-star-sharp" className="yellow"></i>
-                    <i class="fa-solid fa-star-sharp" className="yellow"></i>
-                    <i class="fa-solid fa-star-sharp" className="light"></i>
-                    <i class="fa-solid fa-star-sharp" className="light"></i>
+                <div class="small-chunk">
+                    <p><b class="post-author"></b></p>
+                    <p class="post-createdAt"></p>
                 </div>
             </div>
-           <div class="midl-part">
-                <h3 class="post-title"></h3>
-                <img class="post-img" src="" alt="">
-                <p class="post-description"></p>
-                <div class="post-type"></div>
-                <div class="post-category"></div>
-                <div class="post-condition"></div>
-                <div class="post-body-text">
-                    <div style="color:#EF3B43;"><i class="fa fa-light fa-heart"></i><span class="iconnum">1</span></div>
-
-                    <div class="left-icon-area">
-
-                        <div class="left-icon-unit"><i class="fa fa-regular fa-heart"></i><span>Like</span></div>
-
-                        <div class="left-icon-unit"><i class="fa-regular fa-message"></i><span>Comment</span></div>
-
-                        <div class="left-icon-unit"><i class="fa-solid fa-share"></i><span>Share</span></div>
-
-                    </div>
+            <div class="flex align-center">
+                <input
+                       disabled
+                       id="newPostRating"
+                       class="rating visually-hidden post-card-star-rating"
+                       max="5"
+                       step=".5"
+                       type="range">
+                <div class="flex post-pills flex-wrap bold">
+                    <div class="post-type"></div>
+                    <div class="post-category visually-hidden"></div>
+                    <div class="post-condition visually-hidden"></div>
+                    <div class="post-compensation visually-hidden"></div>
                 </div>
-           </div>
-           <hr class="grey-line">
-           <div class="footer-part">
-               <div class="post-reply-input-container">
-                   <input type="text" class="post-reply-input card-footer-comment" placeholder="Comment">
-
-                   <button onclick="Reply.postReply(this)" class="border-none padding-1r bg-white pointer">
-                        <!-- <i class="fa-solid fa-arrow-turn-down-left"></i> -->
-                        <i class="fa-regular fa-paper-plane"></i>
-                        <a href="" class="hide-text">enter</a>
-                    </button>
-               </div>
-               <div class="post-replies">
-                   <div class="post-reply-container visually-hidden" data-id="">
-                       <div class="post-reply-author flex align-center">
-                           <div class="post-reply-author-avatar">
-                               <img alt="" >
-                           </div>
-                           <div class="flex flex-column">
-                               <p><b class="post-reply-author-name"></b></p>
-                               <p class="post-reply-createdAt"></p>
-                           </div>
-                       </div>
-                       <div class="post-reply-text"></div>
-                   </div>
-               </div>
             </div>
+        </div>
+        <div class="midl-part">
+            <h3 class="post-title"></h3>
+            <img class="post-img visually-hidden" src="" alt="">
+            <p class="post-description"></p>
+            <div class="post-body-text">
+                <div style="color:#EF3B43;"><i class="fa fa-light fa-heart likes-count"></i><span class="iconnum post-likes"></span>
+                </div>
 
-   </div>
+                <div class="left-icon-area">
+
+                    <div onclick="Post.like(this)" class="left-icon-uni pointer post-like-action"><i
+                            class="fa fa-regular fa-heart"></i><span>Like</span></div>
+
+                    <!--                    <div class="left-icon-unit"><i class="fa-regular fa-message"></i><span>Comment</span></div>-->
+
+                    <!-- <div class="left-icon-unit"><i class="fa-solid fa-share"></i><span>Share</span></div> -->
+
+                </div>
+            </div>
+        </div>
+        <hr class="grey-line">
+        <div class="footer-part">
+            <div class="post-reply-input-container">
+                <input type="text" class="post-reply-input card-footer-comment" placeholder="Comment">
+
+                <button onclick="Reply.postReply(this)" class="border-none padding-1r bg-white pointer">
+                    <!-- <i class="fa-solid fa-arrow-turn-down-left"></i> -->
+                    <i class="fa-regular fa-paper-plane"></i>
+                    <a href="" class="hide-text">enter</a>
+                </button>
+            </div>
+            <div class="post-replies">
+                <div class="post-reply-container visually-hidden" data-id="">
+                    <div class="post-reply-author flex align-center">
+                        <div class="post-reply-author-avatar">
+                            <img alt="">
+                        </div>
+                        <div class="flex flex-column">
+                            <p><b class="post-reply-author-name"></b></p>
+                            <p class="post-reply-createdAt"></p>
+                        </div>
+                    </div>
+                    <div class="post-reply-text"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>
