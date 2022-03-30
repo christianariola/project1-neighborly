@@ -4,7 +4,8 @@ const postCardTemplate = fetch(POST_TEMPLATES.card)
 
 let feedHasBeenPopulated = false;
 
-createPostBtn.addEventListener('click', () => Post.loadPostSelection());
+createPostInput.addEventListener('click', () => Post.loadPostSelection());
+document.querySelector('.create-post-avatar img').src = `https://i.pravatar.cc/150?u=${sessionStorage.getItem("uid")}`;
 
 const populateFeed = async (allPosts) => {
     const postMethodHandler = feedHasBeenPopulated ? Post.updatePostCard : Post.addNewPostCardToFeed;
@@ -61,73 +62,109 @@ class Dashboard {
 
     // Get user document
     async getUser(userid, rad, zoomLvl) {
-        // Make the initial query
-        const query = await db.collection('users').where('userId', '==', userid).get();
-            if (!query.empty) {
-            const snapshot = query.docs[0];
-            const data = snapshot.data();
+        uids.length = 0;
+        nearList.length = 0;
+        try {
+            this.showSpinner();
+            nearList.length = 0
+            uids.length = 0
+            // Make the initial query
+            const query = await db.collection('users').where('userId', '==', userid).get();
+                if (!query.empty) {
+                const snapshot = query.docs[0];
+                const data = snapshot.data();
 
-            ltude = snapshot.data().location.latitude;
-            lngtude = snapshot.data().location.longitude;
+                ltude = snapshot.data().location.latitude;
+                lngtude = snapshot.data().location.longitude;
 
-            if(rad == null){
-                rad = 5000;
-            } else {
-                rad = rad;
-            }
-
-            if(zoomLvl == null){
-                zoomLvl = 12;
-            } else {
-                zoomLvl = zoomLvl;
-            }
-
-            //console.log(rad);
-
-            //get list of users with the same locality and state
-            const usersCollectionRef = db.collection('users')
-            const usersQuery = usersCollectionRef.where('address.locality', '==', snapshot.data().address.locality).where('userId', '!=', userid);
-            const usersSnapshot = await usersQuery.get();
-
-            usersSnapshot.forEach(doc => {
-                uids.push(doc.data());
-                //console.log("ADDRESS: "+doc.data().userId);
-            });
-
-            const postsRef = db.collection('posts');
-            for (const uid of uids) {
-                let postRef = postsRef.where('author', '==', uid.userId);
-                let postSnapshot = await postRef.get();
-
-                let checkPoint = { lat: uid.location.latitude, lng: uid.location.longitude };
-                let centerPoint = { lat: snapshot.data().location.latitude, lng: snapshot.data().location.longitude};
-                //check if nearby users lat lng is near logged in user
-                let checker = arePointsNear(checkPoint, centerPoint, rad)
-
-
-                if(checker) {
-                    postSnapshot.forEach(postdoc => {
-                        let postData = {postInfo: postdoc.data(), location: checkPoint }
-                        nearList.push(postData);
-                    });
+                if(rad == null){
+                    rad = 5000;
+                } else {
+                    rad = rad;
                 }
-            }
 
-            initMap(snapshot.data().location.latitude, snapshot.data().location.longitude, rad, zoomLvl, nearList);
-        } else {
-            // alert('Sorry no document found.')
-            Toastify({
-                text: "Sorry no document found.",
-                duration: 3000,
-                newWindow: true,
-                close: true,
-                gravity: "top", // `top` or `bottom`
-                position: 'center', // `left`, `center` or `right`
-                backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
-                stopOnFocus: true, // Prevents dismissing of toast on hover
-            }).showToast();
+                if(zoomLvl == null){
+                    zoomLvl = 12;
+                } else {
+                    zoomLvl = zoomLvl;
+                }
+
+                //console.log(rad);
+
+                //get list of users with the same locality and state
+                const usersCollectionRef = db.collection('users');
+                const usersQuery = usersCollectionRef.where('address.locality', '==', snapshot.data().address.locality).where('userId', '!=', userid);
+                const usersSnapshot = await usersQuery.get();
+
+                usersSnapshot.forEach(doc => {
+                    uids.push(doc.data());
+                    //console.log("ADDRESS: "+doc.data().userId);
+                });
+
+                const postsRef = db.collection('posts');
+                for (const uid of uids) {
+
+
+                    // let userData = { };
+                    let checkPoint = { lat: uid.location.latitude, lng: uid.location.longitude };
+                    let centerPoint = { lat: snapshot.data().location.latitude, lng: snapshot.data().location.longitude};
+                    //check if nearby users lat lng is near logged in user
+                    let checker = this.arePointsNear(checkPoint, centerPoint, rad)
+
+
+                    if(checker) {
+
+
+                        let postRef = postsRef.where('author', '==', uid.userId);
+                        let postSnapshot = await postRef.get();
+
+                        postSnapshot.forEach(postdoc => {
+                            let postData = {postInfo: postdoc.data(), location: checkPoint }
+                            nearList.push(postData);
+                        });
+                    }
+                }
+
+                console.log("CHECKER: "+nearList.length);
+
+                initMap(snapshot.data().location.latitude, snapshot.data().location.longitude, rad, zoomLvl, nearList);
+            } else {
+                // alert('Sorry no document found.')
+                Toastify({
+                    text: "Sorry no document found.",
+                    duration: 3000,
+                    newWindow: true,
+                    close: true,
+                    gravity: "top", // `top` or `bottom`
+                    position: 'center', // `left`, `center` or `right`
+                    backgroundColor: "linear-gradient(to right, #00b09b, #70C782)",
+                    stopOnFocus: true, // Prevents dismissing of toast on hover
+                }).showToast();
+            }
+            
+        } catch (err) {
+            console.error(err);
+        } finally {
+            this.hideSpinner();
         }
     }
+
+    showSpinner() {
+        document.querySelector('#loader').style.display='block';
+    }
+    
+    hideSpinner() {
+        document.querySelector('#loader').style.display='none';
+    }
+
+    arePointsNear(marker, circle, radius) {
+        var km = radius/1000;
+        var kx = Math.cos(Math.PI * circle.lat / 180) * 111;
+        var dx = Math.abs(circle.lng - marker.lng) * kx;
+        var dy = Math.abs(circle.lat - marker.lat) * 111;
+        return Math.sqrt(dx * dx + dy * dy) <= km;
+    }
+
 
 }
 
@@ -176,13 +213,13 @@ slider.oninput = function() {
 }
 
 // Calculation if coords is inside radius
-function arePointsNear(marker, circle, radius) {
-    var km = radius/1000;
-    var kx = Math.cos(Math.PI * circle.lat / 180) * 111;
-    var dx = Math.abs(circle.lng - marker.lng) * kx;
-    var dy = Math.abs(circle.lat - marker.lat) * 111;
-    return Math.sqrt(dx * dx + dy * dy) <= km;
-}
+// function arePointsNear(marker, circle, radius) {
+//     var km = radius/1000;
+//     var kx = Math.cos(Math.PI * circle.lat / 180) * 111;
+//     var dx = Math.abs(circle.lng - marker.lng) * kx;
+//     var dy = Math.abs(circle.lat - marker.lat) * 111;
+//     return Math.sqrt(dx * dx + dy * dy) <= km;
+// }
 
 function initMap(latitude, longitude, rad, zoomLvl, nearList) {
 
@@ -220,47 +257,146 @@ function initMap(latitude, longitude, rad, zoomLvl, nearList) {
         lng: long,
     };
 
-    marker = new google.maps.Marker({
+    // USER LOCATION MARKER AND INFO ==========================================
+
+    const contentString =
+    '<div id="content">' +
+    '<div id="siteNotice">' +
+    "</div>" +
+    '<div id="bodyContent">' +
+    "<p>Your Location</p> " +
+    "</div>" +
+    "</div>";
+
+    const infowindow = new google.maps.InfoWindow({
+        content: contentString,
+    });
+    const marker = new google.maps.Marker({
         position: latlng,
-        map: map,
-        icon: image
+        map,
+        icon: image,
+        title: "You Location",
     });
 
-    // using for...in
-    for (let key in nearList) {
-        let value;
-
-        // get the value
-        value = nearList[key].location.lat;
-
-        console.log(key + " - " +  value);
-
-        nearbyLoc = new google.maps.LatLng(nearList[key].location.lat, nearList[key].location.lng);
-
-        new google.maps.Marker({
-            position: nearbyLoc,
-            title: 'Location',
-            map: map,
-            icon: image2
+    marker.addListener("click", () => {
+        infowindow.open({
+            anchor: marker,
+            map,
+            shouldFocus: false,
         });
+    });
+
+    // // using for...in
+    // for (let key in nearList) {
+    //     let value;
+
+    //     // get the value
+    //     value = nearList[key].location.lat;
+
+    //     console.log(key + " - " +  value);
+
+    //     nearbyLoc = new google.maps.LatLng(nearList[key].location.lat, nearList[key].location.lng);
+
+    //     // new google.maps.Marker({
+    //     //     position: nearbyLoc,
+    //     //     title: 'Location',
+    //     //     map: map,
+    //     //     icon: image2
+    //     // });
+    // }
+
+
+
+
+
+    let cnt = 0;
+    let infowindows = [];
+    let mark = [];
+    let bounds = new google.maps.LatLngBounds();
+    let postmarker;
+
+    for (let key in nearList) {
+        // skip loop if the property is from prototype
+        //if(!obj.hasOwnProperty(prop)) continue;
+
+        let temppos = new google.maps.LatLng(nearList[key].location.lat, nearList[key].location.lng);
+
+        const postContent =
+        '<div id="content">' +
+        '<div id="siteNotice">' +
+        "</div>" +
+        '<h4>'+ nearList[key].postInfo.title +'</h4>' +
+        '<p class="post-createdAt">'+ dbTimestampToDate(nearList[key].postInfo.createdAt).toString().substring(0, 25) +'</p>' +
+        '<div id="bodyContent">' +
+        '<p>' + nearList[key].postInfo.description + '</p>' +
+        '<p class="post-popup-type">Type: <span>' + nearList[key].postInfo.type + '</span></p>' +
+        '<div><a href="#!">View Post</a></div>' +
+        "</div>" +
+        "</div>";
+
+        infowindows[cnt] = new google.maps.InfoWindow({
+            content: postContent,
+            //maxWidth: 200
+        });         
+
+        switch(nearList[key].postInfo.type) {
+            case "recommendation":
+                postmarker = '../../Neighbourly/images/markers/recommendation-icon.png';
+            break;
+            case "help_request":
+                postmarker = '../../Neighbourly/images/markers/help-request-icon.png';
+            break;
+            case "giveaway":
+                postmarker = '../../Neighbourly/images/markers/giveaway-icon.png';
+            break;
+            default:
+                postmarker = 'http://www.google.com/intl/en_us/mapfiles/ms/micons/green-dot.png';
+        }
+
+        mark[cnt] = new google.maps.Marker({
+            position: temppos,
+            map: map,
+            animation:google.maps.Animation.DROP,
+            icon: postmarker
+        });
+
+        google.maps.event.addListener(mark[cnt], 'click', (function(markerrr, cnt) {
+            return function() {
+                infowindows[cnt].open(map, mark[cnt]);
+            }
+        })(mark[cnt], cnt));
+
+        bounds.extend(mark[cnt].getPosition());
+
+        cnt++;
     }
 
-    //marker.setIcon(image);
-    infoWindow.setContent("Your Location");
-    infoWindow.open(map);
+    // marker.setIcon(image);
+    // infoWindow.setContent("Your Location");
+    // infoWindow.open(map);
+
+    // END OF USER LOCATION MARKER AND INFO ==========================================
+
+    // Close popup windows on map click
+    google.maps.event.addListener(map, "click", function(event) {
+        infowindow.close();
+    });
+    google.maps.event.addListener(circle, "click", function(event) {
+        infowindow.close();
+    });
 
     new google.maps.LatLng(lati, long)
     map.setCenter(pos);
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-infoWindow.setPosition(pos);
-infoWindow.setContent(
-    browserHasGeolocation
-    ? "Error: The Geolocation service failed."
-    : "Error: Your browser doesn't support geolocation."
-);
-infoWindow.open(map);
+    infoWindow.setPosition(pos);
+    infoWindow.setContent(
+        browserHasGeolocation
+        ? "Error: The Geolocation service failed."
+        : "Error: Your browser doesn't support geolocation."
+    );
+    infoWindow.open(map);
 }
 
 // END OF MAP ======================================================================
@@ -281,7 +417,7 @@ logout.addEventListener('click', (e) => {
             close: true,
             gravity: "top", // `top` or `bottom`
             position: 'center', // `left`, `center` or `right`
-            backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+            backgroundColor: "linear-gradient(to right, #00b09b, #70C782)",
             stopOnFocus: true, // Prevents dismissing of toast on hover
         }).showToast();
         setTimeout(() => {

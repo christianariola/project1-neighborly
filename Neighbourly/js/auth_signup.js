@@ -160,7 +160,11 @@ signupBtn.addEventListener("click", (event) => {
             }).showToast();
             // alert('You have succesfully registered.');
             document.getElementById("signupBtn").disabled = false;
-            window.location.href = `${BASE_URL}/login.html`;
+
+            setTimeout(() => {
+                window.location.href = `${BASE_URL}/login.html`;
+            }, 1500);
+            // window.location.href = `${BASE_URL}/login.html`;
         });
     }).catch(error => {
         Toastify({

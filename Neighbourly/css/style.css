@@ -29,13 +29,34 @@ h3 {
     font-size: 2rem;
 }
 
+
+.createPostInput {
+    padding-bottom: 10px;
+    border-bottom: 2px solid #FAA22C;
+}
+
+.new-post-dashboard {
+    width: 100%;
+    background-color: #F2F2F2;
+    border: none;
+    margin: auto 0;
+    margin-left: 1rem;
+}
+
+
+@media screen and (max-width: 769px) {
+    .createPostInput {
+        padding-top: 10px;
+    }
+}
+
 /* Class to hide content accessibly ======== */
 .visually-hidden {
     clip: rect(0 0 0 0);
     clip-path: inset(50%);
     height: 1px;
     overflow: hidden;
-    position: absolute;
+    position: absolute !important;
     white-space: nowrap;
     width: 1px;
 }
@@ -83,6 +104,26 @@ h1 .mobile {
     max-width: 60px;
 }
 
+.loader-content {
+    display: grid;
+    justify-items: center;
+    grid-gap: 1rem;
+}
+
+#loader img{
+    width: 70px;
+    animation: rotation 2s infinite linear;
+}
+
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(359deg);
+    }
+}
+
 .offline-box span{
     background-color: #000;
     background-image: linear-gradient(180deg, #000, #333);
@@ -91,6 +132,71 @@ h1 .mobile {
     box-shadow: 5px 4px 5px 0px rgba(0, 0, 0, 0.34);
     border: 1px solid rgba(100, 100, 100, 1);
 }
+
+.post-popup-type span{
+    text-transform: uppercase;
+}
+
+#bodyContent p {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+#bodyContent a {
+    text-decoration: underline;
+    color: #008DCE;
+}
+
+
+@media screen and (max-width: 769px) {
+    .dash-header {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        /*grid-template-rows: repeat(2, 1fr);*/
+
+    }
+
+    .menu-icons {
+        grid-column-start: 1;
+        grid-column-end: 2;
+      }
+
+      .menu-search {
+        grid-column-start: 2;
+        grid-column-end: 2;
+      }
+
+}
+
+/* Area Radius ============ */
+
+.map-container {
+    grid-area: map;
+}
+
+.map-container {
+    position: relative;
+}
+
+.map-control {
+    position: absolute;
+    bottom: 50px;
+    right: 30px;
+    display: flex;
+    justify-content: end;
+    background-color: white;
+    gap: .5rem;
+    padding: 0 .5rem;
+    box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.4);
+    border-radius: 8px;
+}
+.map-control h5 {
+    align-self: center;
+}
+.controler {
+    align-self: center;
+}
+
 
 /* GLOBAL BUTTON STYLES ===================== */
 
@@ -284,7 +390,7 @@ div#filter-input-wrapper {
     flex-flow: column nowrap;
     gap: .5rem;
     justify-content: flex-start;
-    
+
 }
 
 .category_fieldset,
@@ -349,6 +455,26 @@ div#filter-input-wrapper {
     padding: 1rem 0 1rem .4rem;
 }
 
+.comp_fieldset,
+.giveawaycon_fieldset{
+    border-bottom:black solid 1px;
+}
+
+/* .giveawayfilter_form{
+    border-top: .5rem solid black;
+} */
+.giveawayfilter_form h4{
+    margin-top: 1rem;
+}
+
+
+
+
+
+
+
+
+
 /*  END FILTER  ========================== */
 @media screen and (min-width: 769px) {
     h1 .desktop {
@@ -412,7 +538,7 @@ div#filter-input-wrapper {
     .controler {
         align-self: center;
     }
-    .feed {
+    .feed-column {
         grid-area: feed;
     }
 

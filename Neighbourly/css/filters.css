@@ -1,5 +1,5 @@
 .filters-container {
-    filter: drop-shadow(0px 4px 30px rgba(0, 0, 0, 0.1));
+    box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.1);
 
 }
 .sidebar {
@@ -27,6 +27,8 @@ input[type="checkbox"] {
     left: 0;
     background-color: white;
     z-index: 1;
+    padding: 1rem;
+    overflow: auto;
 }
 
 .filters-container .filters:not(.open) {
@@ -37,6 +39,11 @@ input[type="checkbox"] {
     margin-top: 12px;
     margin-bottom: 12px;
     margin-left: 16px;
+}
+
+.filters-container .close-filters {
+    font-size: 1.5rem;
+    width: 60px;
 }
 
 .filters-container input {
@@ -105,4 +112,11 @@ legend {
         display: inherit;
     }
 
+}
+
+
+@media screen and (max-width: 769px) {
+    .filters-container {
+        padding-top: 10px;
+    }
 }
