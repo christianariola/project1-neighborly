@@ -106,10 +106,3 @@ legend {
     }
 
 }
-
-
-@media screen and (max-width: 769px) {
-    .filters-container {
-        padding-top: 10px;
-    }
-}

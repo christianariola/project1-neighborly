@@ -19,8 +19,6 @@ const car_parts = document.getElementById("car_parts");
 const baby_and_kids = document.getElementById("baby_and_kids");
 const appliances = document.getElementById("appliances");
 const helprequest_type = document.getElementById("helprequest_type");
-const searchInput = document.getElementById("searchInput");
-let allPostsBackup = document.createElement('div');
 
 let stopListineng;
 async function onloadsetshow() {
@@ -30,8 +28,6 @@ async function onloadsetshow() {
 const resetFeed = () => {
     //In order to remove post that dont match the filters criteria, this should be executed every time we apply a new filter
     feed.innerHTML = '';
-    searchInput.value = '';
-    allPostsBackup.innerHTML = '';
     feedHasBeenPopulated = false;
 }
 
@@ -47,36 +43,18 @@ async function filterSelection(c) {
 onloadsetshow();
 
 
-async function filterReco(c) {
-    resetFeed();
-    const values = parseFloat(c);
-    console.log(values);
-    console.log(typeof values);
-    if (stopListineng) stopListineng();
-
-    const postCollection = dbCollection("posts").where("starRating", "==", values).where("type", "==", "recommendation");
-
-    stopListineng = postCollection.onSnapshot(async (querySnapshot) => {
-        await populateFeed(querySnapshot);
-    });
-}
-
-async function filtergiveCon(c){
-    resetFeed();
-    if (stopListineng) stopListineng();
-    const postCollection = dbCollection("posts").where("condition", "==", c).where("type", "==", "giveaway");
-
-    stopListineng = postCollection.onSnapshot(async (querySnapshot) => {
-        await populateFeed(querySnapshot);
-    });
-}
-
 //reset filters and reload feed
-
-function reloadfeed() {
-    resetFeed();
+const reset_btn = document.getElementById("reset_btn");
+reset_btn.addEventListener("click", () => {
     onloadsetshow();
-}
+    resetFeed();
+});
+const catreset_btn = document.getElementById("catreset_btn");
+catreset_btn.addEventListener("click", () => {
+    onloadsetshow();
+    resetFeed();
+});
+
 
 //filter by Help request category and Compensation
 const btn = document.querySelector('#category_btn');
@@ -96,19 +74,24 @@ btn.addEventListener('click', (event) => {
     if (Compcheckboxes.length == 0 || checkboxes.length == 0) {
         Toastify({
             text: "Please select compensation and Category",
-            duration: 3000,
+            duration: 2000,
             close: true,
             gravity: "top", // `top` or `bottom`
-            position: 'center', // `left`, `center` or `right`
+            position: 'right', // `left`, `center` or `right`
             backgroundColor: "linear-gradient(to right, #00b09b, #70C782)",
         }).showToast();
         setTimeout(() => {
             window.location.reload();
-        }, 1500);
+        }, 1000);
         return;
     }
-
+    // console.log(Compcheckboxes[0].value);
     let c = Compcheckboxes[0].value;
+    // Compcheckboxes.forEach((c) => {
+    //     values.push(c.value);
+    // });
+    // const c = document.getElementById("helprequest_type");
+    // console.log(c.value);
     if (stopListineng) stopListineng();
     if (c == '') {
         //query for all posts where compensation matches the selected value and category matches the selected values
@@ -123,6 +106,7 @@ btn.addEventListener('click', (event) => {
         });
     }
 });
+
 
 ////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
@@ -152,13 +136,94 @@ givebtn.addEventListener('click', (event) => {
         return;
     }
 
+    // let Condcheckboxes = document.querySelectorAll('input[name="condition"]:checked');
+    // console.log(Condcheckboxes.length);
+    // if (Condcheckboxes.length == 0 || givecheckboxes.length == 0) {
+    //     Toastify({
+    //         text: "Please select compensation and Category",
+    //         duration: 2000,
+    //         close: true,
+    //         gravity: "bottom", // `top` or `bottom`
+    //         position: 'center', // `left`, `center` or `right`
+    //         backgroundColor: "linear-gradient(to right, #00b09b, #70C782)",
+    //     }).showToast();
+    //     setTimeout(() => {
+    //         window.location.reload();
+    //     }, 1000);
+    //     return;
+    // }
+    // console.log(Condcheckboxes[0].value);
+    // let c = Condcheckboxes[0].value;
+    //// Compcheckboxes.forEach((c) => {
+    ////     values.push(c.value);
+    //// });
+    //// const c = document.getElementById("helprequest_type");
+    //// console.log(c.value);
     if (stopListineng) stopListineng();
     const postCollection = dbCollection("posts").where("type", "==", "giveaway").where("category", "in", values);
     stopListineng = postCollection.onSnapshot(async (querySnapshot) => {
         await populateFeed(querySnapshot);
     });
+    // if (c == 'new') {
+    //     const postsCollection = dbCollection("posts").where("condition", "==", 'new' && "type", "==", "giveaway").where("category", "in", values);
+    //     stopListineng = postsCollection.onSnapshot(async (querySnapshot) => {
+    //         await populateFeed(querySnapshot);
+    //     });
+    // } else if(c == 'used') {
+    //     const postsCollection = dbCollection("posts").where("condition", "==", 'used' && "type", "==", "giveaway").where("category", "in", values);
+    //     stopListineng = postsCollection.onSnapshot(async (querySnapshot) => {
+    //         await populateFeed(querySnapshot);
+    //     });
+    // } else if(c == 'like_new') {
+    //     const postsCollection = dbCollection("posts").where("condition", "==", 'like_new' && "type", "==", "giveaway").where("category", "in", values);
+    //     stopListineng = postsCollection.onSnapshot(async (querySnapshot) => {
+    //         await populateFeed(querySnapshot);
+    //     });
+    // } else if(c == 'needs_reparing') {
+    //     const postsCollection = dbCollection("posts").where("condition", "==", 'needs_reparing' && "type", "==", "giveaway").where("category", "in", values);
+    //     stopListineng = postsCollection.onSnapshot(async (querySnapshot) => {
+    //         await populateFeed(querySnapshot);
+    //     });
+    // } else{
+    //     console.log('error');
+    // }
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function onlyOne(checkbox) {
+//     var checkboxes = document.getElementsByName('category')
+//     checkboxes.forEach((item) => {
+//         if (item !== checkbox) item.checked = false
+//     })
+// }
 
 function onlytwo(checkbox) {
     var checkboxes = document.getElementsByName('compensation')
@@ -173,37 +238,9 @@ function onlythree(checkbox) {
         if (item !== checkbox) item.checked = false
     })
 }
-
-searchInput.addEventListener('change', (event) => {
-    const search = event?.target?.value || '';
-    if (search.trim()) {
-        const container = document.createElement('div');
-        const displayedPosts = feed.querySelectorAll('.post-wrapper');
-        const backupPosts = allPostsBackup?.childNodes;
-        const allPosts = displayedPosts.length > backupPosts.length ? displayedPosts : backupPosts;
-        allPosts.forEach((card, idx) => {
-            let cardContents = '';
-            const clonedCard = card.cloneNode(true);
-            allPostsBackup.append(clonedCard);
-            cardContents += `${card.querySelector('.post-title').innerHTML?.toLowerCase()} `;
-            cardContents += `${card.querySelector('.post-description').innerHTML?.toLowerCase()} `;
-            card.querySelectorAll('.post-reply-text').forEach(reply => {
-                cardContents += `${reply.innerHTML?.toLowerCase()} `;
-            });
-            if (cardContents.includes(search.toLowerCase())) {
-                container.append(card.cloneNode(true));
-            }
-        });
-
-
-        if (!container.innerHTML.length) {
-            container.innerHTML = `There are no post that contain the word <span class="bold">${search}</span>`;
-        }
-        feed.innerHTML = container.innerHTML;
-    } else {
-
-        if (allPostsBackup.childNodes.length) {
-            feed.innerHTML = allPostsBackup.innerHTML;
-        }
-    }
-});
+// function onlyfour(checkbox) {
+//     var checkboxes = document.getElementsByName('GiveawayCategory')
+//     checkboxes.forEach((item) => {
+//         if (item !== checkbox) item.checked = false
+//     })
+// }

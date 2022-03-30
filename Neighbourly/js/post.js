@@ -1,13 +1,12 @@
 class Post {
     static templates = {};
-    constructor(id, title, description, likes = [], replies= [], photos = [], location = {}, createdAt, type, author) {
+    constructor(id, title, description, replies= [], photos = [], location = {}, createdAt, type, author) {
         const uid = sessionStorage.getItem("uid");
         this.id = id || `${uid}-${Date.now().toString(36)}`;
         this.title = title;
         this.description = description;
         this.photos = photos;
-        this.photos = photos;
-        this.likes = likes;
+        this.location = location;
         this.createdAt = createdAt || new Date();
         this.modifiedAt = createdAt ? new Date() : null;
         this.type = type;
@@ -65,55 +64,16 @@ class Post {
     }
 
     static applyChanges(postElement, post) {
-        const postTypePill = postElement.querySelector('.post-type');
-        const categoryPill = postElement.querySelector('.post-category');
-        const conditionPill = postElement.querySelector('.post-condition');
-        const compensationPill = postElement.querySelector('.post-compensation');
-        const postPhoto = postElement.querySelector('.post-img');
-
         postElement.querySelector('.post-card').dataset.id = post.id;
         postElement.querySelector('.post-title').innerHTML = post.title;
+        postElement.querySelector('.post-type').innerHTML = POST_TYPES_LABELS[post.type];
+        postElement.querySelector('.post-category').innerHTML = post.category ? `Category: ${POST_CATEGORIES[post.category]}` : '';
+        postElement.querySelector('.post-condition').innerHTML = post.condition ? `Condition: ${GIVEAWAY_CONDITION[post.condition]}` : '';
         postElement.querySelector('.post-description').innerHTML = post.description;
         postElement.querySelector('.post-author').innerHTML = `${post.author?.firstName} ${post.author?.lastName}`;
         postElement.querySelector('.post-createdAt').innerHTML = dbTimestampToDate(post.createdAt).toString().substring(0, 25);
+        postElement.querySelector('.post-img').src = post.photos?.length ? post.photos[0] : '';
         postElement.querySelector('.post-avatar img').src = `https://i.pravatar.cc/150?u=${post.author?.userId}`;
-        postTypePill.innerHTML = POST_TYPES_LABELS[post.type];
-
-        if (post.photos?.length) {
-            postPhoto.classList.remove('visually-hidden');
-            postPhoto.src = post.photos[0];
-        }
-
-        if (post.compensation) {
-            compensationPill.innerHTML = `$${post.compensation}`;
-            compensationPill.classList.remove('visually-hidden');
-        }
-
-        if (post.category) {
-            categoryPill.innerHTML = POST_CATEGORIES[post.category];
-            categoryPill.classList.remove('visually-hidden');
-        }
-
-        if (post.condition) {
-            conditionPill.innerHTML = GIVEAWAY_CONDITION[post.condition];
-            conditionPill.classList.remove('visually-hidden');
-        }
-
-        if (post.starRating) {
-            const starRatingInput = postElement.querySelector('.post-card-star-rating');
-            starRatingInput.classList.remove('visually-hidden');
-            starRatingInput.value = post.starRating;
-            postTypePill.classList.add('visually-hidden');
-        }
-
-        if (post.likes?.length) {
-            postElement.querySelector('.post-likes').innerHTML = post.likes?.length;
-            if (post.likes.includes(post.author.userId)) {
-                postElement.querySelector('.post-like-action').classList.add('visually-hidden');
-            }
-        } else {
-            postElement.querySelector('.post-likes').parentElement.classList.add('visually-hidden');
-        }
 
         const populateReply = (replyElement, postReply) => {
             replyElement.dataset.id = postReply.id;
@@ -165,24 +125,11 @@ class Post {
         }
     }
 
-    static async like(element) {
-        element.classList.add('visually-hidden');
-        const postContainer = element.closest('.post-card');
-        const postId = postContainer.dataset?.id;
-        const likesCountElement = postContainer.querySelector('.post-likes');
-        likesCountElement.parentElement.classList.remove('visually-hidden');
-
-        likesCountElement.innerHTML = Number(likesCountElement.innerHTML || 0) + 1;
-        db.collection('posts').doc(postId).update({
-            likes: firestore.FieldValue.arrayUnion(sessionStorage.getItem("uid"))
-        })
-    }
-
 }
 
 class Recommendation extends Post {
-    constructor({ id, title, description, likes, replies, starRating, photos, location, createdAt, author }) {
-        super(id, title, description, likes, replies, photos, location, createdAt, POST_TYPES.recommendation, author);
+    constructor({ id, title, description, replies, starRating, photos, location, createdAt, author }) {
+        super(id, title, description, replies, photos, location, createdAt, POST_TYPES.recommendation, author);
         this.starRating = starRating > 0 && starRating < 6  ? Number(starRating): null;
     }
 
@@ -197,8 +144,8 @@ class Recommendation extends Post {
 }
 
 class HelpRequest extends Post {
-    constructor({ id, title, description, likes, replies, photos, location, createdAt, compensation, author, category }) {
-        super(id, title, description, likes, replies, photos, location, createdAt, POST_TYPES.helpRequest, author);
+    constructor({ id, title, description, replies, photos, location, createdAt, compensation, author, category }) {
+        super(id, title, description, replies, photos, location, createdAt, POST_TYPES.helpRequest, author);
         this.compensation = compensation;
         this.category = category;
     }
@@ -215,8 +162,8 @@ class HelpRequest extends Post {
 }
 
 class Giveaway extends Post {
-    constructor({ id, title, description, likes, replies, photos, location, createdAt, condition, category, author }) {
-        super(id, title, description, likes, replies, photos, location, createdAt, POST_TYPES.giveaway, author);
+    constructor({ id, title, description, replies, photos, location, createdAt, condition, category, author }) {
+        super(id, title, description, replies, photos, location, createdAt, POST_TYPES.giveaway, author);
         this.condition = condition;
         this.category = category;
     }
