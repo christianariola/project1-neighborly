@@ -170,7 +170,7 @@
                                         <legend>Select Recommendation Rating</legend>
                                         <div>
                                             <label class="starRating rating-label" for="five"></label>
-                                            <input type="range" id="five" class="rating" max="5" step="1" value="0"
+                                            <input type="range" id="five" class="rating" max="5" step=".5" value="0"
                                                 name="rating" onchange="filterReco(this.value)">
                                         </div>
                                         <div>
@@ -179,13 +179,6 @@
                                         </div>
                                     </fieldset>
                                 </form>
-
-                                <!-- <label for="helprequest_type">Help request type:
-                                    <select name="helprequest_type" id="helprequest_type" onchange="filterhelptype(this.value)">
-                                        <option value="">Free</option>
-                                        <option value="paid">Paid</option>
-                                    </select>
-                                </label> -->
 
                                 <form class="helpreqfilter_form">
                                     <h4>Request Filters</h4><br>
@@ -236,8 +229,6 @@
                                         </div>
                                     </fieldset>
                                 </form>
-
-
 
                                 <form class="giveawayfilter_form">
                                     <h4>Giveaway Filters</h4><br>
@@ -349,11 +340,6 @@
                                 <span>Clear</span> -->
                             </div>
 
-                            <!-- <div class="chosen-selected-filters">
-                                <p>Paid</p>
-                                <p>Appliances</p>
-                                <p>5 km</p>
-                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -371,7 +357,6 @@
                 </div>
                 <div id="feed" class="feed margin-t-1r"></div>
             </div>
-
 
             <label for="imgfile" class="visually-hidden">
                 <i class="fas fa-camera"></i>
