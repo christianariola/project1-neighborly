@@ -7,14 +7,14 @@
   </div>
   <span class="new-post-separator"></span>
   <div class="new-post-body">
-    <h4>Recommendation</h4>
+    <h4 class="margin-b-1r">Select a post type</h4>
     <input id="postTypeInput" type="text" class="visually-hidden" />
     <ul class="post-type-selector">
-      <li onclick="Post.loadPostForm(POST_TYPES.recommendation)">
+      <li onclick="Post.loadPostForm(POST_TYPES.recommendation, this)">
         Recommendation
       </li>
-      <li onclick="Post.loadPostForm(POST_TYPES.helpRequest)">Help Request</li>
-      <li onclick="Post.loadPostForm(POST_TYPES.giveaway)">Give away</li>
+      <li onclick="Post.loadPostForm(POST_TYPES.helpRequest, this)">Help Request</li>
+      <li onclick="Post.loadPostForm(POST_TYPES.giveaway, this)">Give away</li>
     </ul>
   </div>
   <span class="new-post-separator"></span>

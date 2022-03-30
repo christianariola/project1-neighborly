@@ -20,6 +20,10 @@
     font-size: 1.5rem;
 }
 
+.new-post-header h3 {
+    margin: 0;
+}
+
 .new-post .post-type-selector {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -28,6 +32,30 @@
 .new-post .post-type-selector li {
     display: flex;
     justify-content: center;
+    padding: .5rem 0;
+    border: 1px solid #008DCE;
+    border-radius: 5px;
+    color: #008DCE;
+}
+
+.new-post .post-type-selector li.active {
+    background: #008DCE;
+    color: white;
+}
+
+.new-post-footer button {
+    background: #008DCE;
+    width: 275px;
+    color: white;
+}
+
+#newPostDescription {
+    padding: .5rem 1rem;
+    font-family: inherit;
+}
+
+#newPostAddImageButtons {
+    color: #008DCE;
 }
 
 .new-post .giveaway-categories li{

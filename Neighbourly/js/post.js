@@ -35,9 +35,12 @@ class Post {
         modalState.open(newPostForm);
     }
 
-    static async loadPostForm(postType) {
+    static async loadPostForm(postType, element) {
       postTypeInput.value = postType;
       newPostAddImageButtons.classList.remove('visually-hidden');
+      element.parentElement.querySelector('li.active')?.classList.remove('active');
+      element.classList.add('active');
+      document.querySelector('.new-post .new-post-body h4').innerHTML = POST_TYPES_LABELS[postType];
       document.querySelector('.new-post-footer button').disabled = false;
       const newPostForm = await Post.getPostTemplate(postType);
       postTypeContainer.innerHTML = newPostForm;
