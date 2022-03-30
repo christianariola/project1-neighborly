@@ -204,7 +204,14 @@ mask: repeat left center/var(--starsize) var(--symbol);
 @media screen and (max-width: 769px) {
    .midl-part span {
     display: none;
+    }
 }
+
+@media screen and (max-width: 500px) {
+    .top-part {
+        flex-direction: column;
+        margin-bottom: 1rem;
+    }
 }
 
 .post-pills > div{
@@ -214,6 +221,12 @@ mask: repeat left center/var(--starsize) var(--symbol);
     padding: 0.2rem 0.5rem;
     border-radius: 5px;
     font-size: 0.8rem;
+}
+.post-type {
+    /*color: #008DCE;*/
+}
+.post-compensation {
+    color: #009C4E;
 }
 
 .post-reply-author {

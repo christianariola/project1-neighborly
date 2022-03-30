@@ -68,15 +68,26 @@ class Post {
         const postTypePill = postElement.querySelector('.post-type');
         const categoryPill = postElement.querySelector('.post-category');
         const conditionPill = postElement.querySelector('.post-condition');
+        const compensationPill = postElement.querySelector('.post-compensation');
+        const postPhoto = postElement.querySelector('.post-img');
 
         postElement.querySelector('.post-card').dataset.id = post.id;
         postElement.querySelector('.post-title').innerHTML = post.title;
         postElement.querySelector('.post-description').innerHTML = post.description;
         postElement.querySelector('.post-author').innerHTML = `${post.author?.firstName} ${post.author?.lastName}`;
         postElement.querySelector('.post-createdAt').innerHTML = dbTimestampToDate(post.createdAt).toString().substring(0, 25);
-        postElement.querySelector('.post-img').src = post.photos?.length ? post.photos[0] : '';
         postElement.querySelector('.post-avatar img').src = `https://i.pravatar.cc/150?u=${post.author?.userId}`;
         postTypePill.innerHTML = POST_TYPES_LABELS[post.type];
+
+        if (post.photos?.length) {
+            postPhoto.classList.remove('visually-hidden');
+            postPhoto.src = post.photos[0];
+        }
+
+        if (post.compensation) {
+            compensationPill.innerHTML = `$${post.compensation}`;
+            compensationPill.classList.remove('visually-hidden');
+        }
 
         if (post.category) {
             categoryPill.innerHTML = POST_CATEGORIES[post.category];

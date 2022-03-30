@@ -56,7 +56,7 @@ h3 {
     clip-path: inset(50%);
     height: 1px;
     overflow: hidden;
-    position: absolute;
+    position: absolute !important;
     white-space: nowrap;
     width: 1px;
 }
