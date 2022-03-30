@@ -109,13 +109,18 @@ class Post {
             postTypePill.classList.add('visually-hidden');
         }
 
+        const icon = postElement.querySelector('.post-like-action i');
         if (post.likes?.length) {
             postElement.querySelector('.post-likes').innerHTML = post.likes?.length;
-            if (post.likes.includes(post.author.userId)) {
-                postElement.querySelector('.post-like-action').classList.add('visually-hidden');
+            if (post.likes.includes(post.author)) {
+                icon.parentElement.classList.remove('pointer');
+            } else {
+                icon.classList.remove('fa-light');
+                icon.classList.add('fa-regular');
             }
         } else {
-            postElement.querySelector('.post-likes').parentElement.classList.add('visually-hidden');
+            icon.classList.remove('fa-light');
+            icon.classList.add('fa-regular');
         }
 
         const populateReply = (replyElement, postReply) => {
@@ -169,7 +174,15 @@ class Post {
     }
 
     static async like(element) {
-        element.classList.add('visually-hidden');
+        const alreadyLiked = element.querySelector('i.fa-heart.fa-light');
+        if (alreadyLiked) return;
+        else {
+            const icon = element.querySelector('i.fa-heart');
+            icon.classList.remove('fa-regular');
+            icon.classList.add('fa-light');
+            element.classList.remove('pointer');
+        }
+
         const postContainer = element.closest('.post-card');
         const postId = postContainer.dataset?.id;
         const likesCountElement = postContainer.querySelector('.post-likes');
