@@ -40,7 +40,7 @@ const populateFeed = async (allPosts) => {
             });
         }
 
-        const post = new POST_CLASSES[postRaw.type]({...postRaw, author, replies, id:doc.id });
+        const post = new POST_CLASSES[postRaw.type]({...postRaw, author, replies, id: postRaw.id ||doc.id });
         await postMethodHandler(post);
     }
 };
