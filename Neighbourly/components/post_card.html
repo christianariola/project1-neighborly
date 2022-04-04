@@ -15,7 +15,6 @@
             <div class="flex align-center">
                 <input
                        disabled
-                       id="cardPostRating"
                        class="rating visually-hidden post-card-star-rating"
                        max="5"
                        step=".5"
@@ -51,7 +50,7 @@
         <hr class="grey-line">
         <div class="footer-part">
             <div class="post-reply-input-container">
-                <input type="text" class="post-reply-input card-footer-comment" placeholder="Comment">
+                <input onkeyup="event.preventDefault(); if(event.keyCode === 13) { Reply.postReply(this); }" type="text" class="post-reply-input card-footer-comment" placeholder="Comment">
 
                 <button onclick="Reply.postReply(this)" class="border-none padding-1r bg-white pointer">
                     <!-- <i class="fa-solid fa-arrow-turn-down-left"></i> -->

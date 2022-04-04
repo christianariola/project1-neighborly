@@ -40,7 +40,7 @@ const populateFeed = async (allPosts) => {
             });
         }
 
-        const post = new POST_CLASSES[postRaw.type]({...postRaw, author, replies, id: postRaw.id ||doc.id });
+        const post = new POST_CLASSES[postRaw.type]({...postRaw, author, replies, id: postRaw.id, docId: doc.id  });
         await postMethodHandler(post);
     }
 };
@@ -141,7 +141,7 @@ class Dashboard {
                     stopOnFocus: true, // Prevents dismissing of toast on hover
                 }).showToast();
             }
-            
+
         } catch (err) {
             console.error(err);
         } finally {
@@ -152,7 +152,7 @@ class Dashboard {
     showSpinner() {
         document.querySelector('#loader').style.display='block';
     }
-    
+
     hideSpinner() {
         document.querySelector('#loader').style.display='none';
     }
@@ -337,7 +337,7 @@ function initMap(latitude, longitude, rad, zoomLvl, nearList) {
         infowindows[cnt] = new google.maps.InfoWindow({
             content: postContent,
             //maxWidth: 200
-        });         
+        });
 
         switch(nearList[key].postInfo.type) {
             case "recommendation":

@@ -1,8 +1,9 @@
 class Post {
     static templates = {};
-    constructor(id, title, description, likes = [], replies= [], photos = [], location = {}, createdAt, type, author) {
+    constructor(id, docId, title, description, likes = [], replies= [], photos = [], location = {}, createdAt, type, author) {
         const uid = sessionStorage.getItem("uid");
         this.id = id || `${uid}-${Date.now().toString(36)}`;
+        this.docId = docId;
         this.title = title;
         this.description = description;
         this.photos = photos;
@@ -16,7 +17,8 @@ class Post {
     }
 
     toJson() {
-        return toJson(this);
+        const { docId, ...rest } = this;
+        return toJson(rest);
     }
 
     static async getPostTemplate(type) {
@@ -75,6 +77,7 @@ class Post {
         const postPhoto = postElement.querySelector('.post-img');
 
         postElement.querySelector('.post-card').dataset.id = post.id;
+        postElement.querySelector('.post-card').dataset.docId = post.docId;
         postElement.querySelector('.post-title').innerHTML = post.title;
         postElement.querySelector('.post-description').innerHTML = post.description;
         postElement.querySelector('.post-author').innerHTML = `${post.author?.firstName} ${post.author?.lastName}`;
@@ -105,6 +108,7 @@ class Post {
         if (post.starRating) {
             const starRatingInput = postElement.querySelector('.post-card-star-rating');
             starRatingInput.classList.remove('visually-hidden');
+            starRatingInput.setAttribute('value', post.starRating);
             starRatingInput.value = post.starRating;
             postTypePill.classList.add('visually-hidden');
         }
@@ -114,9 +118,7 @@ class Post {
             postElement.querySelector('.post-likes').innerHTML = post.likes?.length;
 
             const userId = sessionStorage.getItem("uid");
-            if (post.likes.includes(userId)) {
-                icon.parentElement.classList.remove('pointer');
-            } else {
+            if (!post.likes.includes(userId)) {
                 icon.classList.remove('fa-light');
                 icon.classList.add('fa-regular');
             }
@@ -156,51 +158,59 @@ class Post {
         return Post.applyChanges(element, post);
     }
 
-    static async addNewPostCardToFeed(post, appendElement = true) {
+    static async addNewPostCardToFeed(post, container = searchInput.value ? allPostsBackup : feed, appendElement = true) {
         const postHTMLElement = await Post.toHTMLElement(post)
         if (appendElement) {
-            feed.append(postHTMLElement);
+            container.append(postHTMLElement);
         } else {
-            feed.prepend(postHTMLElement);
+            container.prepend(postHTMLElement);
         }
     }
 
 
-    static async updatePostCard(post) {
-        const element = feed.querySelector(`.post-card[data-id="${post.id}"]`);
+    static async updatePostCard(post, container = searchInput.value ? allPostsBackup : feed) {
+        const element = container.querySelector(`.post-card[data-id="${post.id}"]`);
+        if (searchInput.value && searchInput.value.trim()) {
+            const displayedElement = feed.querySelector(`.post-card[data-id="${post.id}"]`);
+            displayedElement && Post.applyChanges(displayedElement.parentElement, post);
+        }
         if (element) {
             Post.applyChanges(element.parentElement, post);
         } else {
-            await Post.addNewPostCardToFeed(post, false);
+            await Post.addNewPostCardToFeed(post, container, false);
         }
     }
 
     static async like(element) {
         const alreadyLiked = element.querySelector('i.fa-heart.fa-light');
-        if (alreadyLiked) return;
-        else {
-            const icon = element.querySelector('i.fa-heart');
+        const icon = element.querySelector('i.fa-heart');
+        if (alreadyLiked) {
+            icon.classList.add('fa-regular');
+            icon.classList.remove('fa-light');
+        } else {
             icon.classList.remove('fa-regular');
             icon.classList.add('fa-light');
-            element.classList.remove('pointer');
         }
 
         const postContainer = element.closest('.post-card');
-        const postId = postContainer.dataset?.id;
+        const postDocId = postContainer.dataset?.docId;
+        const userId = sessionStorage.getItem("uid");
         const likesCountElement = postContainer.querySelector('.post-likes');
         likesCountElement.parentElement.classList.remove('visually-hidden');
+        const currentLikes = Number(likesCountElement.innerHTML || 0);
+        const updatedLikes = alreadyLiked ? currentLikes - 1 : currentLikes + 1;
 
-        likesCountElement.innerHTML = Number(likesCountElement.innerHTML || 0) + 1;
-        db.collection('posts').doc(postId).update({
-            likes: firestore.FieldValue.arrayUnion(sessionStorage.getItem("uid"))
+        likesCountElement.innerHTML = updatedLikes === 0 ? '' : updatedLikes;
+        db.collection('posts').doc(postDocId).update({
+            likes: alreadyLiked ? firestore.FieldValue.arrayRemove(userId) :firestore.FieldValue.arrayUnion(userId)
         })
     }
 
 }
 
 class Recommendation extends Post {
-    constructor({ id, title, description, likes, replies, starRating, photos, location, createdAt, author }) {
-        super(id, title, description, likes, replies, photos, location, createdAt, POST_TYPES.recommendation, author);
+    constructor({ id, docId, title, description, likes, replies, starRating, photos, location, createdAt, author }) {
+        super(id, docId, title, description, likes, replies, photos, location, createdAt, POST_TYPES.recommendation, author);
         this.starRating = starRating > 0 && starRating < 6  ? Number(starRating): null;
     }
 
@@ -215,8 +225,8 @@ class Recommendation extends Post {
 }
 
 class HelpRequest extends Post {
-    constructor({ id, title, description, likes, replies, photos, location, createdAt, compensation, author, category }) {
-        super(id, title, description, likes, replies, photos, location, createdAt, POST_TYPES.helpRequest, author);
+    constructor({ id, docId, title, description, likes, replies, photos, location, createdAt, compensation, author, category }) {
+        super(id, docId, title, description, likes, replies, photos, location, createdAt, POST_TYPES.helpRequest, author);
         this.compensation = compensation;
         this.category = category;
     }
@@ -233,8 +243,8 @@ class HelpRequest extends Post {
 }
 
 class Giveaway extends Post {
-    constructor({ id, title, description, likes, replies, photos, location, createdAt, condition, category, author }) {
-        super(id, title, description, likes, replies, photos, location, createdAt, POST_TYPES.giveaway, author);
+    constructor({ id, docId, title, description, likes, replies, photos, location, createdAt, condition, category, author }) {
+        super(id, docId, title, description, likes, replies, photos, location, createdAt, POST_TYPES.giveaway, author);
         this.condition = condition;
         this.category = category;
     }
@@ -273,9 +283,10 @@ class Reply {
         const text = input.value;
         input.value = '';
         if (messageInput && text.trim()) {
-            const postId = postContainer?.dataset?.id;
+            const postDocId = postContainer.dataset?.docId;
+            const postId = postContainer.dataset?.id;
             const message = (new Reply({ text, postId })).toJson();
-            db.collection('posts').doc(postId).update({
+            db.collection('posts').doc(postDocId).update({
               replies: firestore.FieldValue.arrayUnion(message)
             })
         }

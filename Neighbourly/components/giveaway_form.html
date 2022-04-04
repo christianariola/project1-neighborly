@@ -1,5 +1,5 @@
 <div class="w-100 flex flex-column">
-  <div>
+  <div class="relative">
     <label>Category</label>
     <input class="visually-hidden" id="giveawayCategory" type="text" />
     <div
@@ -11,7 +11,7 @@
     </div>
     <ul
       id="giveawayCategoriesSelector"
-      class="giveaway-categories visually-hidden"
+      class="post-categories visually-hidden"
       onclick="giveawayCategory.value = event.target.dataset.id; giveawayCategoryLabel.innerHTML = event.target.textContent; this.classList.toggle('visually-hidden');"
     >
       <li data-id="electronics">Electronics</li>
@@ -36,7 +36,7 @@
     <input type="text" id="newPostTitle" class="bg-light-gray border-none"/>
   </label>
 
-  <div>
+  <div class="relative">
     <label>Condition</label>
     <input class="visually-hidden" id="giveawayCondition" type="text" />
     <div
@@ -48,7 +48,7 @@
     </div>
     <ul
       id="giveawayConditionSelector"
-      class="giveaway-categories visually-hidden"
+      class="post-categories visually-hidden"
       onclick="giveawayCondition.value = event.target.dataset.id; giveawayConditionLabel.innerHTML = event.target.textContent; this.classList.toggle('visually-hidden')"
     >
       <li data-id="new">New</li>
