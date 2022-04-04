@@ -1,0 +1,197 @@
+
+/* Emmanuel's section begins*/
+.icon {
+    width: 200px;
+}
+
+.search {
+    border-radius: 48px;
+    height: 45px;
+    width: 400px;
+    border: 1px solid rgba(196, 196, 196, 0.01);
+    box-sizing: border-box;
+    filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.8));
+}
+
+.topLevel {
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+.notifs {
+    display: grid;
+    grid-template-columns: 100px 100px 100px;
+}
+
+.iconNotifs {
+    width: 64px;
+    height: 45px
+}
+
+.iconNotifss {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    width: 200px;
+    height: 150px
+}
+
+.editProImg {
+    width: 200px;
+    height: 200px;
+    border: 1px solid #8DB795;
+    border-radius: 50%;
+    box-sizing: border-box;
+}
+
+
+/* Edit */
+.editPro {
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 38px;
+    letter-spacing: -0.24px;
+    color: #009C4E;
+}
+
+.formIn {
+    margin-top: 100px;
+}
+
+.email, .addy {
+    background: #F5F5F5;
+    border: 1px solid #006635;
+    box-sizing: border-box;
+    border-radius: 5px;
+    height: 34px;
+    width: 350px;
+    margin-top: 15px;
+    color: #8DB795;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #8DB795;
+    opacity: 1; /* Firefox */
+  }
+
+.divided2 {
+    display: grid;
+    grid-template-columns: 500px 500px;
+    padding-top: 100px;
+    padding-left: 0px;
+
+}
+
+.dropLevel {
+    margin-top: 20px;
+    margin-left: 150px;  
+}
+
+.dropLevel2 {
+    padding-top: 0px;
+    margin-left: 150px;
+}
+
+.saveThis {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.saveDis {
+    width: 146px;
+    height: 50px;
+    background: #006635;
+    border-radius: 5px;
+    color: #F5F5F5;
+}
+
+.containerHere {
+    padding-top: 10px;
+    padding-left: 150px;
+}
+
+.editProImg {
+    margin-top: 40px;
+    margin-left: 60px;
+}
+
+.slider {
+    background: #006635;
+}
+
+.box1 {
+    padding-top: 5px;
+    padding-left: 15px;
+    margin-top: 15px;
+    width: 250px;
+    height: 350px;
+    box-shadow: 0 0 10px rgb(85, 78, 78);
+}
+
+.thisP, .box1 > .this {
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 15px;
+}
+
+.gold {
+    border: 2px solid #FAA22C;
+}
+
+.cut {
+    display: grid;
+    grid-template-columns: 150px 150px;
+    margin-top: 20px;
+}
+
+.edit {
+    color: #008DCE;
+    margin-left: 90px;
+}
+
+.thisContent {
+    width: 1000px;
+    margin: auto;
+}
+
+.proImg {
+    display: grid;
+    grid-template-columns: 300px 500px;   
+}
+
+.changeImg {
+    margin-left: 110px;
+    color: #008DCE;
+}
+
+.iconsHit {
+    display: grid;
+    grid-template-columns: 100px 100px 100px 100px 100px 100px;
+}
+
+.namePro {
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 60px;
+    line-height: 75px;
+}
+
+.downIt {
+    margin-top: 150px;
+}
+
+.proAddy {
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 45px;
+}
+/* Emmanuel's section ends*/

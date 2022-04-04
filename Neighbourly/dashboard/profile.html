@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="../css/modal.css">
     <link rel="stylesheet" href="../css/post.css">
     <link rel="stylesheet" href="../css/filters.css">
+    <link rel="stylesheet" href="../css/profile.css">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
@@ -74,19 +75,20 @@
     <div class="wrapper">
         <header class="dash-header">
 
+            <!--
             <h1>
                 <img src="../images/neighbourly-logo.svg" alt="Neighborly Logo" class="desktop">
                 <img src="../images/neighbourly-mobile-logo.svg" alt="Neighborly Logo" class="mobile">
                 <span class="visually-hidden">Neighborly</span>
             </h1>
             <nav>
-                <div class="menu-icons margin-h-1r">
+                <div class="menu-icons margin-h-1r"> 
 
                     <li><i class="fa-solid fa-house-chimney"><a href="#home" class="hide-text">Home</a></i></li>
 
-                    <!--                    <li><i class="fa-regular fa-comment"><a href="#discuss" class="hide-text">Discuss</a></i></li>-->
+                                       <li><i class="fa-regular fa-comment"><a href="#discuss" class="hide-text">Discuss</a></i></li>
 
-                    <!--                    <li><i class="fa-regular fa-bell"></i><a href="#info" class="hide-text">Info</a></li>-->
+                                    <li><i class="fa-regular fa-bell"></i><a href="#info" class="hide-text">Info</a></li>
 
                 </div>
 
@@ -95,27 +97,87 @@
                     <button></button>
                 </div>
 
-                <!-- <li><a href="login.html" method="post" class="">Notifications</a></li>
-                    <li><a href="login.html" method="post" class="">Messages</a></li> -->
+                <li><a href="login.html" method="post" class="">Notifications</a></li>
+                    <li><a href="login.html" method="post" class="">Messages</a></li>
 
                 <div class="personal-area">
                     <img src="" alt="">
                     <li><a href="#" id="logout">Logout</a></li>
-                    <!-- <li>
+
+                     <li>
                         <a href="#" id="logout">
                             <i class="fas fa-sign-out"></i>
                         </a>
-                    </li> -->
+                    </li> 
                 </div>
-            </nav>
+            </nav>-->
         </header>
 
-        <main>
-                <h2>userprofile</h2>
-
+        <body>
+                <div class="containerHere">
+                    <div class="topLevel">
+        
+                        <div class="logo">
+                            <a href="index.html"><img src="../images/neighbourly-logo.svg" alt="Neighborly Logo" class="icon"></a>            
+                        </div>
+        
+                        <div class="searchDiv">
+                            <input type="search" class="search" name="search" placeholder="        Search">
+                        </div>
+        
+                        <div class="notifs">
+                            <div class="alert"><img src="../images/icons/Notification.svg" alt="notification" class="iconNotifs"></div>
+                            <div class="msg"><img src="../images/icons/Message.svg" alt="message" class="iconNotifs"></div>
+                            <div class="profileLogo"><img src="../images/icons/Profile.svg" alt="notification" class="iconNotifs"></div>
+                        </div>
+            
+                    </div>
+        
+                    <div class="divided2">
+                        <div class="dropLevel">
+        
+                            <div class="editPro">
+                                Edit Profile
+                            </div>
+        
+                            <div class="editProImg">
+                                <img src="../images/icons/Profile.svg" alt="notification" class="iconNotifss">
+                            </div>
+        
+                            <div>
+                                <div class="formIn">
+                                    <input type="email" class="email" name="email" placeholder="   langara@gmail.com"><br>
+                                    <input type="text" class="addy" name="addy" placeholder="   212 East Avenue Langara, Vancouver">
+                                </div>
+                            </div>
+                            
+                        </div>
+        
+                        <div class="dropLevel2">
+        
+                            <div class="formIn">
+                                <input type="text" class="email" name="email" placeholder="   Phone Number"><br>
+                                <input type="text" class="addy" name="addy" placeholder="   Home Town"><br>
+                                <input type="text" class="addy" name="addy" placeholder="   Postcode">
+                            </div>
+        
+                            <div class="mapHere">
+        
+                            </div>
+        
+                            <div class="slidecontainer">
+                                Your Neighborhood Radius: <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="saveThis">
+                        <button class="saveDis">Save</button>
+                    </div>
+                </div>
                 
-        </main>
-
+        </body>
+                
 
         <div id="modal"></div>
 
