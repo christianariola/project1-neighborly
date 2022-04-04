@@ -1,6 +1,6 @@
 
 /* Emmanuel's section begins*/
-.icon {
+.icon1 {
     width: 200px;
 }
 
@@ -86,12 +86,12 @@
 
 .dropLevel {
     margin-top: 20px;
-    margin-left: 150px;  
+    margin-left: 10px;  
 }
 
 .dropLevel2 {
     padding-top: 0px;
-    margin-left: 150px;
+    margin-left: 100px;
 }
 
 .saveThis {
@@ -111,7 +111,7 @@
 
 .containerHere {
     padding-top: 10px;
-    padding-left: 150px;
+    padding-left: 100px;
 }
 
 .editProImg {
