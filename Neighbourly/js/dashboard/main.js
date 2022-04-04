@@ -77,6 +77,8 @@ class Dashboard {
                 ltude = snapshot.data().location.latitude;
                 lngtude = snapshot.data().location.longitude;
 
+                createPostInput.setAttribute('placeholder', `Hi${data.firstName ? ` ${data.firstName}`: ''}, what is happening in your neighborhood?`)
+
                 if(rad == null){
                     rad = 5000;
                 } else {
