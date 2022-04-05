@@ -77,6 +77,7 @@ class Post {
         const postPhoto = postElement.querySelector('.post-img');
 
         postElement.querySelector('.post-card').dataset.id = post.id;
+        postElement.querySelector('.post-card').id = post.id;
         postElement.querySelector('.post-card').dataset.docId = post.docId;
         postElement.querySelector('.post-title').innerHTML = post.title;
         postElement.querySelector('.post-description').innerHTML = post.description;

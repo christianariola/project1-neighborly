@@ -288,27 +288,6 @@ function initMap(latitude, longitude, rad, zoomLvl, nearList) {
         });
     });
 
-    // // using for...in
-    // for (let key in nearList) {
-    //     let value;
-
-    //     // get the value
-    //     value = nearList[key].location.lat;
-
-    //     console.log(key + " - " +  value);
-
-    //     nearbyLoc = new google.maps.LatLng(nearList[key].location.lat, nearList[key].location.lng);
-
-    //     // new google.maps.Marker({
-    //     //     position: nearbyLoc,
-    //     //     title: 'Location',
-    //     //     map: map,
-    //     //     icon: image2
-    //     // });
-    // }
-
-
-
 
 
     let cnt = 0;
@@ -317,61 +296,179 @@ function initMap(latitude, longitude, rad, zoomLvl, nearList) {
     let bounds = new google.maps.LatLngBounds();
     let postmarker;
 
-    for (let key in nearList) {
-        // skip loop if the property is from prototype
-        //if(!obj.hasOwnProperty(prop)) continue;
 
-        let temppos = new google.maps.LatLng(nearList[key].location.lat, nearList[key].location.lng);
+    // // Group post by author
+    let nearbyPosts = nearList.reduce((r, a) => {
+        // console.log("a", a.postInfo.author);
+        // console.log('r', r);
+        r[a.postInfo.author] = [...r[a.postInfo.author] || [], a];
+        return r;
+    }, {});
 
-        const postContent =
-        '<div id="content">' +
-        '<div id="siteNotice">' +
-        "</div>" +
-        '<h4>'+ nearList[key].postInfo.title +'</h4>' +
-        '<p class="post-createdAt">'+ dbTimestampToDate(nearList[key].postInfo.createdAt).toString().substring(0, 25) +'</p>' +
-        '<div id="bodyContent">' +
-        '<p>' + nearList[key].postInfo.description + '</p>' +
-        '<p class="post-popup-type">Type: <span>' + nearList[key].postInfo.type + '</span></p>' +
-        '<div><a href="#!">View Post</a></div>' +
-        "</div>" +
-        "</div>";
-
-        infowindows[cnt] = new google.maps.InfoWindow({
-            content: postContent,
-            //maxWidth: 200
-        });
-
-        switch(nearList[key].postInfo.type) {
-            case "recommendation":
-                postmarker = '../../Neighbourly/images/markers/recommendation-icon.png';
-            break;
-            case "help_request":
-                postmarker = '../../Neighbourly/images/markers/help-request-icon.png';
-            break;
-            case "giveaway":
-                postmarker = '../../Neighbourly/images/markers/giveaway-icon.png';
-            break;
-            default:
-                postmarker = 'http://www.google.com/intl/en_us/mapfiles/ms/micons/green-dot.png';
-        }
-
-        mark[cnt] = new google.maps.Marker({
-            position: temppos,
-            map: map,
-            animation:google.maps.Animation.DROP,
-            icon: postmarker
-        });
-
-        google.maps.event.addListener(mark[cnt], 'click', (function(markerrr, cnt) {
-            return function() {
-                infowindows[cnt].open(map, mark[cnt]);
+    for (let postskey in nearbyPosts) {
+        if(nearbyPosts[postskey].length > 1) {
+            let chantest = [];
+            for (let postkey in nearbyPosts[postskey]) {
+                chantest += '<h4>'+ nearbyPosts[postskey][postkey].postInfo.title +'</h4>';
+                chantest += '<p class="post-createdAt">'+ dbTimestampToDate(nearbyPosts[postskey][postkey].postInfo.createdAt).toString().substring(0, 25) +'</p>';
+                // chantest += '<div id="bodyContent"><p class="post-popup-type">Type: <span>' + nearbyPosts[postskey][postkey].postInfo.type + '</span></p>';
+                chantest += '<div><a href="#'+nearbyPosts[postskey][postkey].postInfo.id+'">View Post</a></div></div>';
             }
-        })(mark[cnt], cnt));
+            // console.log("CHANS: "+chantest);
 
-        bounds.extend(mark[cnt].getPosition());
+            let temppos = new google.maps.LatLng(nearbyPosts[postskey][0].location.lat, nearbyPosts[postskey][0].location.lng);
+        
+            const postContent =
+            '<div id="content">' +
+            '<div id="siteNotice">' +
+            "</div>" +
+            chantest +
+            // '<h4>'+ nearbyPosts[postskey][postkey].postInfo.title +'</h4>' +
+            // '<p class="post-createdAt">'+ dbTimestampToDate(nearbyPosts[postskey][postkey].postInfo.createdAt).toString().substring(0, 25) +'</p>' +
+            // '<div id="bodyContent">' +
+            // '<p class="post-popup-type">Type: <span>' + nearbyPosts[postskey][postkey].postInfo.type + '</span></p>' +
+            // '<div><a href="#!">View Post</a></div>' +
+            // "</div>" +
+            "</div>";
+
+            infowindows[cnt] = new google.maps.InfoWindow({
+                content: postContent,
+                //maxWidth: 200
+            });
+
+            postmarker = 'http://www.google.com/intl/en_us/mapfiles/ms/micons/green-dot.png';
+
+            mark[cnt] = new google.maps.Marker({
+                position: temppos,
+                map: map,
+                animation:google.maps.Animation.DROP,
+                icon: postmarker
+            });
+
+            google.maps.event.addListener(mark[cnt], 'click', (function(markerrr, cnt) {
+                return function() {
+                    infowindows[cnt].open(map, mark[cnt]);
+                }
+            })(mark[cnt], cnt));
+
+            bounds.extend(mark[cnt].getPosition());
+
+        } else {
+            //console.log("equal 1");
+            for (let singlepostkey in nearbyPosts[postskey]) {
+                let temppos = new google.maps.LatLng(nearbyPosts[postskey][singlepostkey].location.lat, nearbyPosts[postskey][singlepostkey].location.lng);
+            
+                const postContent =
+                '<div id="content">' +
+                '<div id="siteNotice">' +
+                "</div>" +
+                '<h4>'+ nearbyPosts[postskey][singlepostkey].postInfo.title +'</h4>' +
+                '<p class="post-createdAt">'+ dbTimestampToDate(nearbyPosts[postskey][singlepostkey].postInfo.createdAt).toString().substring(0, 25) +'</p>' +
+                '<div id="bodyContent">' +
+                '<p class="post-popup-type">Type: <span>' + nearbyPosts[postskey][singlepostkey].postInfo.type + '</span></p>' +
+                '<div><a href="#'+nearbyPosts[postskey][singlepostkey].postInfo.id+'">View Post</a></div>' +
+                "</div>" +
+                "</div>";
+
+                infowindows[cnt] = new google.maps.InfoWindow({
+                    content: postContent,
+                    //maxWidth: 200
+                });
+
+                switch(nearbyPosts[postskey][singlepostkey].postInfo.type) {
+                    case "recommendation":
+                        postmarker = '../../Neighbourly/images/markers/recommendation-icon.png';
+                    break;
+                    case "help_request":
+                        postmarker = '../../Neighbourly/images/markers/help-request-icon.png';
+                    break;
+                    case "giveaway":
+                        postmarker = '../../Neighbourly/images/markers/giveaway-icon.png';
+                    break;
+                    default:
+                        postmarker = 'http://www.google.com/intl/en_us/mapfiles/ms/micons/green-dot.png';
+                }
+
+                mark[cnt] = new google.maps.Marker({
+                    position: temppos,
+                    map: map,
+                    animation:google.maps.Animation.DROP,
+                    icon: postmarker
+                });
+
+                google.maps.event.addListener(mark[cnt], 'click', (function(markerrr, cnt) {
+                    return function() {
+                        infowindows[cnt].open(map, mark[cnt]);
+                    }
+                })(mark[cnt], cnt));
+
+                bounds.extend(mark[cnt].getPosition());
+            }
+
+
+        }
 
         cnt++;
     }
+
+
+
+
+    // for (let key in nearList) {
+    //     // skip loop if the property is from prototype
+    //     //if(!obj.hasOwnProperty(prop)) continue;
+
+    //     let temppos = new google.maps.LatLng(nearList[key].location.lat, nearList[key].location.lng);
+
+    //     const postContent =
+    //     '<div id="content">' +
+    //     '<div id="siteNotice">' +
+    //     "</div>" +
+    //     '<h4>'+ nearList[key].postInfo.title +'</h4>' +
+    //     '<p class="post-createdAt">'+ dbTimestampToDate(nearList[key].postInfo.createdAt).toString().substring(0, 25) +'</p>' +
+    //     '<div id="bodyContent">' +
+    //     '<p>' + nearList[key].postInfo.description + '</p>' +
+    //     '<p class="post-popup-type">Type: <span>' + nearList[key].postInfo.type + '</span></p>' +
+    //     '<div><a href="#!">View Post</a></div>' +
+    //     "</div>" +
+    //     "</div>";
+
+    //     infowindows[cnt] = new google.maps.InfoWindow({
+    //         content: postContent,
+    //         //maxWidth: 200
+    //     });
+
+    //     switch(nearList[key].postInfo.type) {
+    //         case "recommendation":
+    //             postmarker = '../../Neighbourly/images/markers/recommendation-icon.png';
+    //         break;
+    //         case "help_request":
+    //             postmarker = '../../Neighbourly/images/markers/help-request-icon.png';
+    //         break;
+    //         case "giveaway":
+    //             postmarker = '../../Neighbourly/images/markers/giveaway-icon.png';
+    //         break;
+    //         default:
+    //             postmarker = 'http://www.google.com/intl/en_us/mapfiles/ms/micons/green-dot.png';
+    //     }
+
+    //     mark[cnt] = new google.maps.Marker({
+    //         position: temppos,
+    //         map: map,
+    //         animation:google.maps.Animation.DROP,
+    //         icon: postmarker
+    //     });
+
+    //     google.maps.event.addListener(mark[cnt], 'click', (function(markerrr, cnt) {
+    //         return function() {
+    //             infowindows[cnt].open(map, mark[cnt]);
+    //         }
+    //     })(mark[cnt], cnt));
+
+    //     bounds.extend(mark[cnt].getPosition());
+
+    //     cnt++;
+    // }
 
     // marker.setIcon(image);
     // infoWindow.setContent("Your Location");
