@@ -1,0 +1,41 @@
+<div class="new-post relative h-100 flex flex-column">
+  <div class="new-post-header flex justify-s-between">
+    <h3 class="text-center">Add a Post</h3>
+    <span onclick="modalState.close()" class="pointer"
+      ><i class="fas fa-times"></i
+    ></span>
+  </div>
+  <span class="new-post-separator"></span>
+  <div class="new-post-body">
+    <h4 class="margin-b-1r">Select a post type</h4>
+    <input id="postTypeInput" type="text" class="visually-hidden" />
+    <ul class="post-type-selector">
+      <li onclick="Post.loadPostForm(POST_TYPES.recommendation, this)">
+        Recommendation
+      </li>
+      <li onclick="Post.loadPostForm(POST_TYPES.helpRequest, this)">Help Request</li>
+      <li onclick="Post.loadPostForm(POST_TYPES.giveaway, this)">Give away</li>
+    </ul>
+  </div>
+  <span class="new-post-separator"></span>
+  <div>
+    <div class="new-post-body" id="postTypeContainer"></div>
+
+    <div class="flex justify-center padding-h-1r">
+      <img id="newPostImage" class="newPostImage" alt="">
+    </div>
+    <div id="newPostAddImageButtons" class="flex justify-s-between padding-h-1r visually-hidden">
+      <span onclick="start.click()">
+        <i class="fas fa-camera"></i>
+        Capture image/video
+      </span>
+      <span onclick="imgfile.click()">
+        <i class="fas fa-camera"></i>
+        Add image/video
+      </span>
+    </div>
+  </div>
+  <div class="new-post-footer flex justify-center">
+    <button disabled class="btn br-default" onclick="Post.save()">Post</button>
+  </div>
+</div>

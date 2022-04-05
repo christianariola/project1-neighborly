@@ -1,0 +1,588 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Mulish', sans-serif;
+    margin: 0;
+    border: 0;
+    line-height: 1.5;
+    font-size: 1rem;
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: 'Epilogue', sans-serif;
+    line-height: 1.3;
+}
+
+h2 {
+    font-size: 2.5rem;
+}
+
+h3 {
+    font-size: 2rem;
+}
+
+
+.createPostInput {
+    padding-bottom: 10px;
+    border-bottom: 2px solid #FAA22C;
+}
+
+.new-post-dashboard {
+    width: 100%;
+    background-color: #F2F2F2;
+    border: none;
+    margin: auto 0;
+    margin-left: 1rem;
+}
+
+
+@media screen and (max-width: 769px) {
+    .createPostInput {
+        padding-top: 10px;
+    }
+}
+
+/* Class to hide content accessibly ======== */
+.visually-hidden {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute !important;
+    white-space: nowrap;
+    width: 1px;
+}
+
+/* Responsive Images ============ */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+.wrapper {
+    padding: 2rem 7%;
+}
+
+header {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header img {
+    width: 100%;
+}
+
+header ul li a {
+    color: #000;
+}
+
+h1 .desktop {
+    display: none;
+}
+h1 .mobile {
+    display: block;
+    max-width: 60px;
+}
+
+.loader-content {
+    display: grid;
+    justify-items: center;
+    grid-gap: 1rem;
+}
+
+#loader img{
+    width: 70px;
+    animation: rotation 2s infinite linear;
+}
+
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(359deg);
+    }
+}
+
+.offline-box span{
+    background-color: #000;
+    background-image: linear-gradient(180deg, #000, #333);
+    padding: 2rem 3rem;
+    border-radius: 10px;
+    box-shadow: 5px 4px 5px 0px rgba(0, 0, 0, 0.34);
+    border: 1px solid rgba(100, 100, 100, 1);
+}
+
+.post-popup-type span{
+    text-transform: uppercase;
+}
+
+#bodyContent p {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+#bodyContent a {
+    text-decoration: underline;
+    color: #008DCE;
+}
+
+
+@media screen and (max-width: 769px) {
+    .dash-header {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        /*grid-template-rows: repeat(2, 1fr);*/
+
+    }
+
+    .menu-icons {
+        grid-column-start: 1;
+        grid-column-end: 2;
+      }
+
+      .menu-search {
+        grid-column-start: 2;
+        grid-column-end: 2;
+      }
+
+}
+
+/* Area Radius ============ */
+
+.map-container {
+    grid-area: map;
+}
+
+.map-container {
+    position: relative;
+}
+
+.map-control {
+    position: absolute;
+    bottom: 50px;
+    right: 30px;
+    display: flex;
+    justify-content: end;
+    background-color: white;
+    gap: .5rem;
+    padding: 0 .5rem;
+    box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.4);
+    border-radius: 8px;
+}
+.map-control h5 {
+    align-self: center;
+}
+.controler {
+    align-self: center;
+}
+
+
+/* GLOBAL BUTTON STYLES ===================== */
+
+.btn {
+    border-radius: 7px;
+    padding: 1rem 3rem;
+    cursor: pointer;
+    border: 0;
+}
+
+.btn-default {
+    background-color: #f0f0f0;
+    color: #000;
+}
+
+.btn-primary {
+    background-color: #008DCE;
+    color: #fff;
+}
+
+/* END OF GLOBAL BUTTON STYLES  ===================== */
+
+/* GLOBAL FORM STYLES ===================== */
+.form-two-column {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 1rem;
+}
+
+.input-block {
+    display: block;
+    width: 100%;
+}
+
+input {
+    border-radius: 7px;
+    border: 1px solid #959595;
+    padding: 1rem;
+}
+
+/* END OF GLOBAL FORM STYLES ===================== */
+main {
+  margin: 3rem auto 4rem auto;
+}
+
+.feat-image {
+    display: none;
+}
+
+#featured {
+    text-align: center;
+}
+
+#featured p {
+    margin-bottom: 2rem;
+}
+
+#signupHome {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 1rem;
+}
+
+#signupHome input[type="submit"]{
+    font-size: 1.2rem;
+}
+
+#about {
+    text-align: center;
+    margin: 5rem auto;
+}
+
+#about h3 {
+    margin: 1rem 3rem;
+}
+
+#about {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 3rem;
+    justify-items: center;
+}
+
+#about article p {
+    margin-top: 1rem;
+    font-size: 1rem;
+}
+
+.footer-signup {
+    display: block;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.footer-signup a {
+    width: auto;
+    color: #fff;
+    margin: 1.5rem auto;
+}
+
+footer {
+    text-align: center;
+}
+
+footer p {
+    font-size: 0.8rem;
+}
+
+/* SIGN UP PAGE ======================== */
+.auth-wrapper {
+    padding: 2rem 7%;
+}
+
+#signupForm {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 1rem;
+    margin-top: 2rem;
+}
+
+#signupForm button{
+    font-size: 1.2rem;
+}
+/* END OF SIGN UP PAGE ======================== */
+
+/* LOGIN PAGE ======================== */
+.auth-wrapper {
+    padding: 2rem 7%;
+}
+
+#loginForm, #resetForm {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 1rem;
+    margin-top: 2rem;
+}
+
+#loginForm button, #resetForm button{
+    font-size: 1.2rem;
+}
+/* END OF LOGIN PAGE ======================== */
+
+/* RESET PAGE ======================== */
+.rstfeedbackContainer{
+    display: none;
+}
+/* END OF RESET PAGE ================ */
+
+/* USER DASHBOARD ========================== */
+#map {
+    min-height: 500px;
+}
+/*Rough and needs to be removed/replaced*/
+.dashboardImageupload {
+    /*display: flex;*/
+    /*flex-flow: column;*/
+    /*justify-content: center;*/
+    /*align-items: center;*/
+    /*gap: 1rem;*/
+    /*margin-top: 1rem;*/
+    /*padding: .5rem;*/
+    /*border: 1px solid black;*/
+
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    background-color: hsl(0deg 0% 0% / 75%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.closeImageUploader {
+    position: fixed;
+    right: 0;
+    top: 0;
+    font-size: 2rem;
+    color: white;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+div#filter-input-wrapper {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: .5rem;
+    justify-content: flex-start;
+
+}
+
+.category_fieldset,
+.comp_fieldset,
+.giveawaycon_fieldset,
+.GiveawayCategory_fieldset,
+.crec_fieldset {
+    border:0;
+    padding:.5rem;
+}
+
+.giveawaycon_fieldset{
+    border-bottom: 1px solid black;
+}
+#category_btn,
+#GiveCategory_btn,
+.reset_feed_btn{
+    margin-top: 1rem;
+    background-color: #008DCE;
+    color: #fff;
+    border: 0;
+    border-radius: 7px;
+    padding: .8rem 2rem;
+    cursor: pointer;
+    border: 0;
+}
+
+.btngrid {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: .5rem;
+    justify-content: flex-start;
+    align-content: center;
+    align-items: center;
+}
+
+.user-content {
+     display: none;
+}
+
+.show {
+    display: block;
+}
+
+.user-content.box-shadow.padding-1r.margin-b-1r.card-line.show{
+    display: grid;
+}
+
+/* END USER DASHBOARD ====================== */
+
+/* START FILTER ========================== */
+
+.helpreqfilter_form,
+.giveawayfilter_form,
+.recommendfilter_form {
+    /* padding-top: 1rem; */
+    border-top:black solid 1px;
+    padding: 1rem 0 0rem 0;
+}
+
+.post-type-filter{
+    padding: 1rem 0 1rem .4rem;
+}
+
+.comp_fieldset,
+.giveawaycon_fieldset{
+    border-bottom:black solid 1px;
+}
+
+/* .giveawayfilter_form{
+    border-top: .5rem solid black;
+} */
+.giveawayfilter_form h4{
+    margin-top: 1rem;
+}
+
+
+
+
+
+
+
+
+
+/*  END FILTER  ========================== */
+@media screen and (min-width: 769px) {
+    h1 .desktop {
+        display: block;
+    }
+
+    h1 .mobile {
+        display: none;
+    }
+
+    .auth-wrapper {
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 5rem 2% 0 2%;
+    }
+
+    /* SIGN UP PAGE ======================== */
+    .signup-page {
+        display: flex;
+        flex-flow: column nowrap;
+    }
+    /* END OF SIGN UP PAGE ======================== */
+
+    .dashboard main {
+        margin: 3rem auto 4rem auto;
+        display: grid;
+        grid-template-columns: 4fr 2fr;
+        gap: 2rem;
+        grid-template-areas:
+        "map map"
+        "feed filters"
+    ;
+    }
+
+    /* MAP CONTAINER GOES FROM HERE */
+
+    .map-container {
+        grid-area: map;
+    }
+
+    .map-container {
+        position: relative;
+    }
+
+    .map-control {
+        position: absolute;
+        bottom: 50px;
+        right: 30px;
+        display: flex;
+        justify-content: end;
+        background-color: white;
+        gap: .5rem;
+        padding: 0 .5rem;
+        box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.4);
+        border-radius: 8px;
+    }
+    .map-control h5 {
+        align-self: center;
+    }
+    .controler {
+        align-self: center;
+    }
+    .feed-column {
+        grid-area: feed;
+    }
+
+    .filters-container {
+        grid-area: filters;
+    }
+
+
+}
+
+@media screen and (min-width: 900px) {
+    .wrapper {
+        max-width: 1400px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 2rem 7%;
+    }
+
+    #featured {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 3rem;
+        align-items: center;
+        text-align: left;
+        margin-bottom: 3rem;
+    }
+
+    #featured p {
+        font-size: 1.2rem;
+    }
+
+    #featured h2 {
+        font-size: 4rem;
+    }
+
+    .feat-image {
+        display: block;
+    }
+
+    #about {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    #about h2{
+        grid-column: 1 / -1;
+    }
+}

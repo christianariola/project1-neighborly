@@ -1,0 +1,101 @@
+/* Font */
+.bold { font-weight: bold }
+.uppercase { text-transform: uppercase }
+.capitalize { text-transform: capitalize }
+.text-center { text-align:center; }
+
+/* Font color */
+.text-black { color: #000; }
+.text-white { color: #fff; }
+.text-light-green { color: #E3F9EE; }
+
+/* BG color */
+.bg-white { background-color: #fff; }
+.bg-light-gray { background-color: #F2F2F2; }
+.bg-light-green { background-color: #DDFFEE; }
+.bg-vivid-green { background-color: #009C4E; }
+
+/* Margin */
+.margin-1r { margin:1rem; }
+.margin-t-1r { margin-top:1rem; }
+.margin-b-1r { margin-bottom:1rem; }
+.margin-v-1r {
+    margin-top:1rem;
+    margin-bottom:1rem;
+ }
+.margin-h-1r {
+    margin-left:1rem;
+    margin-right:1rem;
+ }
+
+/* Padding */
+.padding-1r { padding:1rem; }
+.padding-t-1r { padding-top:1rem; }
+.padding-b-1r { padding-bottom:1rem; }
+.padding-v-1r {
+    padding-top:1rem;
+    padding-bottom:1rem;
+ }
+.padding-h-1r {
+    padding-left:1rem;
+    padding-right:1rem;
+ }
+
+/* Border */
+.br-default { border-radius: 5px; }
+.border-none { border: none; }
+
+/*  */
+.relative { position: relative; }
+.absolute { position: absolute; }
+
+/* Flex & Grid */
+
+.flex { display: flex; }
+.grid { display: grid; }
+.block { display: block; }
+.inline { display: inline; }
+
+.flex-wrap { flex-wrap: wrap; }
+
+.flex-row { flex-direction: row; }
+.flex-column { flex-direction: column; }
+
+.justify-center { justify-content: center; }
+.justify-s-around { justify-content: space-around; }
+.justify-s-between { justify-content: space-between; }
+.justify-end { justify-content: end; }
+.align-start { align-items: start; }
+.align-center { align-items: center; }
+.align-c-start { align-content: start; }
+.align-self-center { align-self: center; }
+.align-self-end { align-self: end; }
+
+
+
+.h-100 { height: 100% }
+.w-100 { width: 100%; }
+
+.pointer { cursor: pointer; }
+
+.box-shadow {
+    box-shadow: 0px 4px 30px 0px rgba(0, 0, 0, .1);
+}
+
+.overlay {
+    position: fixed;
+    display: grid;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .8);
+    z-index: 999;
+}
+
+.overlay-content {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
