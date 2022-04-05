@@ -1,0 +1,65 @@
+<div class="w-100 flex flex-column">
+  <div class="relative">
+    <label>Category</label>
+    <input class="visually-hidden" id="giveawayCategory" type="text" />
+    <div
+      class="flex justify-s-between bg-light-gray br-default padding-1r"
+      onclick="giveawayCategoriesSelector.classList.toggle('visually-hidden');"
+    >
+      <span id="giveawayCategoryLabel">Choose a category </span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+    <ul
+      id="giveawayCategoriesSelector"
+      class="post-categories visually-hidden"
+      onclick="giveawayCategory.value = event.target.dataset.id; giveawayCategoryLabel.innerHTML = event.target.textContent; this.classList.toggle('visually-hidden');"
+    >
+      <li data-id="electronics">Electronics</li>
+      <li data-id="furniture">Furniture</li>
+      <li data-id="bicycles">Bicycles</li>
+      <li data-id="clothing_and_accessories">Clothing & Accessories</li>
+      <li data-id="gardening">Gardening</li>
+      <li data-id="home_decor">Home Decor</li>
+      <li data-id="musical_instruments">Musical Instruments</li>
+      <li data-id="property_rental">Property Rental</li>
+      <li data-id="property_sales">Property Sales</li>
+      <li data-id="tools">Tools</li>
+      <li data-id="toys">Toys</li>
+      <li data-id="car_parts">Car Parts</li>
+      <li data-id="baby_and_kids">Baby & Kids</li>
+      <li data-id="appliances">Appliances</li>
+    </ul>
+  </div>
+
+  <label class="flex flex-column" for="newPostTitle">
+    Title
+    <input type="text" id="newPostTitle" class="bg-light-gray border-none"/>
+  </label>
+
+  <div class="relative">
+    <label>Condition</label>
+    <input class="visually-hidden" id="giveawayCondition" type="text" />
+    <div
+      class="flex justify-s-between bg-light-gray br-default padding-1r"
+      onclick="giveawayConditionSelector.classList.toggle('visually-hidden');"
+    >
+      <span id="giveawayConditionLabel">Choose one</span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+    <ul
+      id="giveawayConditionSelector"
+      class="post-categories visually-hidden"
+      onclick="giveawayCondition.value = event.target.dataset.id; giveawayConditionLabel.innerHTML = event.target.textContent; this.classList.toggle('visually-hidden')"
+    >
+      <li data-id="new">New</li>
+      <li data-id="like_new">Like New</li>
+      <li data-id="used">Used</li>
+      <li data-id="needs_reparing">Needs Reparing</li>
+    </ul>
+  </div>
+
+  <label class="flex flex-column" class="flex flex-column" for="newPostDescription">
+    Description
+    <textarea id="newPostDescription" class="margin-v-1r br-default bg-light-gray border-none" rows="4"></textarea>
+  </label>
+</div>

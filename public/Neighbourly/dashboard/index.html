@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neighborly - Dashboard</title>
+
+    <link rel="manifest" href="../app.webmanifest">
+    <link rel="icon" type="image/png" href="../images/icons/favicon-96x96.png" sizes="96x96">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/icons.css">
+    <link rel="stylesheet" href="../css/utilities.css">
+    <link rel="stylesheet" href="../css/modal.css">
+    <link rel="stylesheet" href="../css/post.css">
+    <link rel="stylesheet" href="../css/filters.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
+        integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600&family=Mulish&display=swap"
+        rel="stylesheet">
+
+    <!--Toastify-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js" defer></script>
+
+    <!-- Firebase CDN -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-analytics-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-storage-compat.js"></script>
+
+    <!-- SCRIPTS -->
+    <script src="../js/config.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/dashboard/main.js" defer></script>
+    <script src="../js/post.js"></script>
+    <script src="../js/modal.js"></script>
+    <script src="../js/offline.js" defer></script>
+    <script src="../js/Imageup.js" defer></script>
+    <script src="../js/filters.js" defer></script>
+
+    <script>
+        if ('serviceWorker' in navigator) { //if browser supports Service worker
+            // assuming sw.js is our service worker file in the same directory
+            navigator.serviceWorker.register('../sw.js')
+                .then(function (reg) {
+                    console.log(`Service Worker Registration`);
+                })
+                .catch(function (error) {
+                    console.log(`Service Worker Error (${error})`);
+                });
+        }
+    </script>
+
+    <script>
+        const uid = sessionStorage.getItem("uid");
+
+        if (uid == null) {
+            window.location.href = `${BASE_URL}/login.html`;
+        }
+    </script>
+</head>
+
+<body class="dashboard">
+    <div id="loader">
+        <div class="overlay">
+            <div class="overlay-content loader-content text-white">
+                <div><img src="../images/neighbourly-mobile-logo.svg" alt="Loader"></div>
+                <div>Please wait. Fetching nearby posts.</div>
+            </div>
+        </div>
+    </div>
+    <div class="offline"></div>
+    <div class="wrapper">
+        <header class="dash-header">
+
+            <h1>
+                <img src="../images/neighbourly-logo.svg" alt="Neighborly Logo" class="desktop">
+                <img src="../images/neighbourly-mobile-logo.svg" alt="Neighborly Logo" class="mobile">
+                <span class="visually-hidden">Neighborly</span>
+            </h1>
+            <nav>
+                <div class="menu-icons margin-h-1r">
+
+<!--                    <li><i class="fa-solid fa-house-chimney"><a href="#home" class="hide-text">Home</a></i></li>-->
+
+                    <!--                    <li><i class="fa-regular fa-comment"><a href="#discuss" class="hide-text">Discuss</a></i></li>-->
+
+                    <!--                    <li><i class="fa-regular fa-bell"></i><a href="#info" class="hide-text">Info</a></li>-->
+
+                </div>
+
+                <div class="menu-search">
+                    <input id="searchInput" type="text" placeholder="search">
+                    <button></button>
+                </div>
+
+                <!-- <li><a href="login.html" method="post" class="">Notifications</a></li>
+                    <li><a href="login.html" method="post" class="">Messages</a></li> -->
+
+                <div class="personal-area">
+                    <img src="" alt="">
+                    <li><a href="#" id="logout">Logout</a></li>
+                    <!-- <li>
+                        <a href="#" id="logout">
+                            <i class="fas fa-sign-out"></i>
+                        </a>
+                    </li> -->
+                </div>
+            </nav>
+        </header>
+
+        <main>
+            <div class="map-container">
+<!--                <h2>Dashboard</h2>-->
+
+                <div id="map"></div>
+
+                <div class="map-control">
+                    <h5>Area Radius </h5>
+
+                    <input type="range" min="1" max="5" value="5" class="slider" id="myRange">
+
+                    <div class="controler"><span id="radiusKm">5</span>km</div>
+                </div>
+
+            </div>
+
+
+            <!-- FILTERS GOES FROM HERE============= -->
+
+            <section class="sidebar filters-container">
+                <div class="filters-title flex justify-s-between">
+                    <h1>Filters</h1>
+
+                    <span onclick="filterSection.classList.add('open');"
+                        class="open-filters pointer flex align-center justify-center">
+                        <i class="fa-solid fa-gear"></i>
+                    </span>
+                </div>
+
+                <div id="filterSection" class="filters">
+                    <div class="mobile-filters-header flex justify-s-between align-center">
+                        <h1>Filters</h1>
+
+
+                        <span onclick="filterSection.classList.remove('open');" class="close-filters pointer flex justify-end">
+                            <i class="fas fa-times"></i>
+                        </span>
+                    </div>
+
+
+                    <div class="filter-help-request">
+                        <div>
+                            <h4>General</h4>
+                            <div id="filter-input-wrapper">
+                                <div class="post-type-filter">
+                                    <label for="posts">Post Type:
+                                        <select name="posts" id="posts" onchange="filterSelection(this.value)">
+                                            <option value="all">All Posts</option>
+                                            <option value="recommendation">Recommendation</option>
+                                            <option value="help_request">Help Request</option>
+                                            <option value="giveaway">Giveaway</option>
+                                        </select></label>
+                                </div>
+
+                                <form class="recommendfilter_form">
+                                    <h4>Recommendation Filters</h4><br>
+                                    <fieldset class="crec_fieldset">
+                                        <legend>Select Recommendation Rating</legend>
+                                        <div>
+                                            <label class="starRating rating-label" for="five"></label>
+                                            <input type="range" id="five" class="rating" max="5" step=".5" value="0"
+                                                name="rating" onchange="filterReco(this.value)">
+                                        </div>
+                                        <div>
+                                            <button id="recreset_btn" class="reset_feed_btn" type="reset"
+                                                onclick="reloadfeed()">Reset</button>
+                                        </div>
+                                    </fieldset>
+                                </form>
+
+                                <form class="helpreqfilter_form">
+                                    <h4>Help Request Filters</h4><br>
+                                    <fieldset class="comp_fieldset">
+                                        <legend>Select Compensation type</legend>
+                                        <div>
+                                            <input type="radio" id="free" name="compensation" value="">
+                                            <label for="free">Free</label>
+                                        </div>
+                                        <div>
+                                            <input type="radio" id="Paid" name="compensation" value="Paid">
+                                            <label for="Paid">Paid</label>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset class="category_fieldset">
+                                        <legend>Select Help Request Category</legend>
+                                        <div>
+                                            <input type="checkbox" id="grocery" name="category"
+                                                value="grocery_shopping">
+                                            <label for="Grocery">Grocery</label>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" id="installation" name="category"
+                                                value="installation">
+                                            <label for="Installation">Installation</label>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" id="cleaning" name="category" value="cleaning">
+                                            <label for="Cleaning">Cleaning</label>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" id="babysitting" name="category" value="babysitting">
+                                            <label for="Babysitting">Babysitting</label>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" id="gardening" name="category" value="gardening">
+                                            <label for="gardening">Gardening</label>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" id="other" name="category" value="other">
+                                            <label for="other">Other</label>
+                                        </div>
+                                        <div class="btngrid">
+                                            <button id="category_btn" type="Apply">Apply</button>
+                                            <button id="reset_btn" class="reset_feed_btn" type="reset"
+                                                onclick="reloadfeed()">Reset</button>
+                                        </div>
+                                    </fieldset>
+                                </form>
+
+                                <form class="giveawayfilter_form">
+                                    <h4>Giveaway Filters</h4><br>
+                                    <fieldset class="giveawaycon_fieldset">
+                                        <legend>Filter by Condition type</legend>
+                                        <div>
+                                            <input type="radio" id="new" name="condition" value="new"
+                                                onchange="filtergiveCon(this.value)">
+                                            <label for="new">New</label>
+                                        </div>
+                                        <div>
+                                            <input type="radio" id="likenew" name="condition" value="like_new"
+                                                onchange="filtergiveCon(this.value)">
+                                            <label for="likenew">Like New</label>
+                                        </div>
+                                        <div>
+                                            <input type="radio" id="used" name="condition" value="used"
+                                                onchange="filtergiveCon(this.value)">
+                                            <label for="used">Used</label>
+                                        </div>
+                                        <div>
+                                            <input type="radio" id="needrepair" name="condition" value="needs_reparing"
+                                                onchange="filtergiveCon(this.value)">
+                                            <label for="needrepair">Needs Repair</label>
+                                        </div>
+                                        <div>
+                                            <button id="giveconreset_btn" class="reset_feed_btn" type="reset"
+                                                onclick="reloadfeed()">Reset</button>
+                                        </div>
+                                    </fieldset><br>
+
+                                    <fieldset class="GiveawayCategory_fieldset">
+                                        <legend>Filter by Giveaway Category</legend>
+                                        <div>
+                                            <input type="checkbox" id="appliances" name="GiveawayCategory"
+                                                value="appliances">
+                                            <label for="appliances">Appliances</label>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" id="baby_and_kids" name="GiveawayCategory"
+                                                value="baby_and_kids">
+                                            <label for="baby_and_kids">Baby & Kids</label>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" id="car_parts" name="GiveawayCategory"
+                                                value="car_parts">
+                                            <label for="car_parts">Car Parts</label>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" id="clothing_and_accessories" name="GiveawayCategory"
+                                                value="clothing_and_accessories">
+                                            <label for="clothing_and_accessories">Clothing & Accessories</label>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" id="electronics" name="GiveawayCategory"
+                                                value="electronics">
+                                            <label for="electronics">Electronics</label>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" id="furniture" name="GiveawayCategory"
+                                                value="furniture">
+                                            <label for="furniture">Furniture</label>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" id="bicycles" name="GiveawayCategory"
+                                                value="bicycles">
+                                            <label for="bicycles">Bicycles</label>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" id="home_decor" name="GiveawayCategory"
+                                                value="home_decor">
+                                            <label for="home_decor">Home Decor</label>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" id="musical_instruments" name="GiveawayCategory"
+                                                value="musical_instruments">
+                                            <label for="musical_instruments">Musical Instruments</label>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" id="property_rental" name="GiveawayCategory"
+                                                value="property_rental">
+                                            <label for="property_rental">Property Rental</label>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" id="property_sales" name="GiveawayCategory"
+                                                value="property_sales">
+                                            <label for="property_sales">Property Sales</label>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" id="tools" name="GiveawayCategory" value="tools">
+                                            <label for="tools">Tools</label>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" id="toys" name="GiveawayCategory" value="toys">
+                                            <label for="toys">Toys</label>
+                                        </div>
+                                        <div class="btngrid">
+                                            <button id="GiveCategory_btn" type="Apply">Apply</button>
+                                            <button id="catreset_btn" class="reset_feed_btn" type="reset"
+                                                onclick="reloadfeed()">Reset</button>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="selected-filters">
+                            <div class="header-selected-filters">
+                                <!-- <h4>Selected Filters</h4>
+                                <span>Clear</span> -->
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="feed-column">
+                <div class="createPostInput">
+                    <div class="flex">
+                        <div class="create-post-avatar flex align-center">
+                            <img alt="">
+                        </div>
+                        <input id="createPostInput" type="text" class="new-post-dashboard"
+                            placeholder="What is happening in your neighborhood?">
+                    </div>
+                </div>
+                <div id="feed" class="feed margin-t-1r"></div>
+            </div>
+
+            <label for="imgfile" class="visually-hidden">
+                <i class="fas fa-camera"></i>
+                <input type="file" id="imgfile" name="imgfile" accept="image/*" />
+            </label>
+            <div id="imageUploadHandler" class="dashboardImageupload visually-hidden">
+                <div>
+                    <span onclick="closeCamPreview();" class="closeImageUploader pointer">
+                        <i class="fas fa-times"></i>
+                    </span>
+
+                    <div class="imagecanvas">
+                        <img id="upimage" alt="">
+                        <video id="video" width="320" height="240" autoplay playsinline></video>
+                        <br>
+                        <canvas id="canvas" width="320" height="240" style="display: none;"></canvas>
+                    </div>
+                    <button class="uploadimgbtn visually-hidden">Upload Post Image</button>
+                    <button class="profilebtn visually-hidden">Upload Profile Image</button>
+
+                    <div class="imagecontrols">
+                        <button id="start" class="webcam-btn" style="display: none;">Start Camera</button>
+                        <button id="snap" class="webcam-btn">Snap Photo</button>
+                        <button id="stop" class="webcam-btn">Stop Camera</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+
+        <div id="modal"></div>
+
+        <footer>
+            <p>Copyright &copy 2022. Neighborly. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnwEPQPWFBiXDhX_2pJp-wQdcyoeX_eNQ&callback=initMap"
+        async></script>
+</body>
+
+</html>

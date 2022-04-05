@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neighborly - Sign Up</title>
+
+    <link rel="manifest" href="app.webmanifest">
+    <link rel="icon" type="image/png" href="images/icons/favicon-96x96.png" sizes="96x96">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/utilities.css">
+    
+    <!-- Font Awesome -->
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css' integrity='sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==' crossorigin='anonymous' />
+
+    <!--Toastify-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js" defer></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600&family=Mulish&display=swap" rel="stylesheet">
+
+    <!-- Firebase CDN -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-analytics-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-storage-compat.js"></script>
+
+    <!-- SCRIPTS -->
+    <script src="js/config.js"></script>
+    <script src="js/auth_signup.js" defer></script>
+    <script src="js/offline.js" defer></script>
+
+    <script>
+        if ('serviceWorker' in navigator) {  //if browser supports Service worker
+            // assuming sw.js is our service worker file in the same directory
+            navigator.serviceWorker.register('./sw.js')
+            .then( function (reg) {
+                console.log(`Service Worker Registration`);
+            })
+            .catch( function (error) {
+                console.log(`Service Worker Error (${error})`);       
+            });
+        }
+    </script>
+
+    <script>
+        const infoHome = sessionStorage.getItem("UserInfoHome");
+    
+        if(infoHome == null) {
+            window.location.href = `${BASE_URL}/index.html`;
+        }
+    </script>
+</head>
+<body>
+    <div class="offline"></div>
+    <div class="auth-wrapper">
+        <header>
+            <h1>
+                <a href="index.html"><img src="images/neighbourly-logo.svg" alt="Neighborly Logo" class="sub-logo"></a>
+                <span class="visually-hidden">Neighborly</span>
+            </h1>
+        </header>
+
+        <main class="signup-page">
+            <h2>Get Neighborly,</h2>
+            <form id="signupForm">
+                <input id="ship-address" name="ship-address" required autocomplete="off" />
+                <input type="text" id="locality" name="locality" class="input-block" placeholder="City" required>
+
+                <div class="form-two-column">
+                    <input type="text" id="state" name="state" class="input-block" placeholder="State/Province" required>
+                    <input type="text" id="postcode" name="postcode" class="input-block" placeholder="Postal Code" required>
+                </div>
+
+                <input type="text" id="country" name="country" class="input-block" placeholder="Country" required>
+                <input type="hidden" id="latitude" name="latitude">
+                <input type="hidden" id="longitude" name="longitude">
+                <button id="getLocation" class="btn btn-default input-block">Use current location</button>
+                <button id="signupBtn" class="btn btn-primary input-block">Sign Up</button>
+            </form>
+        </main>
+
+        <footer>
+            <p>Copyright &copy 2022. Neighborly. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnwEPQPWFBiXDhX_2pJp-wQdcyoeX_eNQ&callback=initAutocomplete&libraries=places&v=weekly"
+      async
+    ></script>
+</body>
+</html>
