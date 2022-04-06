@@ -78,6 +78,18 @@ a {
 }
 
 .wrapper {
+    padding: 2rem 7% 2rem 7%;
+}
+
+#searchBtn {
+    display: none;
+}
+
+.wrapper-main {
+    padding: 0 7% 0 7%;
+}
+
+.wrapper-footer {
     padding: 2rem 7%;
 }
 
@@ -159,13 +171,12 @@ h1 .mobile {
     .menu-icons {
         grid-column-start: 1;
         grid-column-end: 2;
-      }
+    }
 
-      .menu-search {
+    .menu-search {
         grid-column-start: 2;
         grid-column-end: 2;
-      }
-
+    }
 }
 
 /* Area Radius ============ */
@@ -239,7 +250,7 @@ input {
 
 /* END OF GLOBAL FORM STYLES ===================== */
 main {
-  margin: 3rem auto 4rem auto;
+  margin: 0rem auto 4rem auto;
 }
 
 .feat-image {
@@ -468,10 +479,22 @@ div#filter-input-wrapper {
 }
 
 
+#siteNotice:not(:last-child) {
+    margin-bottom: 1rem;
+}
 
+#siteNotice a {
+    color: #008DCE!important;
+    text-decoration: underline;
+}
 
+#logout i {
+    display: none;
+}
 
-
+#logout span {
+    display: block;
+}
 
 
 
@@ -499,8 +522,8 @@ div#filter-input-wrapper {
     }
     /* END OF SIGN UP PAGE ======================== */
 
-    .dashboard main {
-        margin: 3rem auto 4rem auto;
+    .dashboard main .wrapper-main{
+        margin: 0 auto 4rem auto;
         display: grid;
         grid-template-columns: 4fr 2fr;
         gap: 2rem;
@@ -584,5 +607,15 @@ div#filter-input-wrapper {
 
     #about h2{
         grid-column: 1 / -1;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    #logout i {
+        display: block;
+    }
+    
+    #logout span {
+        display: none;
     }
 }

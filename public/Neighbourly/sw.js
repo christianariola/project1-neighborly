@@ -1,10 +1,10 @@
 
 const cacheName = "v1";
 const urlsToCache = [
-  "https://team7-8fad9.web.app/Neighbourly/",
-   "https://team7-8fad9.web.app/Neighbourly/index.html",
-   "https://team7-8fad9.web.app/Neighbourly/css/style.css",
-   "https://team7-8fad9.web.app/Neighbourly/js/app.js"
+  "/Neighbourly/",
+   "/Neighbourly/index.html",
+   "/Neighbourly/css/style.css",
+   "/Neighbourly/js/app.js"
 ];
 
 self.addEventListener('install', event => {
