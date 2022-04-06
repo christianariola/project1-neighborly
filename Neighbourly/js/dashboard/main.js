@@ -237,8 +237,8 @@ function initMap(latitude, longitude, rad, zoomLvl, nearList) {
         zoom: zoomLvl,
         disableDefaultUI: true,
     });
-    let image = 'http://www.google.com/intl/en_us/mapfiles/ms/micons/red-dot.png';
-    let image2 = 'http://www.google.com/intl/en_us/mapfiles/ms/micons/green-dot.png';
+    let image = '../../Neighbourly/images/markers/home-icon.png';
+    let image2 = 'http://www.google.com/intl/en_us/mapfiles/ms/micons/red-dot.png';
 
     infoWindow = new google.maps.InfoWindow();
 
@@ -307,12 +307,13 @@ function initMap(latitude, longitude, rad, zoomLvl, nearList) {
 
     for (let postskey in nearbyPosts) {
         if(nearbyPosts[postskey].length > 1) {
-            let chantest = [];
+            let userPost = [];
             for (let postkey in nearbyPosts[postskey]) {
-                chantest += '<h4>'+ nearbyPosts[postskey][postkey].postInfo.title +'</h4>';
-                chantest += '<p class="post-createdAt">'+ dbTimestampToDate(nearbyPosts[postskey][postkey].postInfo.createdAt).toString().substring(0, 25) +'</p>';
+                userPost += '<div id="siteNotice">';
+                userPost += '<h4>'+ nearbyPosts[postskey][postkey].postInfo.title +'</h4>';
+                userPost += '<p class="post-createdAt">'+ dbTimestampToDate(nearbyPosts[postskey][postkey].postInfo.createdAt).toString().substring(0, 25) +'</p>';
                 // chantest += '<div id="bodyContent"><p class="post-popup-type">Type: <span>' + nearbyPosts[postskey][postkey].postInfo.type + '</span></p>';
-                chantest += '<div><a href="#'+nearbyPosts[postskey][postkey].postInfo.id+'">View Post</a></div></div>';
+                userPost += '<div><a href="#'+nearbyPosts[postskey][postkey].postInfo.id+'">View Post</a></div></div>';
             }
             // console.log("CHANS: "+chantest);
 
@@ -320,14 +321,14 @@ function initMap(latitude, longitude, rad, zoomLvl, nearList) {
         
             const postContent =
             '<div id="content">' +
-            '<div id="siteNotice">' +
-            "</div>" +
-            chantest +
+            // '<div id="siteNotice">' +
+            userPost +
             // '<h4>'+ nearbyPosts[postskey][postkey].postInfo.title +'</h4>' +
             // '<p class="post-createdAt">'+ dbTimestampToDate(nearbyPosts[postskey][postkey].postInfo.createdAt).toString().substring(0, 25) +'</p>' +
             // '<div id="bodyContent">' +
             // '<p class="post-popup-type">Type: <span>' + nearbyPosts[postskey][postkey].postInfo.type + '</span></p>' +
             // '<div><a href="#!">View Post</a></div>' +
+            // "</div>" +
             // "</div>" +
             "</div>";
 
@@ -336,7 +337,7 @@ function initMap(latitude, longitude, rad, zoomLvl, nearList) {
                 //maxWidth: 200
             });
 
-            postmarker = 'http://www.google.com/intl/en_us/mapfiles/ms/micons/green-dot.png';
+            postmarker = '../../Neighbourly/images/markers/multiple-icon.png';
 
             mark[cnt] = new google.maps.Marker({
                 position: temppos,
@@ -386,7 +387,7 @@ function initMap(latitude, longitude, rad, zoomLvl, nearList) {
                         postmarker = '../../Neighbourly/images/markers/giveaway-icon.png';
                     break;
                     default:
-                        postmarker = 'http://www.google.com/intl/en_us/mapfiles/ms/micons/green-dot.png';
+                        postmarker = '../../Neighbourly/images/markers/home-icon.png';
                 }
 
                 mark[cnt] = new google.maps.Marker({
