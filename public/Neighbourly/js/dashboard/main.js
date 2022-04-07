@@ -95,7 +95,8 @@ class Dashboard {
 
                 //get list of users with the same locality and state
                 const usersCollectionRef = db.collection('users');
-                const usersQuery = usersCollectionRef.where('address.locality', '==', snapshot.data().address.locality).where('userId', '!=', userid);
+                // const usersQuery = usersCollectionRef.where('address.locality', '==', snapshot.data().address.locality).where('userId', '!=', userid);
+                const usersQuery = usersCollectionRef.where('userId', '!=', userid);
                 const usersSnapshot = await usersQuery.get();
 
                 usersSnapshot.forEach(doc => {
