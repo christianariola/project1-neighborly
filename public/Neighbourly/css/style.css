@@ -139,10 +139,11 @@ h1 .mobile {
 .offline-box span{
     background-color: #000;
     background-image: linear-gradient(180deg, #000, #333);
-    padding: 2rem 3rem;
+    padding: 1rem 1rem;
     border-radius: 10px;
     box-shadow: 5px 4px 5px 0px rgba(0, 0, 0, 0.34);
     border: 1px solid rgba(100, 100, 100, 1);
+    box-sizing: border-box;
 }
 
 .post-popup-type span{
@@ -259,7 +260,7 @@ main {
 
 #featured {
     margin-top: 2rem;
-    text-align: center;
+     text-align: center;
 }
 
 #featured p {
@@ -501,6 +502,17 @@ div#filter-input-wrapper {
 
 /*  END FILTER  ========================== */
 @media screen and (min-width: 769px) {
+
+    .offline-box span{
+        background-color: #000;
+        background-image: linear-gradient(180deg, #000, #333);
+        padding: 1.5rem 2rem;
+        border-radius: 10px;
+        box-shadow: 5px 4px 5px 0px rgba(0, 0, 0, 0.34);
+        border: 1px solid rgba(100, 100, 100, 1);
+        box-sizing: border-box;
+    }
+
     h1 .desktop {
         display: block;
     }
