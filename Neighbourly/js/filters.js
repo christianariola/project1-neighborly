@@ -19,7 +19,6 @@ const car_parts = document.getElementById("car_parts");
 const baby_and_kids = document.getElementById("baby_and_kids");
 const appliances = document.getElementById("appliances");
 const helprequest_type = document.getElementById("helprequest_type");
-const searchInput = document.getElementById("searchInput");
 let allPostsBackup = document.createElement('div');
 
 let stopListineng;
@@ -54,7 +53,7 @@ async function filterReco(c) {
     console.log(typeof values);
     if (stopListineng) stopListineng();
 
-    const postCollection = dbCollection("posts").where("starRating", "==", values).where("type", "==", "recommendation");
+    const postCollection = dbCollection("posts", 'starRating').where("starRating", ">=", values).where("type", "==", "recommendation");
 
     stopListineng = postCollection.onSnapshot(async (querySnapshot) => {
         await populateFeed(querySnapshot);
@@ -188,6 +187,11 @@ function onlythree(checkbox) {
 
 searchInput.addEventListener('change', (event) => {
     const search = event?.target?.value || '';
+    const parser = new DOMParser();
+    if (!allPostsBackup.childNodes.length) {
+        allPostsBackup.innerHTML = feed.innerHTML;
+    }
+
     if (search.trim()) {
         const container = document.createElement('div');
         const displayedPosts = feed.querySelectorAll('.post-wrapper');
@@ -195,15 +199,14 @@ searchInput.addEventListener('change', (event) => {
         const allPosts = displayedPosts.length > backupPosts.length ? displayedPosts : backupPosts;
         allPosts.forEach((card, idx) => {
             let cardContents = '';
-            const clonedCard = card.cloneNode(true);
-            allPostsBackup.append(clonedCard);
             cardContents += `${card.querySelector('.post-title').innerHTML?.toLowerCase()} `;
             cardContents += `${card.querySelector('.post-description').innerHTML?.toLowerCase()} `;
             card.querySelectorAll('.post-reply-text').forEach(reply => {
                 cardContents += `${reply.innerHTML?.toLowerCase()} `;
             });
             if (cardContents.includes(search.toLowerCase())) {
-                container.append(card.cloneNode(true));
+                const element = parser.parseFromString(card.outerHTML, 'text/html').body.firstChild;
+                container.append(element);
             }
         });
 
@@ -224,6 +227,7 @@ searchInput.addEventListener('change', (event) => {
 
         if (allPostsBackup.childNodes.length) {
             feed.innerHTML = allPostsBackup.innerHTML;
+            allPostsBackup.innerHTML = '';
         }
     }
 });

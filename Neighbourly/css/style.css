@@ -78,6 +78,18 @@ a {
 }
 
 .wrapper {
+    padding: 2rem 7% 2rem 7%;
+}
+
+#searchBtn {
+    display: none;
+}
+
+.wrapper-main {
+    padding: 0 7% 0 7%;
+}
+
+.wrapper-footer {
     padding: 2rem 7%;
 }
 
@@ -127,10 +139,11 @@ h1 .mobile {
 .offline-box span{
     background-color: #000;
     background-image: linear-gradient(180deg, #000, #333);
-    padding: 2rem 3rem;
+    padding: 1rem 1rem;
     border-radius: 10px;
     box-shadow: 5px 4px 5px 0px rgba(0, 0, 0, 0.34);
     border: 1px solid rgba(100, 100, 100, 1);
+    box-sizing: border-box;
 }
 
 .post-popup-type span{
@@ -159,13 +172,12 @@ h1 .mobile {
     .menu-icons {
         grid-column-start: 1;
         grid-column-end: 2;
-      }
+    }
 
-      .menu-search {
+    .menu-search {
         grid-column-start: 2;
         grid-column-end: 2;
-      }
-
+    }
 }
 
 /* Area Radius ============ */
@@ -239,7 +251,7 @@ input {
 
 /* END OF GLOBAL FORM STYLES ===================== */
 main {
-  margin: 3rem auto 4rem auto;
+  margin: 0rem auto 4rem auto;
 }
 
 .feat-image {
@@ -247,7 +259,8 @@ main {
 }
 
 #featured {
-    text-align: center;
+    margin-top: 2rem;
+     text-align: center;
 }
 
 #featured p {
@@ -468,15 +481,38 @@ div#filter-input-wrapper {
 }
 
 
+#siteNotice:not(:last-child) {
+    margin-bottom: 1rem;
+}
 
+#siteNotice a {
+    color: #008DCE!important;
+    text-decoration: underline;
+}
 
+#logout i {
+    display: none;
+}
 
-
+#logout span {
+    display: block;
+}
 
 
 
 /*  END FILTER  ========================== */
 @media screen and (min-width: 769px) {
+
+    .offline-box span{
+        background-color: #000;
+        background-image: linear-gradient(180deg, #000, #333);
+        padding: 1.5rem 2rem;
+        border-radius: 10px;
+        box-shadow: 5px 4px 5px 0px rgba(0, 0, 0, 0.34);
+        border: 1px solid rgba(100, 100, 100, 1);
+        box-sizing: border-box;
+    }
+
     h1 .desktop {
         display: block;
     }
@@ -499,8 +535,8 @@ div#filter-input-wrapper {
     }
     /* END OF SIGN UP PAGE ======================== */
 
-    .dashboard main {
-        margin: 3rem auto 4rem auto;
+    .dashboard main .wrapper-main{
+        margin: 0 auto 4rem auto;
         display: grid;
         grid-template-columns: 4fr 2fr;
         gap: 2rem;
@@ -584,5 +620,15 @@ div#filter-input-wrapper {
 
     #about h2{
         grid-column: 1 / -1;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    #logout i {
+        display: block;
+    }
+    
+    #logout span {
+        display: none;
     }
 }

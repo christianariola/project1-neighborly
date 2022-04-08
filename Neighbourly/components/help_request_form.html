@@ -2,7 +2,7 @@
 
     <h4>Help Request</h4>
 
-  <div class="selection-space">
+  <div class="selection-space relative">
     <!-- <label>Category</label>  -->
     <input class="visually-hidden" id="helpRequestCategory" type="text" placeholder="Choose Category" />
     <div
@@ -16,7 +16,7 @@
 
     <ul
             id="helpRequestCategoriesSelector"
-            class="giveaway-categories visually-hidden"
+            class="post-categories visually-hidden"
             onclick="helpRequestCategory.value = event.target.dataset.id; helpRequestCategoryLabel.innerHTML = event.target.textContent; this.classList.toggle('visually-hidden');"
     >
       <li data-id="gardening">Gardening</li>
@@ -29,7 +29,7 @@
   </div>
 
   <label class="flex flex-column selection-space" for="newPostTitle">
-  
+
     <input type="text" id="newPostTitle" class="bg-light-gray border-none" placeholder="  Title"/>
   </label>
 

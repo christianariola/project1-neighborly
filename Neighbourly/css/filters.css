@@ -10,7 +10,7 @@
 input[type="checkbox"] {
     background: #F2F2F2;
     border-radius: 4px;
-    transform: matrix(1, 0, 0, -1, 0, 0);
+    /* transform: matrix(1, 0, 0, -1, 0, 0); */
 }
 
 .filters-title.flex.justify-s-between>h1 {
